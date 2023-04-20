@@ -28,12 +28,14 @@ submenuLinks.forEach(link => {
     const submenuToggle = link.querySelector('.submenu-toggle'); // selecione o ícone de seta para cima/baixo correspondente
 
     submenu.classList.toggle('active'); // alterne a classe "active" no submenu correspondente
-    submenuToggle.classList.toggle('active'); // alterne a classe "active" no ícone de seta para cima/baixo correspondente
-  });
+    if (submenuToggle) {
+      submenuToggle.classList.toggle('active');
+    }
+      });
 });
 const dropdownMenu = document.querySelector('.dropdown-menu');
 
-document.querySelector('.dropdown-toggle').addEventListener('click', () => {
-  dropdownMenu.classList.toggle('sidebar-collapsed');
-});
+//esconde o menu lateral  por padrão
+document.querySelector('.sidebar').classList.add('sidebar-collapsed');
+
 

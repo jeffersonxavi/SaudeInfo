@@ -10,6 +10,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 
         <!-- Scripts -->
         <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
@@ -19,6 +20,9 @@
     <body class="font-sans antialiased">
         <!-- Barra lateral -->
         <aside id="toggle-sidebar" class="sidebar">
+            <header class="sidebar-header">
+                <img class="logo-img" src="https://www.pngfind.com/pngs/m/65-651785_hospital-icon-png-transparent-png.png" alt="Foto do Usuário">
+            </header>
             <nav>
                 <a href="{{ route('dashboard') }}">
                     <i class="material-icons">dashboard</i>
@@ -28,10 +32,10 @@
                 <i class="material-icons">menu</i>
                 <span class="sidebar-text">Submenu</span>
                 </a>
-                <ul id="submenu1" class="submenu ">
-                    <li><a href="#">Item 1</a></li>
-                    <li><a href="#">Item 2</a></li>
-                    <li><a href="#">Item 3</a></li>
+                <ul id="submenu1" class="submenu">
+                    <li><a href="{{route('pacientes.index')}}">Item</a></li>
+                    <li><a href="#">Itemfasfa</a></li>
+                    <li><a href="#">Itemsadafa</a></li>
                 </ul>
 
                 <a href="#submenu2" class="has-submenu">
@@ -74,10 +78,16 @@
         <!-- Conteúdo principal -->
         <main class="main">
             @yield('content')
+            @if(isset($slot))
+                {{ $slot }}
+            @endif
         </main>
-        
         <!-- JavaScript para controlar a barra lateral -->
-        <script src="js/sidebar.js"></script>
+        <script src="{{ url('js/sidebar.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </script>
     </body>
 </html>
