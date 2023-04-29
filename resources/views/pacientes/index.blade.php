@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="card-body">
-        <table class="table table-striped">
+        <table id="pacientes-table" class="table table-striped">
           <thead>
             <tr>
               <th>Nome</th>
@@ -47,3 +47,15 @@
   </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+  //adicionando DataTables
+  let table = new DataTable('#pacientes-table', {
+    language: {
+      "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_br.json"
+    },
+  });
+</script>
+
+@endpush

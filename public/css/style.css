@@ -144,6 +144,7 @@ label {
 /* Estilo para inputs */
 input[type="text"],
 input[type="email"],
+input[type="password"],
 textarea {
     width: 100%; /* define a largura dos inputs como 100% */
     padding: 4px; /* adiciona preenchimento nos inputs */
