@@ -5,17 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Paciente extends Model
+class Profissional extends Model
 {
     use HasFactory;
-    protected $table = 'pacientes';
+    protected $table = 'profissionais';
 
     protected $fillable = [
         'nome',
+        'crm',
         'cpf',
-        'rg',
-        'telefone',
-        'email',
         'cep',
         'endereco',
         'numero',
@@ -23,12 +21,18 @@ class Paciente extends Model
         'bairro',
         'cidade',
         'uf',
-        'ativo',
+        'telefone',
+        'email',
+        'senha',
     ];
 
-    public function profissionais()
+    public function especialidades()
     {
-        return $this->belongsToMany(Profissional::class);
+        return $this->belongsToMany(Especialidade::class);
     }
-    
+
+    public function pacientes()
+    {
+        return $this->belongsToMany(Paciente::class);
+    }
 }

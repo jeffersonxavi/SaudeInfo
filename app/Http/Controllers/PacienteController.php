@@ -17,7 +17,7 @@ class PacienteController extends Controller
     {
         return view('pacientes.create');
     }
-
+  
     public function store(Request $request)
     {
         Paciente::create($request->all());
