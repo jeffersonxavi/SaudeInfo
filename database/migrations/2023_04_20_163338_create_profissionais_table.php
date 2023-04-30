@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('profissionais', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
-            $table->string('crm')->unique();
-            $table->string('cpf')->unique();
+            $table->string('crm');
+            $table->string('cpf');
             $table->string('cep')->nullable();
             $table->string('telefone');
             $table->string('endereco')->nullable();
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('bairro')->nullable();
             $table->string('cidade')->nullable();
             $table->string('uf')->nullable();
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('senha');
             $table->timestamps();
         });

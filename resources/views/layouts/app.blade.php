@@ -93,6 +93,5 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="{{ url('js/sidebar.js') }}"></script>
     @stack('scripts')
-    </script>
 </body>
 </html>

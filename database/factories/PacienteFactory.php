@@ -11,11 +11,12 @@ class PacienteFactory extends Factory
 
     public function definition()
     {
+        $this->faker = \Faker\Factory::create('pt_BR');
         return [
             'nome' => $this->faker->name,
             'cpf' => $this->faker->numerify('###.###.###-##'),
             'rg' => $this->faker->numerify('###.###.###-##'),
-            'telefone' => $this->faker->phoneNumber,
+            'telefone' => $this->faker->numerify('(##) ####-####'),
             'email' => $this->faker->email,
             'cep' => $this->faker->postcode,
             'endereco' => $this->faker->streetAddress,

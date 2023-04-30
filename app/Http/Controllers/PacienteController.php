@@ -4,9 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Paciente;
+use Yajra\DataTables\DataTables;
 
 class PacienteController extends Controller
 {
+    public function paginacaoAjax()
+    {
+        return DataTables::of(Paciente::latest('created_at'))->make(true);
+    }
+
     public function index()
     {
         $pacientes = Paciente::all();

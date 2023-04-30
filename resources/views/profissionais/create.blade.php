@@ -21,12 +21,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#tab2">
-                        <i class="fas fa-users"></i>
-                        <span>Pacientes</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab3">
                         <i class="fas fa-stethoscope"></i>
                         <span>Especialidades</span>
                     </a>
@@ -39,9 +33,6 @@
                         @include('profissionais.partials.form')
                     </div>
                     <div id="tab2" class="tab-pane fade">
-                        @include('profissionais.partials.formPaciente')
-                    </div>
-                    <div id="tab3" class="tab-pane fade">
                         @include('profissionais.partials.formEspecialidade')
                     </div>
                 </div>
