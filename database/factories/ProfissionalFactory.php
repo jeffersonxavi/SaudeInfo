@@ -15,6 +15,7 @@ class ProfissionalFactory extends Factory
 
     public function definition()
     {
+        $this->faker = \Faker\Factory::create('pt_BR');
         return [
             'nome' => $this->faker->name,
             'crm' => $this->faker->numerify('##########'),
@@ -27,7 +28,7 @@ class ProfissionalFactory extends Factory
             'cidade' => $this->faker->city,
             'uf' => $this->faker->stateAbbr,
             'telefone' => $this->faker->numerify('(##) ####-####'),
-            'email' => $this->faker->unique()->safeEmail,
+            'email' => $this->faker->email,
             'senha' => Hash::make('senha123'),
         ];
     }
