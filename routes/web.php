@@ -45,6 +45,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/pacientes/{id}', [PacienteController::class, 'destroy'])->name('pacientes.destroy');
 
 
+    Route::get('profissionais/ajax', [ProfissionalController::class, 'paginacaoAjax'])->name('profissionais.ajax');
+    Route::get('paciente/ajax', [PacienteController::class, 'paginacaoAjax'])->name('pacientes.ajax');
+    Route::get('profissionais/ajax/{id}/pacientes', [ProfissionalController::class, 'getPacientes'])->name('profissionais.pacientes');
+    Route::put('/profissionais/atualizarPaciente/{id}', [ProfissionalController::class, 'atualizarPaciente'])->name('profissional.atualizarPaciente');
+
     Route::get('/profissionais', [ProfissionalController::class, 'index'])->name('profissionais.index');
     Route::get('/profissionais/create', [ProfissionalController::class, 'create'])->name('profissionais.create');
     Route::post('/profissionais', [ProfissionalController::class, 'store'])->name('profissionais.store');

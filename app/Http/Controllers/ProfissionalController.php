@@ -7,7 +7,7 @@ use App\Models\Paciente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Profissional;
-use Illuminate\Support\Facades\DB;
+use Yajra\DataTables\DataTables;
 
 class ProfissionalController extends Controller
 {
@@ -17,15 +17,10 @@ class ProfissionalController extends Controller
         return view('profissionais.index', ['profissionais' => $profissionais]);
     }
 
-    public function vincularPaciente(Request $request) {
-        $profissional = Profissional::find($request->input('profissional_id'));
-        $paciente = Paciente::find($request->input('paciente_id'));
-    
-        $profissional->pacientes()->attach($paciente);
-    
-        return response()->json(['message' => 'Paciente vinculado com sucesso.']);
+    public function paginacaoAjax()
+    {
+        return DataTables::of(Profissional::orderBy('updated_at', 'asc'))->make(true);
     }
-    
 
 
     public function create()
@@ -68,17 +63,21 @@ class ProfissionalController extends Controller
         $profissional = Profissional::findOrFail($id);
         
         $especialidades = Especialidade::all();
-        $pacientes = Paciente::where('ativo', true)
-        ->orderByRaw('(SELECT COUNT(*) FROM paciente_profissional WHERE paciente_id = pacientes.id AND profissional_id = ?) DESC', [$id])
-        ->orderBy('nome', 'asc')
-        ->get();
+  
 
-        return view('profissionais.edit', compact('profissional', 'especialidades', 'pacientes'));
+        return view('profissionais.edit', compact('profissional', 'especialidades'));
     }
-    
-    public function pesquisar(Request $request) {
-        $pacientes = Paciente::where('nome', 'like', '%'.$request->nome_paciente.'%')->get();
-        return view('pacientes.lista', compact('pacientes'));
+
+    public function getPacientes($id)
+    {
+
+        $pacientes = Paciente::selectRaw('pacientes.*, 
+            (SELECT COUNT(*) FROM paciente_profissional 
+             WHERE paciente_id = pacientes.id AND profissional_id = ?) AS vinculado', [$id])
+            //->orderByRaw('vinculado DESC, pacientes.nome ASC');
+            ->orderBy('pacientes.nome');
+
+        return DataTables::of($pacientes)->make(true);
     }
     
     
@@ -94,12 +93,13 @@ class ProfissionalController extends Controller
 
         $profissional->update($data);
     
-        // atualizar os pacientes do profissional
-        if ($request->has('pacientes')) {
-            $profissional->pacientes()->sync($request->pacientes);    
-        }    else{
-            $profissional->pacientes()->detach();
-        }
+        // // atualizar os pacientes do profissional
+        // if ($request->has('pacientes')) {
+        //     $profissional->pacientes()->sync(array_keys($request->pacientes, 1));
+        // } else {
+        //     $profissional->pacientes()->detach();
+        // }
+        
     
         // atualizar as especialidades do profissional
         if ($request->has('especialidades')) {
@@ -112,6 +112,19 @@ class ProfissionalController extends Controller
     }
     
     
+    public function atualizarPaciente(Request $request, $id)
+{
+    $profissional = Profissional::findOrFail($id);
+
+    // verificar se o paciente está ativo
+    if ($request->input('ativo') == 1) {
+        $profissional->pacientes()->syncWithoutDetaching($request->input('paciente_id'));
+    } else {
+        $profissional->pacientes()->detach($request->input('paciente_id'));
+    }
+
+    return response()->json(['success' => true]);
+}
 
     public function destroy($id)
     {
