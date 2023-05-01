@@ -18,6 +18,6 @@ class DatabaseSeeder extends Seeder
 
    
         Paciente::factory()->count(10000)->create();
-        Profissional::factory()->count(10000)->create();
+        //Profissional::factory()->count(10000)->create();
     }
 }

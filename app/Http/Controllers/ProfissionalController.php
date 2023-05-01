@@ -19,7 +19,7 @@ class ProfissionalController extends Controller
 
     public function paginacaoAjax()
     {
-        return DataTables::of(Profissional::orderBy('updated_at', 'asc'))->make(true);
+        return DataTables::of(Profissional::latest('updated_at'))->make(true);
     }
 
 
@@ -71,12 +71,20 @@ class ProfissionalController extends Controller
     public function getPacientes($id)
     {
 
-        $pacientes = Paciente::selectRaw('pacientes.*, 
-            (SELECT COUNT(*) FROM paciente_profissional 
-             WHERE paciente_id = pacientes.id AND profissional_id = ?) AS vinculado', [$id])
-            //->orderByRaw('vinculado DESC, pacientes.nome ASC');
-            ->orderBy('pacientes.nome');
-
+        // $pacientes = Paciente::selectRaw('pacientes.*, 
+        // (SELECT COUNT(*) FROM paciente_profissional 
+        //  WHERE paciente_id = pacientes.id AND profissional_id = ?) AS vinculado', [$id])
+        // ->latest('updated_at');
+        // ->orderByRaw('vinculado DESC, pacientes.nome ASC');
+        
+        $pacientes = Paciente::leftJoin('paciente_profissional', function ($join) use ($id) {
+            $join->on('paciente_profissional.paciente_id', '=', 'pacientes.id')
+                 ->where('paciente_profissional.profissional_id', '=', $id);
+        })
+        ->selectRaw('pacientes.*, COUNT(paciente_profissional.paciente_id) AS vinculado')
+        ->groupBy('pacientes.id')
+        ->orderBy('vinculado', 'desc')//ou somente ->latest('vinculado', 'desc');    
+        ->latest('updated_at');  
         return DataTables::of($pacientes)->make(true);
     }
     
