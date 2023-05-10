@@ -1,9 +1,9 @@
-<table id="pacientes-table" class="table table-hover">
+<table id="pacientes-table" class="table table-hover table-striped table-bordered">
     <thead>
         <tr>
             <th>ID</th>
             <th>Paciente</th>
-            <th>Status</th> <!-- Nova coluna para o select ativo/inativo -->
+            <th>Status</th>
         </tr>
     </thead>
 </table>
