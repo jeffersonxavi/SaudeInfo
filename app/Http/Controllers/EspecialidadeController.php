@@ -20,8 +20,22 @@ class EspecialidadeController extends Controller
 
     public function store(Request $request)
     {
-        Especialidade::create($request->all());
-        return redirect()->route('especialidades.index');
+        $tag = $request->input('tag');
+
+        // Verifica se já existe uma especialidade com o mesmo nome
+        $especialidade = Especialidade::where('nome', $tag)->first();
+
+        if ($especialidade) {
+            // Se existir, retorna o ID da especialidade
+            return response()->json(['id' => $especialidade->id]);
+        } else {
+            // Caso contrário, cria uma nova especialidade
+            $especialidade = new Especialidade();
+            $especialidade->nome = $tag;
+            $especialidade->save();
+
+            return response()->json(['id' => $especialidade->id]);
+        }
     }
 
     public function edit($id)
