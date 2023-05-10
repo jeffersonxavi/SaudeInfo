@@ -24,6 +24,7 @@ class Profissional extends Model
         'telefone',
         'email',
         'senha',
+        'tipo_profissional',
     ];
 
     public function especialidades()

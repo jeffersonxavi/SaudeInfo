@@ -6,11 +6,22 @@
         <div class="card">
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4>Profissional / </h4>
+                    <h4>Profissional / {{$profissional->nome}}</h4>
                     <a href="{{ route('profissionais.index') }}" class="btn btn-outline-secondary btn-sm text-white">
                         <i class="fas fa-arrow-left"></i> Voltar
                     </a>
                 </div>
+                @if (session()->has('success'))
+                <div class="alert alert-success alert-dismissible fade show my-custom-alert" role="alert">
+                    <strong>Sucesso {{ explode(' ', $profissional->nome)[0] }}!</strong> {{ session('success') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                </div>
+                <script>
+                    setTimeout(function() {
+                        $('.alert-success').fadeOut('slow');
+                    }, 4000);
+                </script>
+                @endif
             </div>
             <ul class="nav nav-tabs">
                 <li class="nav-item">
@@ -45,9 +56,9 @@
                     <div id="tab3" class="tab-pane fade">
                         @include('profissionais.partials.formEspecialidade')
                     </div>
-                </div>
-                <div class="form-group mt-3">
-                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
                 </div>
             </form>
         </div>

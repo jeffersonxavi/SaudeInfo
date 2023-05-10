@@ -7,9 +7,9 @@
 </div>
 <div class="p-6 text-gray-900 dark:text-gray-100">
     @can('user')
-    Sistema para o projeto de TCC - SAÚDETECH
+    Sistema para o projeto de TCC - SAÚDETECH Usuário Comum
     @elsecan('admin')
-    Sistema para o projeto de TCC - Somente ADMIN
+    Sistema para o projeto de TCC - Somente ADMIN vai
     @endcan
 </div>
 

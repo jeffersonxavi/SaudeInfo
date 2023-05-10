@@ -35,9 +35,9 @@
                     <div id="tab2" class="tab-pane fade">
                         @include('profissionais.partials.formEspecialidade')
                     </div>
-                </div>
-                <div class="form-group mt-3">
-                    <button type="submit" class="btn btn-primary">Salvar</button>
+                    <button type="submit" class="btn btn-primary mt-3">
+                        Salvar
+                    </button>
                 </div>
             </form>
         </div>

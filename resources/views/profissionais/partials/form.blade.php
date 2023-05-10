@@ -1,16 +1,32 @@
 <div class="form-row">
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-7">
         <label for="nome">Nome completo:</label>
         <input type="text" class="form-control" id="nome" name="nome" value="{{ $profissional->nome ?? old('nome') }}" required>
     </div>
     <div class="form-group col-md-3">
-        <label for="crm">CRM:</label>
-        <input type="text" class="form-control" id="crm" name="crm" value="{{ $profissional->crm ?? old('crm') }}" required>
-    </div>
-
-    <div class="form-group col-md-3">
         <label for="cpf">CPF:</label>
         <input type="text" class="form-control" id="cpf" name="cpf" value="{{ $profissional->cpf ?? old('cpf') }}" required>
+    </div>
+</div>
+<div class="form-row">
+    <div class="form-group col-md-5">
+        <label for="tipo_profissional">Tipo de Profissional</label>
+        <select id="tipo_profissional" name="tipo_profissional" class="form-control select2" @if(!empty($profissional->tipo_profissional)) disabled @endif>
+            <option value="" selected disabled>Escolha ou digite para adicionar</option>
+            @foreach(['Médico', 'Enfermeiro', 'Psicólogo', 'Fisioterapeuta', 'Nutricionista'] as $tipo)
+            <option value="{{ ($tipo) }}" @if(mb_strtolower($tipo)==mb_strtolower($profissional->tipo_profissional ?? '')) selected @endif>{{ $tipo }}</option>
+            @endforeach
+            @if(isset($profissional) && !in_array(mb_strtolower($profissional->tipo_profissional ?? ''), ['médico', 'enfermeiro', 'psicólogo', 'fisioterapeuta', 'nutricionista']))
+            <option value="{{ $profissional->tipo_profissional }}" selected>{{ Str::title($profissional->tipo_profissional) }}</option>
+            @endif
+        </select>
+        @if(empty($profissional->tipo_profissional))
+        <small class="form-text alert alert-warning d-inline-block small ">Ao selecionar sua profissão não será possível alterar futuramente.</small>
+        @endif
+    </div>
+    <div class="form-group col-md-2" id="crm-field" style="display: none;">
+        <label for="crm">CRM</label>
+        <input type="text" class="form-control" id="crm" name="crm" value="{{ old('crm', $profissional->crm ?? '') }}">
     </div>
 </div>
 <div class="form-row">
@@ -65,3 +81,32 @@
         <input type="text" class="form-control" id="complemento" name="complemento" value="{{ $profissional->complemento ?? old('complemento') }}">
     </div>
 </div>
+
+@push('scripts')
+<script>
+    $(document).ready(function() {
+        $('#tipo_profissional').select2({
+            theme: "bootstrap-5",
+            tags: true, // Permite a criação de novos itens
+            maximumSelectionLength: 3, // Define um limite de 3 tags criadas    
+            dropdownParent: $('body') // Define o elemento pai do dropdown
+        });
+        if ($("#tipo_profissional").val() == "Médico") {
+            $("#crm-field").show();
+        }
+        $("#tipo_profissional").change(function() {
+            if ($(this).val() == "Médico") {
+                $("#crm-field").show();
+            } else {
+                $("#crm-field").hide();
+            }
+        });
+        // Desabilita o campo #crm-field se o tipo de profissional for "Médico" durante a edição
+        if ($("#tipo_profissional").val() == "Médico" && $("#crm").val() != "") {
+            $("#tipo_profissional").prop('disabled', true);
+
+            $("#crm-field input").attr("disabled", true);
+        }
+    });
+</script>
+@endpush

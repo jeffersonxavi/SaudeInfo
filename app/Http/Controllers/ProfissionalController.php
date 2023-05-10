@@ -61,10 +61,9 @@ class ProfissionalController extends Controller
     public function edit($id)
     {
         $profissional = Profissional::findOrFail($id);
-        
+        $profissional->tipo_profissional = strtolower($profissional->tipo_profissional);
         $especialidades = Especialidade::all();
-  
-
+        
         return view('profissionais.edit', compact('profissional', 'especialidades'));
     }
 
@@ -112,11 +111,11 @@ class ProfissionalController extends Controller
         // atualizar as especialidades do profissional
         if ($request->has('especialidades')) {
             $profissional->especialidades()->sync($request->especialidades);
+            //dd($request);
         } else {
             $profissional->especialidades()->detach();
         }
-    
-        return redirect()->route('profissionais.index')->with('success', 'Profissional atualizado com sucesso!');
+        return redirect()->route('profissionais.edit',$id)->with('success', 'Atualização foi realizada!');
     }
     
     
