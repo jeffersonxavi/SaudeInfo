@@ -13,8 +13,8 @@
                 </div>
                 @if (session()->has('success'))
                 <div class="alert alert-success alert-dismissible fade show my-custom-alert" role="alert">
-                    <strong>Sucesso {{ explode(' ', $profissional->nome)[0] }}!</strong> {{ session('success') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+                    <strong>Sucesso, {{ explode(' ', $profissional->nome)[0] }}!</strong> {{ session('success') }}
+                    <button type="button" data-bs-dismiss="alert" aria-label="Fechar"></button>
                 </div>
                 <script>
                     setTimeout(function() {
