@@ -30,6 +30,7 @@ class ProfissionalFactory extends Factory
             'telefone' => $this->faker->numerify('(##) ####-####'),
             'email' => $this->faker->email,
             'senha' => Hash::make('senha123'),
+            'tipo_profissional' => $this->faker->randomElement(['Médico', 'Dentista', 'Enfermeiro', 'Fisioterapeuta'])
         ];
     }
 }

@@ -42,6 +42,7 @@
             <ul id="submenu1" class="submenu">
                 <li><a href="{{route('pacientes.index')}}">Pacientes</a></li>
                 <li><a href="{{route('profissionais.index')}}">Profissional</a></li>
+                <li><a href="{{route('agendas.index')}}">Agenda Profissional</a></li>
             </ul>
 
             <a href="#submenu2" class="has-submenu">
