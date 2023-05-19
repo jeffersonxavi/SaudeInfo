@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
    
-        Paciente::factory()->count(10000)->create();
-        //Profissional::factory()->count(10000)->create();
+        Paciente::factory()->count(1000)->create();
+        Profissional::factory()->count(100)->create();
     }
 }

@@ -25,6 +25,10 @@ return new class extends Migration
             $table->string('bairro')->nullable();
             $table->string('cidade')->nullable();
             $table->string('uf')->nullable();
+            $table->string('numero_sus')->nullable();
+            $table->string('genero')->nullable();
+            $table->string('estado_civil')->nullable();
+            $table->date('data_nascimento')->nullable();
             $table->boolean('ativo')->default(true);
             $table->timestamps();
         });

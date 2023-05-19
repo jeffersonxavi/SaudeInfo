@@ -25,6 +25,10 @@ class PacienteFactory extends Factory
             'bairro' => $this->faker->citySuffix,
             'cidade' => $this->faker->city,
             'uf' => $this->faker->stateAbbr,
+            'numero_sus' => $this->faker->numerify('##########'),
+            'genero' => $this->faker->randomElement(['masculino', 'feminino', 'outro']),
+            'estado_civil' => $this->faker->randomElement(['solteiro', 'casado', 'divorciado', 'viuvo', 'outro']),
+            'data_nascimento' => $this->faker->dateTimeBetween('-70 years', '-18 years')->format('Y-m-d'),
             'ativo' => $this->faker->boolean
         ];
     }
