@@ -1,52 +1,58 @@
 @extends('layouts.app')
 
 @section('content')
-
+<style>
+  /* Centralizar elementos nas colunas */
+  .dataTables_wrapper table.dataTable thead th,
+  .dataTables_wrapper table.dataTable tbody td {
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 15px;
+  }
+</style>
 <div class="row">
   <div class="col">
     <div class="card">
       <div class="card-header">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h4>Profissionais</h4>
-          <a href="{{ route('profissionais.create') }}" class="btn btn-primary btn-sm text-white">
-            <i class="fas fa-plus"></i> Adicionar Profissional
+          <h4>Tipo de Consultas</h4>
+          <a href="{{ route('tipos-consultas.create') }}" class="btn btn-primary btn-sm text-white">
+            <i class="fas fa-plus"></i> Tipo de Consulta
           </a>
         </div>
       </div>
       <div class="card-body">
-        <table id="myTable" class="table table-striped">
+        <table id="tipos-consultas-table" class="table table-striped">
           <thead>
             <tr>
               <th>Nome</th>
-              <th>CRM</th>
-              <th>CPF</th>
-              <th>Telefone</th>
+              <th>Especialidade</th>
+              <th>Descrição</th>
+              <th>Duração</th>
+              <th>Valor</th>
               <th>Ações</th>
             </tr>
           </thead>
         </table>
-        <div class="d-flex justify-content-center mt-4">
-        </div>
       </div>
     </div>
   </div>
 </div>
 @endsection
+
 @push('scripts')
 <script>
   //adicionando DataTables
-  let table = new DataTable('#myTable', {
+  let table = new DataTable('#tipos-consultas-table', {
     language: {
       "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_br.json",
-      "processing": ""
-
+      "processing": "",
     },
-    
     processing: true,
     serverSide: true,
     searching: true,
     ajax: {
-      url: "{{route('profissionais.ajax')}}",
+      url: "{{route('tipos-consultas.ajax')}}",
       method: 'GET',
     },
     columns: [{
@@ -54,16 +60,51 @@
         name: 'nome'
       },
       {
-        data: 'crm',
-        name: 'crm'
+        data: 'especialidade.nome',
+        name: 'especialidade.nome'
       },
       {
-        data: 'cpf',
-        name: 'cpf'
+        data: 'descricao',
+        name: 'descricao'
       },
       {
-        data: 'telefone',
-        name: 'telefone'
+        data: 'duracao_estimada',
+        name: 'duracao_estimada',
+        render: function(data, type, row) {
+          if (type === 'display') {
+            var duracao = data;
+            var horas = Math.floor(duracao / 60);
+            var minutos = duracao % 60;
+
+            var duracaoFormatada = "";
+
+            if (horas > 0) {
+              duracaoFormatada = horas + ' hora' + (horas > 1 ? 's' : '');
+            }
+
+            if (minutos > 0) {
+              duracaoFormatada += (duracaoFormatada !== "" ? ' ' : '') + minutos + ' minuto' + (minutos > 1 ? 's' : '');
+            }
+
+            return duracaoFormatada;
+          }
+
+          return data;
+        }
+      },
+      {
+        data: 'valor',
+        name: 'valor',
+        render: function(data, type, row) {
+          if (type === 'display') {
+            return new Intl.NumberFormat('pt-BR', {
+              style: 'currency',
+              currency: 'BRL'
+            }).format(data);
+          }
+
+          return data;
+        }
       },
       {
         data: 'id',
@@ -71,7 +112,7 @@
         orderable: false,
         searchable: false,
         render: function(data, type, row, meta) {
-          var editUrl = "{{ route('profissionais.edit', ':id') }}".replace(':id', row.id);
+          var editUrl = "{{ route('tipos-consultas.edit', ':id') }}".replace(':id', row.id);
           return `
             <div class="btn-group">
               <a href="${editUrl}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
@@ -79,12 +120,27 @@
             </div>
           `;
         }
-      }
-    ]
+      },
+    ],
+    columnDefs: [{
+        targets: '_all',
+        className: 'border-right'
+      }, // Adiciona borda à direita de todas as células
+      {
+        targets: '_all',
+        className: 'border-left'
+      }, // Adiciona borda à esquerda de todas as células
+      {
+        targets: '_all',
+        className: 'border-bottom'
+      }, // Adiciona borda inferior em todas as células
+    ],
+
   });
   $(document).on('click', '.delete-btn', function(e) {
     e.preventDefault();
     const id = $(this).data('id');
+    
     Swal.fire({
 
       title: 'Tem certeza?',
@@ -100,7 +156,7 @@
         return new Promise(function(resolve) {
           Swal.showLoading();
           $('.swal2-cancel').hide();
-          const url = "{{route('profissionais.destroy', ':id')}}".replace(':id', id);
+          const url = "{{ route('tipos-consultas.destroy', ':id') }}".replace(':id', id);
           $.ajax({
             url: url,
             type: 'POST',

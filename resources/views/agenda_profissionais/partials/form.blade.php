@@ -14,15 +14,13 @@
                 <label for="profissional_id">Nome do Profissional:</label>
                 <select class="tags form-control" id="profissional_id" name="profissional_id" required>
                     <option value="">Insira seu nome</option>
-                    @foreach($profissionais as $profissional)
-                    <option value="{{ $profissional->id }}" {{ isset($agendaProfissional) && $agendaProfissional->profissional_id == $profissional->id ? 'selected' : '' }}>
-                        {{ $profissional->nome }}
+                    <option value="{{ isset($agendaProfissional) ? $agendaProfissional->profissional->id : '' }}" {{ isset($agendaProfissional) && $agendaProfissional->profissional_id == $agendaProfissional->profissional->id ? 'selected' : '' }}>
+                        {{ isset($agendaProfissional) ? $agendaProfissional->profissional->nome : 'Nome Padrão' }}
                     </option>
-                    @endforeach
                 </select>
             </div>
             <div class="form-group col-md-2">
-                <label for="inicio_atendimento">Início do Atendimento:</label>
+                <label for="inicio_atendimento">Início Atendimento:</label>
                 <input type="time" class="form-control small-time-input" id="inicio_atendimento" name="inicio_atendimento" value="{{ $agendaProfissional->inicio_atendimento ?? old('inicio_atendimento') }}" required>
             </div>
             <div class="form-group col-md-2">
@@ -50,30 +48,39 @@
     <div class="card-body">
         <label for="dia">Selecione os dias de Trabalho:</label>
         <div class="form-row">
-        @php
-$diasSemana = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
-@endphp
-@foreach($diasSemana as $dia)
-<div class="form-group col-md-2">
-    <div class="card">
-        <div class="card-body">
-            <div class="form-check">
-                <input type="hidden" name="{{ $dia }}" value="0">
-                <input type="checkbox" class="form-check-input" id="{{ $dia }}" name="{{ $dia }}" value="1" {{ isset($agendaProfissional) && $agendaProfissional->$dia ? 'checked' : '' }}>
-                <label class="form-check-label" for="{{ $dia }}">{{ ($dia == 'sabado' || $dia == 'domingo') ? ucfirst($dia) : ucfirst($dia) . '-feira' }}</label>
+            @php
+            $diasSemana = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'];
+            @endphp
+            @foreach($diasSemana as $dia)
+            <div class="form-group col-md-2">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="hidden" name="{{ $dia }}" value="0">
+                            <input type="checkbox" class="form-check-input dia-checkbox" id="{{ $dia }}" name="{{ $dia }}" value="1" {{ isset($agendaProfissional) && $agendaProfissional->$dia ? 'checked' : '' }}>
+                            <label class="form-check-label" for="{{ $dia }}">{{ ($dia == 'sabado' || $dia == 'domingo') ? ucfirst($dia) : ucfirst($dia) . '-feira' }}</label>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
-@endforeach
-
+            @endforeach
+            <div class="form-group col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-check">
+                            <input type="hidden" name="todosDias" value="0">
+                            <input type="checkbox" class="form-check-input" id="todosDiasCheckbox" name="todosDias" value="1" onclick="marcarTodos()">
+                            <label class="form-check-label" for="todosDiasCheckbox">Marcar todos os dias</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 
 @push('scripts')
-
 <script>
     $(document).ready(function() {
         $('.profissional_id').select2({
@@ -115,5 +122,13 @@ $diasSemana = ['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domin
             }
         })
     });
+    function marcarTodos() {
+        var checkboxes = document.querySelectorAll('input[name^="segunda"], input[name^="terca"], input[name^="quarta"], input[name^="quinta"], input[name^="sexta"], input[name^="sabado"], input[name^="domingo"]');
+        var todosDiasCheckbox = document.getElementById('todosDiasCheckbox');
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = todosDiasCheckbox.checked;
+        }
+    }
 </script>
 @endpush

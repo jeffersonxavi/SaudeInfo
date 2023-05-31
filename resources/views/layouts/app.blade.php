@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
- <!-- Styles -->
+     <!-- Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
@@ -43,6 +43,8 @@
                 <li><a href="{{route('pacientes.index')}}">Pacientes</a></li>
                 <li><a href="{{route('profissionais.index')}}">Profissional</a></li>
                 <li><a href="{{route('agendas.index')}}">Agenda Profissional</a></li>
+                <li><a href="{{route('tipos-consultas.index')}}">Tipos de Consultas</a></li>
+                <li><a href="{{route('consultas.index')}}">Consultas</a></li>
             </ul>
 
             <a href="#submenu2" class="has-submenu">
@@ -103,6 +105,7 @@
     @stack('scripts')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css" />
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js"></script> -->
 </body>
 </html>

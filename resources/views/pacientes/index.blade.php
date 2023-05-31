@@ -74,14 +74,13 @@
         orderable: false,
         searchable: false,
         render: function(data, type, row, meta) {
+          var editUrl = "{{ route('pacientes.edit', ':id') }}".replace(':id', row.id);
           return `
-          <a href="{{route('pacientes.edit', ':id')}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-          <form action="{{route('pacientes.destroy', ':id')}}" method="POST" style="display: inline-block">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-sm btn-danger delete-btn" data-id="${row.id}"><i class="fas fa-trash"></i></button>
-          </form>
-        `.replace(/:id/g, row.id);
+            <div class="btn-group">
+              <a href="${editUrl}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
+              <button class="btn btn-sm btn-secondary delete-btn" data-id="${row.id}"><i class="far fa-trash-alt"></i></
+            </div>
+          `;
         }
       }
     ],

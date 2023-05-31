@@ -6,9 +6,10 @@
   .dataTables_wrapper table.dataTable thead th,
   .dataTables_wrapper table.dataTable tbody td {
     text-align: center;
-    padding: 1px;
+    vertical-align: middle;
+    /* padding: 1px;
     height: 2px;
-    font-size: 15px;
+    font-size: 15px; */
   }
 </style>
 <div class="row">
@@ -18,7 +19,7 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4>Agenda de Profissionais</h4>
           <a href="{{ route('agendas.create') }}" class="btn btn-primary btn-sm text-white">
-            <i class="fas fa-plus"></i> Adicionar Agenda
+            <i class="fas fa-plus"></i> Agenda
           </a>
         </div>
       </div>
@@ -29,7 +30,7 @@
               <th>Profissional</th>
               <th>Tipo</th>
               <th>Início</th>
-              <th>Intervalo</th>
+              <!-- <th>Intervalo</th> -->
               <th>Fim</th>
               <th>Segunda</th>
               <th>Terça</th>
@@ -39,7 +40,6 @@
               <th>Sábado</th>
               <th>Domingo</th>
               <th>Máx Aten.</th>
-              <th>Observações</th>
               <th>Ações</th>
             </tr>
           </thead>
@@ -86,10 +86,10 @@
           data: 'inicio_atendimento',
           name: 'inicio_atendimento'
         },
-        {
-          data: 'intervalo',
-          name: 'intervalo'
-        },
+        // {
+        //   data: 'intervalo',
+        //   name: 'intervalo'
+        // },
         {
           data: 'fim_atendimento',
           name: 'fim_atendimento'
@@ -134,25 +134,20 @@
           name: 'max_atendimentos'
         },
         {
-          data: 'observacoes',
-          name: 'observacoes',
-        },
-        {
           data: 'id',
           name: 'acoes',
           orderable: false,
           searchable: false,
           render: function(data, type, row, meta) {
+            var editUrl = "{{ route('agendas.edit', ':id') }}".replace(':id', row.id);
             return `
-          <a href="{{route('agendas.edit', ':id')}}" class="btn btn-sm btn-primary"><i class="fas fa-edit"></i></a>
-          <form action="{{route('agendas.destroy', ':id')}}" method="POST" style="display: inline-block">
-            @csrf
-            @method('DELETE')
-            <button class="btn btn-sm btn-danger delete-btn" data-id="${row.id}"><i class="fas fa-trash"></i></button>
-          </form>
-          `.replace(/:id/g, row.id);
+            <div class="btn-group">
+              <a href="${editUrl}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
+              <button class="btn btn-sm btn-secondary delete-btn" data-id="${row.id}"><i class="far fa-trash-alt"></i></
+            </div>
+          `;
           }
-        }
+        },
       ],
       columnDefs: [{
           targets: '_all',

@@ -101,7 +101,7 @@ body {
     display: none;
 }
 .submenu li {
-    padding-left: 30px;
+    padding-left: 15px;
 }
 
 .submenu a {
@@ -146,6 +146,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="date"],
+input[type="time"],
 textarea {
     width: 100%; /* define a largura dos inputs como 100% */
     padding: 4px; /* adiciona preenchimento nos inputs */

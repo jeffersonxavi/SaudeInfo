@@ -5,6 +5,9 @@ use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfissionalController;
 use App\Http\Controllers\EspecialidadeController;
 use App\Http\Controllers\AgendaProfissionalController;
+use App\Http\Controllers\TipoConsultaController;
+use App\Http\Controllers\ConsultaController;
+use App\Models\Consulta;
 use App\Models\Paciente;
 use App\Models\Profissional;
 use Illuminate\Http\Request;
@@ -47,14 +50,17 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('profissionais/ajax', [ProfissionalController::class, 'paginacaoAjax'])->name('profissionais.ajax');
-    //buscar profissional em agenda
-    Route::post('profissionais/ajax', [AgendaProfissionalController::class, 'buscarProfissional'])->name('profissionais.buscar');
+    //buscar profissionais em consulta
+    Route::post('profissionais/consulta/ajax', [ConsultaController::class, 'buscarProfissional'])->name('profissionais.buscar');
+    //buscar profissional em consulta
+    Route::get('profissional/consulta/ajax', [ConsultaController::class, 'consultaProfissional'])->name('profissional.buscarConsulta');
+    //buscar paciente em agenda
+    Route::post('pacientes/ajax', [ConsultaController::class, 'buscarPaciente'])->name('pacientes.buscar');
     Route::get('paciente/ajax', [PacienteController::class, 'paginacaoAjax'])->name('pacientes.ajax');
     Route::get('agendas/ajax', [AgendaProfissionalController::class, 'paginacaoAjax'])->name('agendas.ajax');
     Route::get('profissionais/ajax/{id}/pacientes', [ProfissionalController::class, 'getPacientes'])->name('profissionais.pacientes');
     Route::put('/profissionais/atualizarPaciente/{id}', [ProfissionalController::class, 'atualizarPaciente'])->name('profissional.atualizarPaciente');
-    
-    
+
     Route::get('/especialidades', [EspecialidadeController::class, 'index'])->name('especialidades.index');
 
     Route::get('/profissionais', [ProfissionalController::class, 'index'])->name('profissionais.index');
@@ -71,6 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/especialidades/{id}', [EspecialidadeController::class, 'update'])->name('especialidades.update');
     Route::delete('/especialidades/{id}', [EspecialidadeController::class, 'destroy'])->name('especialidades.destroy');
 
+    Route::get('agendas/ajax', [AgendaProfissionalController::class, 'paginacaoAjax'])->name('agendas.ajax');
     Route::get('/agendas', [AgendaProfissionalController::class, 'index'])->name('agendas.index');
     Route::get('/agendas/create', [AgendaProfissionalController::class, 'create'])->name('agendas.create');
     Route::post('/agendas', [AgendaProfissionalController::class, 'store'])->name('agendas.store');
@@ -78,6 +85,24 @@ Route::middleware('auth')->group(function () {
     Route::put('/agendas/{id}', [AgendaProfissionalController::class, 'update'])->name('agendas.update');
     Route::delete('/agendas/{id}', [AgendaProfissionalController::class, 'destroy'])->name('agendas.destroy');
 
+    Route::get('tipos-consultas/ajax', [TipoConsultaController::class, 'paginacaoAjax'])->name('tipos-consultas.ajax');
+    Route::get('/tipos-consultas', [TipoConsultaController::class, 'index'])->name('tipos-consultas.index');
+    Route::get('/tipos-consultas/create', [TipoConsultaController::class, 'create'])->name('tipos-consultas.create');
+    Route::post('/tipos-consultas', [TipoConsultaController::class, 'store'])->name('tipos-consultas.store');
+    Route::get('/tipos-consultas/{id}/edit', [TipoConsultaController::class, 'edit'])->name('tipos-consultas.edit');
+    Route::put('/tipos-consultas/{id}', [TipoConsultaController::class, 'update'])->name('tipos-consultas.update');
+    Route::match(['PUT', 'DELETE'], '/tipos-consultas/{id}', [TipoConsultaController::class, 'destroy'])->name('tipos-consultas.destroy');
+
+    Route::get('consultas/ajax', [ConsultaController::class, 'paginacaoAjax'])->name('consultas.ajax');
+    Route::get('/consultas', [ConsultaController::class, 'index'])->name('consultas.index');
+    Route::get('/consultas/create', [ConsultaController::class, 'create'])->name('consultas.create');
+    Route::post('/consultas', [ConsultaController::class, 'store'])->name('consultas.store');
+    Route::get('/consultas/{id}/edit', [ConsultaController::class, 'edit'])->name('consultas.edit');
+    Route::put('/consultas/{id}', [ConsultaController::class, 'update'])->name('consultas.update');
+    Route::delete('/consultas/{id}', [ConsultaController::class, 'destroy'])->name('consultas.destroy');
+    Route::post('/consultas/update-status', [ConsultaController::class, 'updateStatus'])->name('consultas.updateStatus');
+
 });
 
-require __DIR__.'/auth.php';
+
+require __DIR__ . '/auth.php';
