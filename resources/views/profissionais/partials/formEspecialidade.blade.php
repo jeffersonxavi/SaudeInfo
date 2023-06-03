@@ -29,6 +29,9 @@
         </div>
     </div>
 </div>
+<div class="form-group mt-3">
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</div>
 <div class="modal fade" id="addEspecialidadeModal" tabindex="-1" role="dialog" aria-labelledby="addEspecialidadeModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

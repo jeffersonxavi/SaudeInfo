@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Consulta;
+use App\Models\Laudo;
 use App\Models\Paciente;
 use App\Models\Profissional;
 use App\Models\TipoConsulta;
@@ -19,14 +20,14 @@ class ConsultaController extends Controller
 
         // Se nenhuma data for fornecida, obtenha todas as datas
         if (!$dataParam) {
-            $data = Consulta::with('paciente', 'profissional', 'tipoConsulta')->get();
+            $data = Consulta::with('paciente', 'profissional', 'tipoConsulta', 'laudo')->get();
         } else {
             // Verifique se a data fornecida é "todas"
             if ($dataParam === 'todas') {
-                $data = Consulta::with('paciente', 'profissional', 'tipoConsulta')->get();
+                $data = Consulta::with('paciente', 'profissional', 'tipoConsulta', 'laudo')->get();
             } else {
                 // Filtrar as consultas pela data fornecida
-                $data = Consulta::with('paciente', 'profissional', 'tipoConsulta')
+                $data = Consulta::with('paciente', 'profissional', 'tipoConsulta', 'laudo')
                     ->whereDate('dia_consulta', $dataParam)
                     ->get();
             }
@@ -46,6 +47,9 @@ class ConsultaController extends Controller
             })
             ->addColumn('tipoConsulta.duracao_estimada', function ($consulta) {
                 return $consulta->tipoConsulta->duracao_estimada;
+            })
+            ->addColumn('laudo', function ($consulta) {
+                return $consulta->laudo;
             })
             ->make(true);
     }
@@ -132,7 +136,8 @@ class ConsultaController extends Controller
         $pacientes = Paciente::all();
         $profissionais = Profissional::all();
         $tiposConsultas = TipoConsulta::all();
-        return view('consultas.edit', compact('consulta', 'pacientes', 'profissionais', 'tiposConsultas'));
+        $laudo = Laudo::where('consulta_id', $id)->first();
+        return view('consultas.edit', compact('consulta', 'pacientes', 'profissionais', 'tiposConsultas','laudo'));
     }
 
     public function update(Request $request, $id)
@@ -186,4 +191,16 @@ class ConsultaController extends Controller
         // Retorne uma resposta adequada, se necessário
         return response()->json(['message' => 'Status atualizado com sucesso']);
     }
+    public function getConsultaDetails($id)
+    {
+        $consulta = Consulta::with('profissional', 'paciente', 'tipoConsulta')->findOrFail($id);
+        $laudo = Laudo::where('consulta_id', $id)->first();
+    
+        if ($laudo) {
+            $consulta->laudo = $laudo;
+        }
+    
+        return response()->json($consulta);
+    }
+    
 }

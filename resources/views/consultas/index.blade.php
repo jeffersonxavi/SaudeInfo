@@ -54,6 +54,17 @@
     color: #9900cc;
     /* Roxo para status "Remarcada" */
   }
+
+  .custom-modal .modal-dialog {
+    max-width: 800px;
+    /* Defina a largura desejada para o modal */
+    margin: 1.75rem auto;
+    /* Ajuste a margem conforme necessário */
+  }
+
+  #createLaudoModal.modal {
+    overflow-y: scroll;
+  }
 </style>
 <div class="row">
   <div class="col">
@@ -89,7 +100,7 @@
           </div>
         </div>
       </div>
-        <div class="card-body">
+      <div class="card-body">
         <div class="table-responsive">
           <table id="consultas-table" class="table table-hover table-striped">
             <thead>
@@ -109,13 +120,147 @@
           </table>
         </div>
       </div>
+      <!--Modal de criação de laudo -->
+      <div class="modal fade custom-modal" id="createLaudoModal" tabindex="-1" role="dialog" aria-labelledby="createLaudoModalLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content p-0">
+            <div class="modal-header">
+              <h5 class="modal-title" id="createLaudoModalLabel"></h5>
+              <span class="badge badge-success ml-2"></span>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="{{ route('laudos-salvar.ajax') }}" method="POST" id="createLaudoForm">
+                @csrf
+                <input type="hidden" name="consulta_id" id="consulta_id">
+                <input type="hidden" name="tipo_consulta_id" id="tipo_consulta_id">
+                <input type="hidden" name="profissional_id" id="profissional_id">
+                <input type="hidden" name="paciente_id" id="paciente_id">
+                <input type="hidden" name="laudo_id" id="laudo_id">
+                <input type="hidden" name="data" id="data" value="{{date('Y-m-d')}}">
+                <div id="statusLaudo"></div>
+
+                <p>Tipo de Consulta: <span id="tipoConsulta_nome" name="tipo_consulta_id"></span></p>
+                <p>Profissional: <span id="profissional_nome" name="profissional_id"></span></p>
+                <p>Paciente: <span id="paciente_nome" name="paciente_id"></span></p>
+                <div class="form-group">
+                  <label for="conteudo">Conteúdo:</label>
+                  <textarea name="conteudo" id="summernote" cols="30" rows="10" required></textarea>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                  <button type="submit" class="btn btn-primary">Salvar Laudo</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </div>
 @endsection
 
 @push('scripts')
+<!-- include libraries(jQuery, bootstrap) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" /> -->
+<script>
+  $(document).ready(function() {
+    $('#summernote').summernote({
+      height: 220 // Defina a altura desejada do editor
+    });
+  });
+  //Remover o padding-right adicionado
+  $('#createLaudoModal').on('hidden.bs.modal', function(e) {
+    $('body').css('padding-right', '0');
+    $('#createLaudoModalLabel').text("");
+    $('#profissional_nome').text("");
+    $('#paciente_nome').text("");
+    $('#tipoConsulta_nome').text("");
+    $('.badge').text("");
+    $('#summernote').summernote('reset');
+  });
+  $(document).off('click', '.create-laudo-btn').on('click', '.create-laudo-btn', function() {
+    var consultaId = $(this).data('consulta-id');
+
+    $.ajax({
+      url: '/consultas/' + consultaId, // Rota para obter os detalhes da consulta
+      method: 'GET',
+      // async: false,
+
+      success: function(response) {
+        var modalTitle = $('#createLaudoModalLabel');
+        var badge = $('.badge');
+
+        if (response.laudo && response.laudo.id) {
+          modalTitle.text("Editar Laudo");
+          badge.text("Laudo Gerado");
+        } else {
+          modalTitle.text("Criar Laudo");
+          badge.text("");
+        }
+
+        // Preencher os atributos com o nome
+        $('#profissional_nome').text(response.profissional.nome);
+        $('#paciente_nome').text(response.paciente.nome);
+        $('#tipoConsulta_nome').text(response.tipo_consulta.nome);
+        $('#summernote').summernote('code', response.laudo && response.laudo.conteudo ? response.laudo.conteudo : '');
+        $('#laudo_id').val(response.laudo && response.laudo.id ? response.laudo.id : '');
+
+        // Preencher os atributos com id
+        $('#consulta_id').val(response.id);
+        $('#tipo_consulta_id').val(response.tipo_consulta.id);
+        $('#profissional_id').val(response.profissional.id);
+        $('#paciente_id').val(response.paciente.id);
+
+      },
+      error: function(xhr) {
+        // Lidar com o erro da requisição, se necessário
+      }
+    });
+  });
+  $(document).off('submit', '#createLaudoForm').on('submit', '#createLaudoForm', function(e) {
+    e.preventDefault();
+
+    var form = $(this);
+    var url = form.attr('action');
+    var formData = form.serialize();
+
+    $.ajax({
+      url: url,
+      method: 'POST',
+      data: formData,
+      success: function(response) {
+        // // Exibir SweetAlert de sucesso
+        // Swal.fire('Sucesso', response.message, 'success');
+        // // Limpar o formulário
+        // form.trigger('reset');
+        // // window.location.reload();
+        // $('#createLaudoModal').modal('hide');
+        // $('body').removeClass('modal-open');
+        // $('.modal-backdrop').remove();
+        $('#createLaudoModal').modal('hide');
+        $('body').removeClass('modal-open');
+        $('.modal-backdrop').remove();
+        Swal.fire('Sucesso', response.message, 'success')
+          .then(() => {
+            // Limpar o formulário
+            form.trigger('reset');
+
+            window.location.reload();
+          });
+      },
+      error: function(xhr) {
+        // Exibir SweetAlert de erro
+        Swal.fire('Erro', 'Ocorreu um erro ao criar o laudo', 'error');
+      }
+    });
+  });
+</script>
+
 <script>
   // Adicionando DataTables
   let table = new DataTable('#consultas-table', {
@@ -319,14 +464,21 @@
         searchable: false,
         render: function(data, type, row, meta) {
           var editUrl = "{{ route('consultas.edit', ':id') }}".replace(':id', row.id);
+          var createLaudoUrl = "{{ route('laudos.create', ['consulta_id' => ':consulta_id']) }}".replace(':consulta_id', row.id);
           return `
             <div class="btn-group">
+            <button class="btn btn-sm btn-success create-laudo-btn" data-consulta-id="${row.id}" data-toggle="modal" data-target="#createLaudoModal">
+              ${row.laudo
+                ? '<i class="far fa-file-alt" title="Laudo Gerado"></i>'
+                : '<i class="far fa-plus-square" title="Gerar Laudo"></i>'}
+            </button>
               <a href="${editUrl}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
-              <button class="btn btn-sm btn-secondary delete-btn" data-id="${row.id}"><i class="far fa-trash-alt"></i></
+              <button class="btn btn-sm btn-secondary delete-btn" data-id="${row.id}"><i class="far fa-trash-alt"></i></button>
             </div>
           `;
         }
-      },
+      }
+
     ],
     columnDefs: [{
         targets: '_all',

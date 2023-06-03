@@ -7,7 +7,7 @@
             <div class="card-header">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Cadastro de Consulta</h4>
-                    <a href="{{ route('consultas.index') }}" class="btn btn-outline-secondary btn-sm text-white">
+                    <a href="{{ back()->getTargetUrl() }}" class="btn btn-outline-secondary btn-sm text-white">
                         <i class="fas fa-arrow-left"></i> Voltar
                     </a>
                 </div>

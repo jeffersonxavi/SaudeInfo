@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+@push('scripts')
+<script>
+    //Remover o padding-right adicionado
+    $('#createLaudoModal').on('hidden.bs.modal', function(e) {
+        $('body').css('padding-right', '0');
+        $('body').css('padding-left', '0');
+    });
+</script>
+@endpush
 <div class="row">
     <div class="col">
         <div class="card">
@@ -42,26 +51,50 @@
                         <span>Especialidades</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tab4">
+                        <i class="fas fa-stethoscope"></i>
+                        <span>Consultas</span>
+                    </a>
+                </li>
             </ul>
-            <form id="form-profissional" method="POST" action="{{ route('profissionais.update', $profissional->id) }}">
-                @csrf
-                @method('PUT')
-                <div class="tab-content mt-3">
-                    <div id="tab1" class="tab-pane fade show active">
+
+            <div class="tab-content mt-3">
+                <div id="tab1" class="tab-pane fade show active">
+                    <form id="form-profissional" method="POST" action="{{ route('profissionais.update', $profissional->id) }}">
+                        @csrf
+                        @method('PUT')
                         @include('profissionais.partials.form')
-                    </div>
-                    <div id="tab2" class="tab-pane fade">
-                        @include('profissionais.partials.formPaciente')
-                    </div>
-                    <div id="tab3" class="tab-pane fade">
-                        @include('profissionais.partials.formEspecialidade')
-                    </div>
-                    <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                    </div>
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+                <div id="tab2" class="tab-pane fade">
+                    <form id="form-profissional" method="POST" action="{{ route('profissionais.update', $profissional->id) }}">
+                        @csrf
+                        @method('PUT')
+                        @include('profissionais.partials.formPaciente')
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+                <div id="tab3" class="tab-pane fade">
+                    <form id="form-profissional" method="POST" action="{{ route('profissionais.update', $profissional->id) }}">
+                        @csrf
+                        @method('PUT')
+                        @include('profissionais.partials.formEspecialidade')
+                    </form>
+                </div>
+                <div id="tab4" class="tab-pane fade">
+                    @include('profissionais.partials.formConsulta')
+                </div>
+            </div>
         </div>
     </div>
 </div>
 @endsection
+@push('scripts')
+
+@endpush
