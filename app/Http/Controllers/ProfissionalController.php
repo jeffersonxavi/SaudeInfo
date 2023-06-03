@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Consulta;
 use App\Models\Especialidade;
+use App\Models\Laudo;
 use App\Models\Paciente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -63,8 +65,8 @@ class ProfissionalController extends Controller
         $profissional = Profissional::findOrFail($id);
         $profissional->tipo_profissional = strtolower($profissional->tipo_profissional);
         $especialidades = Especialidade::all();
-        
-        return view('profissionais.edit', compact('profissional', 'especialidades'));
+        $laudo = Laudo::all();
+        return view('profissionais.edit', compact('profissional', 'especialidades','laudo'));
     }
 
     public function getPacientes($id)
@@ -139,4 +141,43 @@ class ProfissionalController extends Controller
         $profissional->delete();
         return redirect()->route('profissionais.index')->with('success', 'Profissional excluído com sucesso!');
     }
+
+    public function buscarConsultaProfissional(Request $request)
+    {
+        $profissionalId = $request->input('profissionalId');
+        $dataParam = $request->input('data');
+    
+        $query = Consulta::with('paciente', 'profissional', 'tipoConsulta', 'laudo')
+            ->where('profissional_id', $profissionalId);
+    
+        if ($dataParam) {
+            if ($dataParam !== 'todas') {
+                $query->whereDate('dia_consulta', $dataParam);
+            }
+        }
+    
+        $data = $query->get();
+
+        return Datatables::of($data)
+            ->addColumn('paciente.nome', function ($consulta) {
+                return $consulta->paciente->nome;
+            })
+            ->addColumn('paciente.cpf', function ($consulta) {
+                return $consulta->paciente->cpf;
+            })
+            ->addColumn('profissional.nome', function ($consulta) {
+                return $consulta->profissional->nome;
+            })
+            ->addColumn('tipoConsulta.nome', function ($consulta) {
+                return $consulta->tipoConsulta->nome;
+            })
+            ->addColumn('tipoConsulta.duracao_estimada', function ($consulta) {
+                return $consulta->tipoConsulta->duracao_estimada;
+            })
+            ->addColumn('laudo', function ($consulta) {
+                return $consulta->laudo;
+            })
+            ->make(true);
+    }
+
 }

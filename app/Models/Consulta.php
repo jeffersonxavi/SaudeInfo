@@ -41,4 +41,8 @@ class Consulta extends Model
     {
         return $this->hasMany(Consulta::class, 'profissional_id');
     }
+    public function laudo()
+    {
+        return $this->hasOne(Laudo::class);
+    }
 }

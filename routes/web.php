@@ -7,6 +7,7 @@ use App\Http\Controllers\EspecialidadeController;
 use App\Http\Controllers\AgendaProfissionalController;
 use App\Http\Controllers\TipoConsultaController;
 use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\LaudoController;
 use App\Models\Consulta;
 use App\Models\Paciente;
 use App\Models\Profissional;
@@ -69,6 +70,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profissionais/{id}/edit', [ProfissionalController::class, 'edit'])->name('profissionais.edit');
     Route::put('/profissionais/{id}', [ProfissionalController::class, 'update'])->name('profissionais.update');
     Route::delete('/profissionais/{id}', [ProfissionalController::class, 'destroy'])->name('profissionais.destroy');
+    Route::get('profissional/consultas/ajax', [ProfissionalController::class, 'buscarConsultaProfissional'])->name('profissional.consultas.ajax');
 
     Route::get('/especialidades', [EspecialidadeController::class, 'index'])->name('especialidades.index');
     Route::get('/especialidades/create', [EspecialidadeController::class, 'create'])->name('especialidades.create');
@@ -102,6 +104,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/consultas/{id}', [ConsultaController::class, 'destroy'])->name('consultas.destroy');
     Route::post('/consultas/update-status', [ConsultaController::class, 'updateStatus'])->name('consultas.updateStatus');
 
+    Route::get('laudos/ajax', [LaudoController::class, 'paginacaoAjax'])->name('laudos.ajax');
+    Route::get('/laudos', [LaudoController::class, 'index'])->name('laudos.index');
+    Route::get('/laudos/create', [LaudoController::class, 'create'])->name('laudos.create');
+    Route::post('/laudos/save', [LaudoController::class, 'salvarAjax'])->name('laudos-salvar.ajax');
+    Route::post('/laudos', [LaudoController::class, 'store'])->name('laudos.store');
+    Route::get('/laudos/{id}/edit', [LaudoController::class, 'edit'])->name('laudos.edit');
+    Route::put('/laudos/{id}', [LaudoController::class, 'update'])->name('laudos.update');
+    Route::delete('/laudos/{id}', [LaudoController::class, 'destroy'])->name('laudos.destroy');
+    Route::post('/laudos/update-status', [LaudoController::class, 'updateStatus'])->name('laudos.updateStatus');
+
+    Route::get('/consultas/{id}', [ConsultaController::class, 'getConsultaDetails'])->name('consultas.details');
 });
 
 
