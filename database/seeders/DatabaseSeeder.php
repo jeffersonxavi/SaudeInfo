@@ -25,6 +25,6 @@ class DatabaseSeeder extends Seeder
         // Profissional::factory()->count(200)->create();
         // Especialidade::factory()->count(20)->create();
         //TipoConsulta::factory()->count(70)->create();
-         Consulta::factory()->count(100)->create();
+         Consulta::factory()->count(2000)->create();
     }
 }

@@ -1,13 +1,14 @@
-<table id="pacientes-table" class="table table-hover table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Paciente</th>
-            <th>Status</th>
-        </tr>
-    </thead>
-</table>
-
+<div class="table-responsive">
+    <table id="pacientes-table" class="table table-hover table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Paciente</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+    </table>
+</div>
 @push('scripts')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script>
@@ -20,6 +21,10 @@
         serverSide: true,
         searching: true,
         paginate: true,
+        fixedHeader: true, // Opção para fixar o cabeçalho da tabela
+        autoWidth: false, // Desabilita a largura automática das colunas
+        responsive: true, // Habilita a funcionalidade responsiva
+        //scrollX: true, // Adicione esta opção para permitir rolagem horizontal
         ajax: "{!! route('profissionais.pacientes', $profissional->id) !!}",
         columns: [{
                 data: 'id'

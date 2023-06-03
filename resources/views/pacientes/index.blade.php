@@ -13,18 +13,20 @@
         </div>
       </div>
       <div class="card-body">
-        <table id="pacientes-table" class="table table-striped">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>E-mail</th>
-              <th>Telefone</th>
-              <th>Data Nascimento</th>
-              <th>Idade</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-        </table>
+        <div class="table-responsive">
+          <table id="pacientes-table" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Telefone</th>
+                <th>Data Nascimento</th>
+                <th>Idade</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -42,6 +44,8 @@
     processing: true,
     serverSide: true,
     searching: true,
+    autoWidth: false, // Desabilita a largura automática das colunas
+    responsive: true, // Habilita a funcionalidade responsiva
     ajax: {
       url: "{{route('pacientes.ajax')}}",
       method: 'GET',
@@ -84,7 +88,7 @@
         }
       }
     ],
-    
+
   });
   $(document).on('click', '.delete-btn', function(e) {
     e.preventDefault();

@@ -14,18 +14,20 @@
         </div>
       </div>
       <div class="card-body">
-        <table id="myTable" class="table table-striped">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>CRM</th>
-              <th>CPF</th>
-              <th>Telefone</th>
-              <th>Ações</th>
-            </tr>
-          </thead>
-        </table>
-        <div class="d-flex justify-content-center mt-4">
+        <div class="table-responsive">
+          <table id="myTable" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>Tipo de Profissional</th>
+                <th>CPF</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+          </table>
+          <div class="d-flex justify-content-center mt-4">
+          </div>
         </div>
       </div>
     </div>
@@ -41,7 +43,9 @@
       "processing": ""
 
     },
-    
+    autoWidth: false, // Desabilita a largura automática das colunas
+    responsive: true, // Habilita a funcionalidade responsiva
+    // scrollX: true, // Adicione esta opção para permitir rolagem horizontal
     processing: true,
     serverSide: true,
     searching: true,
@@ -54,8 +58,8 @@
         name: 'nome'
       },
       {
-        data: 'crm',
-        name: 'crm'
+        data: 'tipo_profissional',
+        name: 'tipo_profissional'
       },
       {
         data: 'cpf',

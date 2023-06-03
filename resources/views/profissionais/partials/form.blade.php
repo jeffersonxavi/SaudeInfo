@@ -11,7 +11,7 @@
 <div class="form-row">
     <div class="form-group col-md-5">
         <label for="tipo_profissional">Tipo de Profissional</label>
-        <select id="tipo_profissional" name="tipo_profissional" class="form-control select2" @if(!empty($profissional->tipo_profissional)) disabled @endif>
+        <select id="tipo_profissional" name="tipo_profissional" class="form-control select2" @if(!empty($profissional->tipo_profissional)) @endif>
             <option value="" selected disabled>Escolha ou digite para adicionar</option>
             @foreach(['Médico', 'Enfermeiro', 'Psicólogo', 'Fisioterapeuta', 'Nutricionista'] as $tipo)
             <option value="{{ ($tipo) }}" @if(mb_strtolower($tipo)==mb_strtolower($profissional->tipo_profissional ?? '')) selected @endif>{{ $tipo }}</option>
