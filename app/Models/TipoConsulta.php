@@ -21,4 +21,9 @@ class TipoConsulta extends Model
     {
         return $this->belongsTo(Especialidade::class);
     }
+    public function consultas()
+    {
+        return $this->hasMany(Consulta::class);
+    }
+
 }
