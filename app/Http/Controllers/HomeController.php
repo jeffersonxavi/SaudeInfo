@@ -25,7 +25,7 @@ class HomeController extends Controller
         $labels = [];
         $data = [];
         $colors = [
-            '#673AB7',
+            'rgb(75, 192, 192)',
             // '#9C27B0', '#673AB7', '#3F51B5', '#2196F3', '#03A9F4', '#E91E63',
             // '#00BCD4', '#009688', '#4CAF50', '#8BC34A', '#CDDC39'
         ];
@@ -55,6 +55,8 @@ class HomeController extends Controller
                 [
                     'label' => 'Quantidade de consultas por mês',
                     'data' => $data,
+                    'tension' => 0.1,
+                    'fill' => true,
                     'backgroundColor' => $colors
                 ]
             ]

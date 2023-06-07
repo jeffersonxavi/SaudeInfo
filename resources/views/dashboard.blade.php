@@ -311,7 +311,7 @@ Sistema para o projeto de TCC - Somente ADMIN vai
 
     // Renderizar o gráfico
     var pieChart = new Chart(document.getElementById('pieChart'), {
-        type: 'pie',
+        type: 'polarArea',
         data: JSON.parse('@json($graficoTipoConsulta)'),
         options: chartOptions
     });
