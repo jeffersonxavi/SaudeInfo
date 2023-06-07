@@ -17,7 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('profissional_id');
             $table->unsignedBigInteger('paciente_id');
             $table->unsignedBigInteger('tipo_consulta_id');
-            $table->text('conteudo');
+            $table->string('motivo_consulta')->nullable();
+            $table->text('diagnostico')->nullable();
+            $table->text('tratamento_recomendado')->nullable();
             $table->date('data');
             $table->timestamps();
 

@@ -63,6 +63,10 @@
         overflow-y: scroll;
     }
 
+    .campo-label {
+        font-weight: bold;
+        color: #333;
+    }
 </style>
 
 <div class="card">
@@ -99,7 +103,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-        <table id="consultas_profissional-table" class="table table-hover table-striped">
+            <table id="consultas_profissional-table" class="table table-hover table-striped">
                 <thead>
                     <tr>
                         <th>Paciente</th>
@@ -138,14 +142,20 @@
                         <input type="hidden" name="paciente_id" id="paciente_id">
                         <input type="hidden" name="laudo_id" id="laudo_id">
                         <input type="hidden" name="data" id="data" value="{{date('Y-m-d')}}">
-                        <div id="statusLaudo"></div>
-
-                        <p>Tipo de Consulta: <span id="tipoConsulta_nome" name="tipo_consulta_id"></span></p>
-                        <p>Profissional: <span id="profissional_nome" name="profissional_id"></span></p>
-                        <p>Paciente: <span id="paciente_nome" name="paciente_id"></span></p>
+                        <p><span class="campo-label">Tipo de Consulta:</span> <span id="tipoConsulta_nome" name="tipo_consulta_id"></span></p>
+                        <p><span class="campo-label">Profissional:</span> <span id="profissional_nome" name="profissional_id"></span></p>
+                        <p><span class="campo-label">Paciente:</span> <span id="paciente_nome" name="paciente_id"></span></p>
                         <div class="form-group">
-                            <label for="conteudo">Conteúdo:</label>
-                            <textarea name="conteudo" id="summernote" cols="30" rows="10" required></textarea>
+                            <label for="motivo_consulta">Motivo da Consulta:</label>
+                            <textarea name="motivo_consulta" id="motivo_consulta" class="form-control" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="diagnostico">Diagnóstico:</label>
+                            <textarea name="diagnostico" id="summernote_diagnostico" cols="30" rows="10" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="tratamento_recomendado">Tratamento Recomendado:</label>
+                            <textarea name="tratamento_recomendado" id="summernote_tratamento" cols="30" rows="10" required></textarea>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -169,8 +179,14 @@
 
 <script>
     $(document).ready(function() {
-        $('#summernote').summernote({
-            height: 220 // Defina a altura desejada do editor
+        $('#summernote_diagnostico').summernote({
+            height: 220, // Defina a altura desejada do editor
+            placeholder: 'Exemplo: Fratura óssea constatada no exame radiológico',
+        });
+        $('#summernote_tratamento').summernote({
+            height: 120, // Defina a altura desejada do editor
+            placeholder: 'Exemplo: Prescrição do medicamento X, a ser tomado duas vezes ao dia após as refeições.' // Adicione o placeholder desejado
+
         });
     });
     //Remover o padding-right adicionado
@@ -181,6 +197,9 @@
         $('#paciente_nome').text("");
         $('#tipoConsulta_nome').text("");
         $('.badge').text("");
+        $('#motivo_consulta').text("");
+        $('#summernote_diagnostico').summernote('reset');
+        $('#summernote_tratamento').summernote('reset');
         $('#summernote').summernote('reset');
     });
     $(document).off('click', '.create-laudo-btn').on('click', '.create-laudo-btn', function() {
@@ -207,7 +226,9 @@
                 $('#profissional_nome').text(response.profissional.nome);
                 $('#paciente_nome').text(response.paciente.nome);
                 $('#tipoConsulta_nome').text(response.tipo_consulta.nome);
-                $('#summernote').summernote('code', response.laudo && response.laudo.conteudo ? response.laudo.conteudo : '');
+                $('#motivo_consulta').text(response.laudo && response.laudo.motivo_consulta ? response.laudo.motivo_consulta : '');
+                $('#summernote_diagnostico').summernote('code', response.laudo && response.laudo.diagnostico ? response.laudo.diagnostico : '');
+                $('#summernote_tratamento').summernote('code', response.laudo && response.laudo.tratamento_recomendado ? response.laudo.tratamento_recomendado : '');
                 $('#laudo_id').val(response.laudo && response.laudo.id ? response.laudo.id : '');
 
                 // Preencher os atributos com id
@@ -469,17 +490,19 @@
                 render: function(data, type, row, meta) {
                     var editUrl = "{{ route('consultas.edit', ':id') }}".replace(':id', row.id);
                     var createLaudoUrl = "{{ route('laudos.create', ['consulta_id' => ':consulta_id']) }}".replace(':consulta_id', row.id);
+                    var gerarPdfUrl = "{{ route('gerar.pdf', ':id') }}".replace(':id', row.id);
                     return `
-                        <div class="btn-group">
+                    <div class="btn-group">
                         <button class="btn btn-sm btn-success create-laudo-btn" data-consulta-id="${row.id}" data-toggle="modal" data-target="#createLaudoModal">
-                        ${row.laudo
-                            ? '<i class="far fa-file-alt" title="Laudo Gerado"></i>'
-                            : '<i class="far fa-plus-square" title="Gerar Laudo"></i>'}
+                            ${row.laudo
+                                ? '<i class="far fa-file-alt" title="Laudo Gerado"></i>'
+                                : '<i class="far fa-plus-square" title="Gerar Laudo"></i>'}
                         </button>
                         <a href="${editUrl}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
+                        <a href="${gerarPdfUrl}" target="_blank" class="btn btn-sm btn-danger"><i class="far fa-file-pdf"></i></a>
                         <button class="btn btn-sm btn-secondary delete-btn" data-id="${row.id}"><i class="far fa-trash-alt"></i></button>
-                        </div>
-                    `;
+                    </div>
+                `;
                 }
             }
 

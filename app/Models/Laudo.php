@@ -13,7 +13,9 @@ class Laudo extends Model
         'profissional_id',
         'paciente_id',
         'tipo_consulta_id',
-        'conteudo',
+        'motivo_consulta',
+        'diagnostico',
+        'tratamento_recomendado',
         'data',
     ];
 
