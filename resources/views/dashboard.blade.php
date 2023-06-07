@@ -132,7 +132,6 @@
             </div>
         </div>
     </div>
-
     <div class="col-md-3">
         <div class="card bg-white rounded-lg shadow-sm custom-card">
             <div class="card-body d-flex align-items-center">
@@ -172,24 +171,7 @@
             </div>
         </div>
     </div>
-
     <div class="col-md-6">
-        <div class="card bg-white rounded-lg shadow-sm custom-card">
-            <div class="card-body d-flex align-items-center">
-                <div class="p-3 mr-4 custom-circle">
-                    <i class="fa-solid fa-bell"></i>
-                </div>
-                <div>
-                    <p class="mb-2 text-sm font-weight-medium text-gray-600">Média de Consultas</p>
-                    <p class="text-lg font-weight-bold text-gray-700">
-                        <span class="average-label"><strong>{{ number_format($mediaConsultasPaciente, 2) }}</strong></span>
-                        <span class="average-label"><strong>{{ number_format($mediaConsultasProfissional, 2) }}</strong></span>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
         <div class="card bg-white rounded-lg shadow-sm custom-card align-items-stretch">
             <div class="card-footer text-center" style="background-color:#333;">
                 <small class="text-white" class="text-white">Média de consultas</small>
@@ -209,8 +191,13 @@
             </div>
         </div>
     </div>
-
-
+    <div class="col-md-4">
+        <div class="card bg-white rounded-lg shadow-sm custom-card align-items-stretch">
+            <div class="card-body d-flex align-items-center justify-content-center text-center">
+                <canvas style="height: 60px; width: 600px;" id="barChart"></canvas>
+            </div>
+        </div>
+    </div>
     <div class="col-md-2">
         <div class="card bg-white rounded-lg shadow-sm custom-card">
             <div class="card-body d-flex align-items-center">
@@ -225,7 +212,7 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 320px; margin:auto;">
+        <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 320px;">
             <span class="card-title black-text text-center">Próximas consultas</span>
             <div class="table-responsive">
                 <table class="table mt-4">
@@ -251,22 +238,9 @@
             </div>
         </div>
     </div>
-
-    <div class="col-md-6">
-        <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 320px; margin:auto;">
-            <canvas id="chart"></canvas>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="card shadow-sm ">
-            <div class="card-content">
-                <canvas style="width: 354px; margin:auto;" id="pieChart"></canvas>
-            </div>
-        </div>
-    </div>
     <div class="col-md-6">
         <div class="card bg-gradient-green rounded-lg shadow-sm custom-card">
-            <div class="card-content"style="height: 400px;">
+            <div class="card-content" style="height: 318px;">
                 <span class="card-title white-text">Avisos</span>
                 <table class="striped">
                     <thead>
@@ -289,6 +263,20 @@
             </div>
         </div>
     </div>
+    <!-- <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-content">
+                <canvas style="width: 300px; margin:auto ; height: 300px" id="pieChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-content">
+                <canvas style="height: 300px; margin:auto; width: 500px" id="chart"></canvas>
+            </div>
+        </div>
+    </div> -->
 </div>
 @elsecan('admin')
 Sistema para o projeto de TCC - Somente ADMIN vai
@@ -301,21 +289,6 @@ Sistema para o projeto de TCC - Somente ADMIN vai
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    var ctx = document.getElementById('chart').getContext('2d');
-    var userChart = new Chart(ctx, {
-        type: 'line',
-        data: JSON.parse('@json($graficoConsultaMes)'),
-        options: chartOptions
-    });
-
-
-    // Renderizar o gráfico
-    var pieChart = new Chart(document.getElementById('pieChart'), {
-        type: 'polarArea',
-        data: JSON.parse('@json($graficoTipoConsulta)'),
-        options: chartOptions
-    });
-
     // Configuração do gráfico
     var chartOptions = {
         responsive: true,
@@ -324,7 +297,36 @@ Sistema para o projeto de TCC - Somente ADMIN vai
             labels: {
                 boxWidth: 12
             }
+        },
+        scales: {
+            y: {
+                display: true, // Oculta o eixo y
+                ticks: {
+                    display: true // Oculta as etiquetas no eixo y
+                }
+            },
+            x: {
+                display: false, // Oculta o eixo x
+                ticks: {
+                    display: false // Oculta as etiquetas no eixo x
+                }
+            }
         }
     };
+    // Renderizar o gráfico
+    var TipoConsultaChart = new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: JSON.parse('@json($graficoTipoConsulta)'),
+        options: chartOptions
+    });
+
+    var ctx = document.getElementById('chart').getContext('2d');
+    var userChart = new Chart(ctx, {
+        type: 'line',
+        data: JSON.parse('@json($graficoConsultaMes)'),
+        options: {
+            responsive: true,
+        }
+    });
 </script>
 @endpush

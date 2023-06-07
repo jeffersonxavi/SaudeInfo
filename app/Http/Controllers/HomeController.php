@@ -85,7 +85,7 @@ class HomeController extends Controller
         $total_profissionais = Profissional::count();
         $total_pacientes = Paciente::count();
         $mediaConsultasPaciente = $total_pacientes != 0 ? $total_consultas / $total_pacientes : 0;
-        $mediaConsultasProfissional =  $total_profissionais != 0 ? $total_consultas / $total_profissionais:0;
+        $mediaConsultasProfissional =  $total_profissionais != 0 ? $total_consultas / $total_profissionais : 0;
 
         //Gráfifco Pizza
         $pie_tipos_consultas = TipoConsulta::withCount('consultas')->orderByDesc('consultas_count')->limit(5)->get();
@@ -96,6 +96,9 @@ class HomeController extends Controller
             'labels' => $labels2,
             'datasets' => [
                 [
+                    'label' => 'Consultas mais realizadas',
+                    'tension' => 0.1,
+                    'fill' => true,
                     'data' => $data2,
                     'backgroundColor' => ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff'],
                 ],
