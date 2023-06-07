@@ -271,7 +271,7 @@
                 processing: true,
                 serverSide: true,
                 searching: true,
-                autoWidth: true, // Desabilita a largura automática das colunas
+                autoWidth: false, // Desabilita a largura automática das colunas
                 responsive: true, // Habilita a funcionalidade responsiva
                 scrollX: true, // Adicione esta opção para permitir rolagem horizontal
                 columns: [{

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('uf')->nullable();
             $table->string('email');
             $table->string('senha');
+            $table->boolean('ativo')->default(true);
             $table->timestamps();
         });
     }
