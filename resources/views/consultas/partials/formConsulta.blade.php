@@ -1,5 +1,12 @@
 <div class="card">
-    <div class="card-body">
+    <div class="card-header d-flex justify-content-between">
+    <span>Laudo - {{$consulta->paciente->nome}}</span>
+
+        <a href="{{ route('gerar.pdf', $consulta->id) }}" target="_blank" class="btn btn-sm btn-danger text-white ml-auto">
+            <i class="far fa-file-pdf"></i> Exportar Laudo em PDF
+        </a>
+    </div>
+    <div class="card-body"> 
         <form action="{{ route('laudos.store') }}" method="POST" id="createLaudoForm">
             @csrf
             <input type="hidden" name="consulta_id" id="consulta_id" value="{{$consulta->id ?? ''}}">
@@ -21,10 +28,17 @@
                 <span id="paciente_id" name="paciente_id" value="{{$consulta->paciente->id ?? ''}}">{{$consulta->paciente->nome ?? ''}}</span>
             </div>
             <div class="form-group">
-                <label for="conteudo">Conteúdo:</label>
-                <textarea name="conteudo" id="summernote" value="{{$laudo->conteudo ?? ''}}" cols="30" rows="10" required>{{$laudo->conteudo ?? ''}}</textarea>
+                <label for="motivo_consulta">Motivo da Consulta:</label>
+                <textarea name="motivo_consulta" id="motivo_consulta" class="form-control" rows="2" value="{{$laudo->motivo_consulta ?? ''}}">{{$laudo->motivo_consulta ?? ''}}</textarea>
             </div>
-
+            <div class="form-group">
+                <label for="diagnostico">Diagnóstico:</label>
+                <textarea name="diagnostico" id="summernote_diagnostico" cols="30" rows="10" value="{{$laudo->diagnostico ?? ''}}" required>{{$laudo->diagnostico ?? ''}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="tratamento_recomendado">Tratamento:</label>
+                <textarea name="tratamento_recomendado" id="summernote_tratamento" cols="30" rows="10" value="{{$laudo->tratamento_recomendado ?? ''}}" required>{{$laudo->tratamento_recomendado ?? ''}}</textarea>
+            </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Salvar Laudo</button>
             </div>
@@ -33,10 +47,17 @@
 </div>
 
 @push('scripts')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
 <script>
+
     $(document).ready(function() {
-        $('#summernote').summernote({
-            height: 200 // Defina a altura desejada do editor
+        $('#summernote_diagnostico').summernote({
+            height: 350, // Defina a altura desejada do editor
+            placeholder: 'Exemplo: Fratura óssea constatada no exame radiológico',
+        });
+        $('#summernote_tratamento').summernote({
+            height: 120, // Defina a altura desejada do editor
+            placeholder: 'Exemplo: Prescrição do medicamento X, a ser tomado duas vezes ao dia após as refeições.'
         });
     });
 </script>
