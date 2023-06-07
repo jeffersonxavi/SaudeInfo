@@ -7,6 +7,7 @@ use App\Http\Controllers\EspecialidadeController;
 use App\Http\Controllers\AgendaProfissionalController;
 use App\Http\Controllers\TipoConsultaController;
 use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LaudoController;
 use App\Models\Consulta;
 use App\Models\Paciente;
@@ -29,10 +30,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [HomeController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -113,6 +113,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/laudos/{id}', [LaudoController::class, 'update'])->name('laudos.update');
     Route::delete('/laudos/{id}', [LaudoController::class, 'destroy'])->name('laudos.destroy');
     Route::post('/laudos/update-status', [LaudoController::class, 'updateStatus'])->name('laudos.updateStatus');
+    Route::get('/gerar-pdf/{id}', [LaudoController::class, 'gerarPDF'])->name('gerar.pdf');
 
     Route::get('/consultas/{id}', [ConsultaController::class, 'getConsultaDetails'])->name('consultas.details');
 });
