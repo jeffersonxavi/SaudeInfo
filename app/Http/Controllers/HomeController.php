@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aviso;
 use App\Models\Consulta;
 use App\Models\Paciente;
 use App\Models\Profissional;
@@ -77,7 +78,7 @@ class HomeController extends Controller
             })
             ->orderBy('dia_consulta')
             ->orderBy('hora_consulta')
-            ->take(5)
+            ->take(10)
             ->get();
 
         //Total
@@ -105,6 +106,11 @@ class HomeController extends Controller
             ],
         ];
 
+        $avisos = Aviso::where('data_criacao', '<=', $now)
+            ->where('data_expiracao', '>=', $now)
+            ->get();
+        $total_avisos = $avisos->count();
+
         return view('dashboard', compact(
             'graficoConsultaMes',
             'total_consultas',
@@ -114,7 +120,9 @@ class HomeController extends Controller
             'total_pacientes',
             'mediaConsultasPaciente',
             'mediaConsultasProfissional',
-            'graficoTipoConsulta'
+            'graficoTipoConsulta',
+            'total_avisos',
+            'avisos'
         ));
     }
 }

@@ -86,6 +86,9 @@ class ConsultaController extends Controller
             ->addColumn('tipoConsulta.duracao_estimada', function ($consulta) {
                 return $consulta->tipoConsulta->duracao_estimada;
             })
+            ->addColumn('laudo', function ($consulta) {
+                return $consulta->laudo;
+            })
             ->make(true);
     }
     

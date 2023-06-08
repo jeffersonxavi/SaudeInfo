@@ -2,8 +2,8 @@ const toggleSidebarButton = document.querySelector("#toggle-sidebar");
 const sidebar = document.querySelector(".sidebar");
 
 toggleSidebarButton.addEventListener("click", () => {
-    sidebar.classList.toggle("sidebar-collapsed");
-    sidebar.classList.toggle("sidebar-expanded");
+    sidebar.classList.remove("sidebar-collapsed");
+    sidebar.classList.add("sidebar-expanded");
 });
 
 sidebar.addEventListener("mouseleave", () => {

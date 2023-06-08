@@ -5,6 +5,7 @@ use App\Http\Controllers\PacienteController;
 use App\Http\Controllers\ProfissionalController;
 use App\Http\Controllers\EspecialidadeController;
 use App\Http\Controllers\AgendaProfissionalController;
+use App\Http\Controllers\AvisoController;
 use App\Http\Controllers\TipoConsultaController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\HomeController;
@@ -116,6 +117,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/gerar-pdf/{id}', [LaudoController::class, 'gerarPDF'])->name('gerar.pdf');
 
     Route::get('/consultas/{id}', [ConsultaController::class, 'getConsultaDetails'])->name('consultas.details');
+    
+    Route::get('avisos/ajax', [AvisoController::class, 'paginacaoAjax'])->name('avisos.ajax');
+    Route::get('/avisos', [AvisoController::class, 'index'])->name('avisos.index');
+    Route::get('/avisos/create', [AvisoController::class, 'create'])->name('avisos.create');
+    Route::post('/avisos', [AvisoController::class, 'store'])->name('avisos.store');
+    Route::get('/avisos/{id}/edit', [AvisoController::class, 'edit'])->name('avisos.edit');
+    Route::put('/avisos/{id}', [AvisoController::class, 'update'])->name('avisos.update');
+    Route::delete('/avisos/{id}', [AvisoController::class, 'destroy'])->name('avisos.destroy');
 });
 
 
