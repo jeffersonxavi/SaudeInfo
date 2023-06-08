@@ -5,10 +5,10 @@
 <div class="row">
   <div class="col">
     <div class="card">
-      <div class="card-header">
+      <div class="card-header bg-primary-custom">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4>Profissionais</h4>
-          <a href="{{ route('profissionais.create') }}" class="btn btn-primary btn-sm text-white">
+          <a href="{{ route('profissionais.create') }}" class="btn btn-primary btn-sm text-white custom-btn-primary">
             <i class="fas fa-plus"></i> Adicionar Profissional
           </a>
         </div>

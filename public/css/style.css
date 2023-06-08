@@ -23,13 +23,12 @@ body {
     bottom: 0;
     left: 0;
     width: 200px;
-    background-color: #87ceeb;
+    background-color: #004b41;
     padding: 12px;
     overflow: hidden;
     /* transition: width 0.2s ease-in-out; */
     z-index: 999; /* Garante que o sidebar fique sobreposto a outros elementos */
     overflow-y: auto; /* Adiciona uma barra de rolagem vertical */
-
 }
 
 /* Define as propriedades da barra lateral quando ela estiver colapsada */
@@ -72,7 +71,7 @@ body {
 
 /* Define as propriedades do corpo principal da página */
 .main {
-    margin-left: 60px; 
+    margin-left: 60px;
     padding: 20px;
     /* transition: margin-left 0.2s ease-in-out; */
 }
@@ -220,3 +219,12 @@ textarea {
     border-color: #d6e9c6;
     color: #3c763d;
 }
+.bg-primary-custom {
+    background-color: #004b41 !important; /* Substitua pela cor primária desejada */
+    color: #fff !important; /* Defina uma cor de texto adequada para contrastar com o fundo */
+}
+
+.custom-btn-primary {
+    background-color: #005a4e !important; /* Substitua pela cor desejada */
+}
+
