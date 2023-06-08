@@ -177,7 +177,7 @@
 
 @push('scripts')
 <!-- include libraries(jQuery, bootstrap) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" /> -->
 <!-- <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" /> -->
 <script>
   $(document).ready(function() {
@@ -187,7 +187,7 @@
     });
     $('#summernote_tratamento').summernote({
       height: 120, // Defina a altura desejada do editor
-      placeholder: 'Exemplo: Prescrição do medicamento X, a ser tomado duas vezes ao dia após as refeições.' 
+      placeholder: 'Exemplo: Prescrição do medicamento X, a ser tomado duas vezes ao dia após as refeições.'
     });
   });
   //Remover o padding-right adicionado
@@ -479,16 +479,14 @@
           var gerarPdfUrl = "{{ route('gerar.pdf', ':id') }}".replace(':id', row.id);
           return `
             <div class="btn-group">
-                <button class="btn btn-sm btn-success create-laudo-btn" data-consulta-id="${row.id}" data-toggle="modal" data-target="#createLaudoModal">
-                    ${row.laudo
-                        ? '<i class="far fa-file-alt" title="Laudo Gerado"></i>'
-                        : '<i class="far fa-plus-square" title="Gerar Laudo"></i>'}
-                </button>
-                <a href="${editUrl}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
-                <a href="${gerarPdfUrl}" target="_blank" class="btn btn-sm btn-danger"><i class="far fa-file-pdf"></i></a>
-                <button class="btn btn-sm btn-secondary delete-btn" data-id="${row.id}"><i class="far fa-trash-alt"></i></button>
+              <button class="btn btn-sm btn-success create-laudo-btn" data-consulta-id="${row.id}" data-toggle="modal" data-target="#createLaudoModal">
+                ${row.laudo ? '<i class="far fa-file-alt" title="Laudo Gerado"></i>' : '<i class="far fa-plus-square" title="Gerar Laudo"></i>'}
+              </button>
+                ${row.laudo ? `<a href="${gerarPdfUrl}" target="_blank" class="btn btn-sm btn-danger"><i class="far fa-file-pdf"></i></a>` : `<button class="btn btn-sm btn-danger" disabled><i class="far fa-file-pdf"></i></button>`}
+              <a href="${editUrl}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
+              <button class="btn btn-sm btn-secondary delete-btn" data-id="${row.id}"><i class="far fa-trash-alt"></i></button>
             </div>
-        `;
+          `;
         }
       }
     ],

@@ -492,17 +492,15 @@
                     var createLaudoUrl = "{{ route('laudos.create', ['consulta_id' => ':consulta_id']) }}".replace(':consulta_id', row.id);
                     var gerarPdfUrl = "{{ route('gerar.pdf', ':id') }}".replace(':id', row.id);
                     return `
-                    <div class="btn-group">
+                        <div class="btn-group">
                         <button class="btn btn-sm btn-success create-laudo-btn" data-consulta-id="${row.id}" data-toggle="modal" data-target="#createLaudoModal">
-                            ${row.laudo
-                                ? '<i class="far fa-file-alt" title="Laudo Gerado"></i>'
-                                : '<i class="far fa-plus-square" title="Gerar Laudo"></i>'}
+                            ${row.laudo ? '<i class="far fa-file-alt" title="Laudo Gerado"></i>' : '<i class="far fa-plus-square" title="Gerar Laudo"></i>'}
                         </button>
+                            ${row.laudo ? `<a href="${gerarPdfUrl}" target="_blank" class="btn btn-sm btn-danger"><i class="far fa-file-pdf"></i></a>` : `<button class="btn btn-sm btn-danger" disabled><i class="far fa-file-pdf"></i></button>`}
                         <a href="${editUrl}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
-                        <a href="${gerarPdfUrl}" target="_blank" class="btn btn-sm btn-danger"><i class="far fa-file-pdf"></i></a>
                         <button class="btn btn-sm btn-secondary delete-btn" data-id="${row.id}"><i class="far fa-trash-alt"></i></button>
-                    </div>
-                `;
+                        </div>
+                    `;
                 }
             }
 
