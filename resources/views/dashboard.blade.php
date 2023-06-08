@@ -2,70 +2,8 @@
 
 @section('content')
 <style>
-    .bg-gradient-green {
-        background-image: linear-gradient(to right, #00bfa5, #1de9b6);
-    }
-
-    .bg-gradient-blue {
-        background-image: linear-gradient(to right, #2962ff, #00b0ff);
-    }
-
-    .bg-gradient-orange {
-        background-image: linear-gradient(to right, #ff9100, #ffc400);
-    }
-
-    /* Media Screen */
-    @media only screen and (max-width: 600px) {
-        .info article {
-            margin-bottom: 20px;
-        }
-    }
-
-    /* Info */
-    .info {
-        padding: 20px 0;
-    }
-
-    .info article {
-        padding: 20px;
-        border-radius: 10px;
-    }
-
-    .info article i {
-        color: #fff;
-        font-size: 2.5rem;
-    }
-
-    .info article p {
-        color: #fff;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        margin: 0;
-    }
-
-    .info article h3 {
-        color: #fff;
-        font-size: 2rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        margin: 0 0 20px 0;
-    }
-
-    /* Gráficos */
-    .graficos {
-        padding: 20px;
-    }
-
-    .grafico {
-        padding: 20px;
-        border-radius: 10px;
-    }
-
-    .grafico h5 {
-        font-size: 1rem;
-        text-transform: uppercase;
-        font-weight: 500;
-        color: #333;
+    .bg-gradient-lightgreen {
+        background-image: linear-gradient(to right, #c1e7d9, #93d9c6);
     }
 
     .sidebar nav a i {
@@ -112,6 +50,81 @@
         height: 326px;
 
         /* Defina a altura da tabela */
+    }
+
+    .agenda {
+        margin-top: 20px;
+    }
+
+    .evento {
+        display: flex;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .evento-content {
+        flex: 1;
+    }
+
+    .evento-titulo {
+        font-weight: bold;
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .evento-descricao {
+        margin-top: 5px;
+        margin-bottom: 10px;
+
+    }
+
+    .evento-data {
+        display: flex;
+        align-items: flex-start;
+        margin-top: 5px;
+    }
+
+    .agenda-date {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .agenda-date .day {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .agenda-date .month {
+        font-size: 14px;
+        color: #666;
+    }
+
+    .evento-responsavel {
+        font-size: 14px;
+        color: #666;
+        font-style: italic;
+
+    }
+
+    .custom-title {
+        background-color: #008f7c;
+        color: white;
+        padding: 10px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        font-weight: bold;
+    }
+
+    .custom-evento {
+        background-color: #F8F8F8;
+        border-left: 4px solid #FF6F61;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 </style>
 
@@ -173,7 +186,7 @@
     </div>
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card align-items-stretch">
-            <div class="card-footer text-center" style="background-color:#333;">
+            <div class="card-footer text-center" style="background-color:#008f7c;">
                 <small class="text-white" class="text-white">Média de consultas</small>
                 <!-- <small class="text-muted"></small> -->
             </div>
@@ -206,14 +219,16 @@
                 </div>
                 <div>
                     <p class="mb-2 text-sm font-weight-medium text-gray-600">Avisos</p>
-                    <p class="text-lg font-weight-bold text-gray-700">{{number_format($mediaConsultasProfissional, 2)}}</p>
+                    <p class="text-lg font-weight-bold text-gray-700">{{$total_avisos}}</p>
                 </div>
             </div>
         </div>
     </div>
+    <!-- <div class="col-md-6">
+        <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 360px; padding:20px"> -->
     <div class="col-md-6">
-        <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 320px;">
-            <span class="card-title black-text text-center">Próximas consultas</span>
+        <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
+            <span class="card-title white-text text-center custom-title">Próximas consultas</span>
             <div class="table-responsive">
                 <table class="table mt-4">
                     <thead>
@@ -238,32 +253,58 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6">
+    <!-- <div class="col-md-6">
         <div class="card bg-gradient-green rounded-lg shadow-sm custom-card">
             <div class="card-content" style="height: 318px;">
                 <span class="card-title white-text">Avisos</span>
-                <table class="striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Idade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>João</td>
-                            <td>30</td>
-                        </tr>
-                        <tr>
-                            <td>Maria</td>
-                            <td>25</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="agenda">
+                    @foreach($avisos as $aviso)
+                    <div class="agenda-item">
+                        <div class="agenda-date">
+                            <span class="day">{{ date('d', strtotime($aviso->data_criacao)) }}</span>
+                            <span class="month">{{ date('M', strtotime($aviso->data_criacao)) }}</span>
+                        </div>
+                        <div class="agenda-details">
+                            <h5>{{ $aviso->titulo }}</h5>
+                            <p>{{ $aviso->descricao }}</p>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <div class="col-md-6">
+        <div class="card bg-white rounded-lg shadow-sm custom-card border-0">
+            <!-- <div class="card-content"> -->
+            <span class="card-title custom-title">Avisos</span>
+            <div class="agenda">
+                @if ($avisos->isEmpty())
+                <div class="no-avisos">Não há avisos disponíveis.</div>
+                @else
+                @foreach($avisos as $aviso)
+                <div class="evento custom-evento">
+                    <div class="evento-content">
+                        <div class="evento-titulo">
+                            <i class="fa-solid fa-bell"></i> {{$aviso->titulo}}
+                        </div>
+                        <div class="evento-descricao">{{$aviso->descricao}}</div>
+                        <div class="evento-responsavel">Responsável: {{$aviso->responsavel ?? 'Sem identificação'}}</div>
+                    </div>
+                    <div class="evento-data">
+                        <div class="agenda-date">
+                            <span class="day">{{ date('d', strtotime($aviso->data_aviso)) }}</span>
+                            <span class="month">{{ date('M', strtotime($aviso->data_aviso)) }}</span>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                @endif
             </div>
         </div>
     </div>
-    <!-- <div class="col-md-6">
+</div>
+<!-- <div class="col-md-6">
         <div class="card shadow-sm">
             <div class="card-content">
                 <canvas style="width: 300px; margin:auto ; height: 300px" id="pieChart"></canvas>

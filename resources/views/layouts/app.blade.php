@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +15,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="//cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-     <!-- Styles -->
+    <!-- Styles -->
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
@@ -25,6 +26,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
 </head>
 <body class="font-sans antialiased">
     <!-- Barra lateral -->
@@ -47,6 +49,7 @@
                 <li><a href="{{route('agendas.index')}}">Agenda Profissional</a></li>
                 <li><a href="{{route('tipos-consultas.index')}}">Tipos de Consultas</a></li>
                 <li><a href="{{route('consultas.index')}}">Consultas</a></li>
+                <li><a href="{{route('avisos.index')}}">Avisos</a></li>
             </ul>
 
             <a href="#submenu2" class="has-submenu">
@@ -79,9 +82,9 @@
             </a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <a onclick="event.preventDefault(); this.closest('form').submit();">
-                    <i class="material-icons">logout</i>
-                    <span class="sidebar-text">Sair</span>
+                <a href="#" onclick="event.preventDefault(); this.closest('form').submit();" class="cursor-pointer">
+                    <i class="material-icons clickable-icon">logout</i>
+                    <span class="sidebar-text clickable-text">Sair</span>
                 </a>
             </form>
         </nav>
@@ -110,4 +113,5 @@
     <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.css" />
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.3/datatables.min.js"></script> -->
 </body>
+
 </html>
