@@ -13,7 +13,7 @@
 <div class="row">
   <div class="col">
     <div class="card">
-      <div class="card-header">
+      <div class="card-header bg-primary-custom">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4>Consulta / {{ $consulta->paciente->nome }}</h4>
           <a href="{{ back()->getTargetUrl() }}" class="btn btn-outline-secondary btn-sm text-white">
@@ -68,7 +68,7 @@
           <div class="modal fade" id="novoLaudoModal" tabindex="-1" role="dialog" aria-labelledby="novoLaudoModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-primary-custom">
                   <h5 class="modal-title" id="novoLaudoModalLabel">Novo Laudo</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
                     <span aria-hidden="true">&times;</span>

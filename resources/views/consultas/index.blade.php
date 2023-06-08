@@ -74,7 +74,7 @@
 <div class="row">
   <div class="col">
     <div class="card">
-      <div class="card-header">
+      <div class="card-header bg-primary-custom">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4>Consultas</h4>
           <a href="{{ route('consultas.create') }}" class="btn btn-primary btn-sm text-white">
@@ -129,7 +129,7 @@
       <div class="modal fade custom-modal" id="createLaudoModal" tabindex="-1" role="dialog" aria-labelledby="createLaudoModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog" role="document">
           <div class="modal-content p-0">
-            <div class="modal-header">
+            <div class="modal-header bg-primary-custom">
               <h5 class="modal-title" id="createLaudoModalLabel"></h5>
               <span class="badge badge-success ml-2"></span>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">

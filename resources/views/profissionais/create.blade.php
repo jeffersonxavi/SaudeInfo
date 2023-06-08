@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col">
         <div class="card">
-            <div class="card-header bg-primary text-white">
+            <div class="card-header bg-primary-custom text-white">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Cadastro de Profissional</h4>
                     <a href="{{ route('profissionais.index') }}" class="btn btn-outline-secondary btn-sm text-white">

@@ -125,7 +125,7 @@
     <div class="modal fade custom-modal" id="createLaudoModal" tabindex="-1" role="dialog" aria-labelledby="createLaudoModalLabel" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog" role="document">
             <div class="modal-content p-0">
-                <div class="modal-header">
+                <div class="modal-header bg-primary-custom">
                     <h5 class="modal-title" id="createLaudoModalLabel"></h5>
                     <span class="badge badge-success ml-2"></span>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">

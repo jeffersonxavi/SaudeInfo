@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col">
     <div class="card">
-      <div class="card-header">
+      <div class="card-header bg-primary-custom">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4>Avisos</h4>
           <a href="{{ route('avisos.create') }}" class="btn btn-primary btn-sm text-white">
