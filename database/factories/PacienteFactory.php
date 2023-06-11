@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 use App\Models\Paciente;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 
@@ -29,7 +30,8 @@ class PacienteFactory extends Factory
             'genero' => $this->faker->randomElement(['masculino', 'feminino', 'outro']),
             'estado_civil' => $this->faker->randomElement(['solteiro', 'casado', 'divorciado', 'viuvo', 'outro']),
             'data_nascimento' => $this->faker->dateTimeBetween('-70 years', '-18 years')->format('Y-m-d'),
-            'ativo' => $this->faker->boolean
+            'ativo' => $this->faker->boolean,
+            'user_id' => User::pluck('id')->random(),
         ];
     }
 }

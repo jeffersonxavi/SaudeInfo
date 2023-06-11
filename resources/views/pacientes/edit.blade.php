@@ -19,24 +19,6 @@
             <span>Dados</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#tab2">
-            <i class="fas fa-calendar-alt"></i>
-            <span>Consultas</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#tab3">
-            <i class="fas fa-file-alt"></i>
-            <span>Laudos</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#tab4">
-            <i class="fas fa-file-medical"></i>
-            <span>Exames</span>
-          </a>
-        </li>
       </ul>
       <div class="tab-content mt-3">
         <div id="tab1" class="tab-pane fade show active">
@@ -44,19 +26,10 @@
             @csrf
             @method('PUT')
             @include('pacientes.partials.form')
-            <div class="form-group mt-3">
-              <button type="submit" class="btn btn-primary">Salvar</button>
+            <div class="form-group mt-3 text-end">
+              <x-primary-button>{{ __('Salvar') }}</x-primary-button>
             </div>
           </form>
-        </div>
-        <div id="tab2" class="tab-pane fade">
-          <p>Conteúdo da aba 2.</p>
-        </div>
-        <div id="tab3" class="tab-pane fade">
-          <p>Conteúdo da aba 3.</p>
-        </div>
-        <div id="tab4" class="tab-pane fade">
-          <p>Conteúdo da aba 4.</p>
         </div>
       </div>
     </div>

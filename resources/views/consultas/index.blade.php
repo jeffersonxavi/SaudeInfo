@@ -77,9 +77,15 @@
       <div class="card-header">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4>Consultas</h4>
+          @can('admin')
           <a href="{{ route('consultas.create') }}" class="btn btn-primary btn-sm text-white">
             <i class="fas fa-plus"></i> Consulta
           </a>
+          @elsecan('profissional')
+          <a href="{{ route('consultas.create') }}" class="btn btn-primary btn-sm text-white">
+            <i class="fas fa-plus"></i> Consulta
+          </a>
+          @endcan
         </div>
       </div>
       <div class="card-body">
@@ -274,6 +280,8 @@
 </script>
 
 <script>
+  var isUser = @json(auth()->user()->can('user'));
+
   let table = new DataTable('#consultas-table', {
     language: {
       "url": "//cdn.datatables.net/plug-ins/1.11.3/i18n/pt_br.json",
@@ -420,53 +428,55 @@
       //   name: 'descricao'
       // },
       {
-        data: 'status',
-        name: 'status',
-        render: function(data, type, row, meta) {
-          var statusOptions = {
-            1: 'Agendada',
-            2: 'Confirmada',
-            3: 'Em andamento',
-            4: 'Realizada',
-            5: 'Cancelada',
-            6: 'Ausente',
-            7: 'Remarcada'
-          };
+  data: 'status',
+  name: 'status',
+  render: function(data, type, row, meta) {
+    var statusOptions = {
+      1: 'Agendada',
+      2: 'Confirmada',
+      3: 'Em andamento',
+      4: 'Realizada',
+      5: 'Cancelada',
+      6: 'Ausente',
+      7: 'Remarcada'
+    };
 
-          var selectOptions = '';
-          for (var key in statusOptions) {
-            var selected = (key == data) ? 'selected' : '';
-            selectOptions += `<option value="${key}" ${selected}>${statusOptions[key]}</option>`;
-          }
+    var selectOptions = '';
+    for (var key in statusOptions) {
+      var selected = (key == data) ? 'selected' : '';
+      selectOptions += `<option value="${key}" ${selected}>${statusOptions[key]}</option>`;
+    }
 
-          // Verifica se a hora atual está dentro da faixa de tempo da consulta
-          var horaAtual = new Date().getHours();
-          var horaConsulta = new Date(row.hora).getHours();
-          if (horaConsulta === horaAtual) {
-            data = 3; // Define o valor do status como "Em andamento"
-          }
+    // Verifica se a hora atual está dentro da faixa de tempo da consulta
+    var horaAtual = new Date().getHours();
+    var horaConsulta = new Date(row.hora).getHours();
+    if (horaConsulta === horaAtual) {
+      data = 3; // Define o valor do status como "Em andamento"
+    }
 
-          var statusIcons = {
-            1: '<i class="fas fa-calendar-alt icon agendada" title="Agendada" data-toggle="tooltip"></i>',
-            2: '<i class="fas fa-check-circle icon confirmada" title="Confirmada" data-toggle="tooltip"></i>',
-            3: '<i class="fas fa-spinner icon em-andamento" title="Em andamento" data-toggle="tooltip"></i>',
-            4: '<i class="fas fa-check icon realizada" title="Realizada" data-toggle="tooltip"></i>',
-            5: '<i class="fas fa-times-circle icon cancelada" title="Cancelada" data-toggle="tooltip"></i>',
-            6: '<i class="fas fa-user-times icon ausente" title="Ausente" data-toggle="tooltip"></i>',
-            7: '<i class="fas fa-sync icon remarcada" title="Remarcada" data-toggle="tooltip"></i>'
-          };
+    var statusIcons = {
+      1: '<i class="fas fa-calendar-alt icon agendada" title="Agendada" data-toggle="tooltip"></i>',
+      2: '<i class="fas fa-check-circle icon confirmada" title="Confirmada" data-toggle="tooltip"></i>',
+      3: '<i class="fas fa-spinner icon em-andamento" title="Em andamento" data-toggle="tooltip"></i>',
+      4: '<i class="fas fa-check icon realizada" title="Realizada" data-toggle="tooltip"></i>',
+      5: '<i class="fas fa-times-circle icon cancelada" title="Cancelada" data-toggle="tooltip"></i>',
+      6: '<i class="fas fa-user-times icon ausente" title="Ausente" data-toggle="tooltip"></i>',
+      7: '<i class="fas fa-sync icon remarcada" title="Remarcada" data-toggle="tooltip"></i>'
+    };
 
-          var icon = statusIcons[data] || '<i class="fas fa-question"></i>';
-          var selectHtml = `
-            <div class="status-select-wrapper d-flex align-items-center">
-              <div class="status-icon mr-2">${icon}</div>
-              <select class="form-control status-select" data-id="${row.id}">
-                ${selectOptions}
-              </select>
-            </div>
-          `;
-          return selectHtml;
-        },
+    var icon = statusIcons[data] || '<i class="fas fa-question"></i>';
+    var selectHtml = `
+      <div class="status-select-wrapper d-flex align-items-center">
+        <div class="status-icon mr-2">${icon}</div>
+        <select class="form-control status-select" data-id="${row.id}" ${isUser ? 'disabled' : ''}>
+          ${selectOptions}
+        </select>
+      </div>
+    `;
+    return selectHtml;
+  }
+
+
       },
       {
         data: 'id',
@@ -474,21 +484,31 @@
         orderable: false,
         searchable: false,
         render: function(data, type, row, meta) {
-          var editUrl = "{{ route('consultas.edit', ':id') }}".replace(':id', row.id);
-          var createLaudoUrl = "{{ route('laudos.create', ['consulta_id' => ':consulta_id']) }}".replace(':consulta_id', row.id);
-          var gerarPdfUrl = "{{ route('gerar.pdf', ':id') }}".replace(':id', row.id);
-          return `
-            <div class="btn-group">
-              <button class="btn btn-sm btn-success create-laudo-btn" data-consulta-id="${row.id}" data-toggle="modal" data-target="#createLaudoModal">
-                ${row.laudo ? '<i class="far fa-file-alt" title="Laudo Gerado"></i>' : '<i class="far fa-plus-square" title="Gerar Laudo"></i>'}
-              </button>
-                ${row.laudo ? `<a href="${gerarPdfUrl}" target="_blank" class="btn btn-sm btn-danger"><i class="far fa-file-pdf"></i></a>` : `<button class="btn btn-sm btn-danger" disabled><i class="far fa-file-pdf"></i></button>`}
-              <a href="${editUrl}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>
-              <button class="btn btn-sm btn-secondary delete-btn" data-id="${row.id}"><i class="far fa-trash-alt"></i></button>
-            </div>
-          `;
+            var editUrl = "{{ route('consultas.edit', ':id') }}".replace(':id', row.id);
+            var createLaudoUrl = "{{ route('laudos.create', ['consulta_id' => ':consulta_id']) }}".replace(':consulta_id', row.id);
+            var gerarPdfUrl = "{{ route('gerar.pdf', ':id') }}".replace(':id', row.id);
+            var isAdmin = @json(auth()->user()->can('admin'));
+            var isProfissional = @json(auth()->user()->can('profissional'));
+            var isUser = @json(auth()->user()->can('user'));
+            var hasLaudo = row.laudo;
+            
+            var gerarPdfButton = hasLaudo
+                ? `<a href="${gerarPdfUrl}" target="_blank" class="btn btn-sm btn-danger"><i class="far fa-file-pdf"></i></a>`
+                : `<button class="btn btn-sm btn-danger" disabled><i class="far fa-file-pdf"></i></button>`;
+            
+            return `
+                <div class="btn-group">
+                    ${isUser ? '' : `<button class="btn btn-sm btn-success create-laudo-btn" data-consulta-id="${row.id}" data-toggle="modal" data-target="#createLaudoModal">
+                                      ${row.laudo ? '<i class="far fa-file-alt" title="Laudo Gerado"></i>' : '<i class="far fa-plus-square" title="Gerar Laudo"></i>'}
+                                    </button>`}
+                    ${gerarPdfButton}
+                    ${isAdmin || isProfissional ? `<a href="${editUrl}" class="btn btn-sm btn-primary"><i class="far fa-edit"></i></a>` : ''}
+                    ${isAdmin || isProfissional ? `<button class="btn btn-sm btn-secondary delete-btn" data-id="${row.id}"><i class="far fa-trash-alt"></i></button>` : ''}
+                </div>
+            `;
         }
-      }
+    }
+
     ],
     columnDefs: [{
         targets: '_all',

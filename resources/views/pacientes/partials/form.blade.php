@@ -55,7 +55,11 @@
 
     <div class="form-group col-md-7">
         <label for="email">E-mail:</label>
-        <input type="email" class="form-control" id="email" name="email" value="{{ $paciente->email ?? old('email') }}" required>
+        <input type="email" class="form-control" id="email" name="email" value="{{ $user->email ?? old('email') }}" required>
+    </div>
+    <div class="form-group col-md-3">
+        <label for="senha">Senha:</label>
+        <input type="password" class="form-control" id="senha" name="senha" value="{{ $paciente->senha ?? old('senha') }}" required>
     </div>
 </div>
 <div class="form-row">

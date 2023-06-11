@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 use App\Models\Profissional;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,7 +31,8 @@ class ProfissionalFactory extends Factory
             'telefone' => $this->faker->numerify('(##) ####-####'),
             'email' => $this->faker->email,
             'senha' => Hash::make('senha123'),
-            'tipo_profissional' => $this->faker->randomElement(['Médico', 'Dentista', 'Enfermeiro', 'Fisioterapeuta'])
+            'tipo_profissional' => $this->faker->randomElement(['Médico', 'Dentista', 'Enfermeiro', 'Fisioterapeuta']),
+            'user_id' => User::pluck('id')->random(),
         ];
     }
 }

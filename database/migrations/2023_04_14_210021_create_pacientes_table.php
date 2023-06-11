@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pacientes', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('nome');
             $table->string('cpf');
             $table->string('rg')->nullable();
@@ -31,6 +32,7 @@ return new class extends Migration
             $table->date('data_nascimento')->nullable();
             $table->boolean('ativo')->default(true);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

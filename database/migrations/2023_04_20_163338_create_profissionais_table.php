@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('profissionais', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('nome');
             $table->string('crm');
             $table->string('cpf');
@@ -28,6 +29,7 @@ return new class extends Migration
             $table->string('senha');
             $table->boolean('ativo')->default(true);
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
