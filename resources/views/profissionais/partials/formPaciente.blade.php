@@ -2,9 +2,10 @@
     <table id="pacientes-table" class="table table-hover table-striped table-bordered">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Paciente</th>
-                <th>Status</th>
+                <th>Email</th>
+                <!-- <th>Tipo de Consulta</th> -->
+                <!-- <th>Status</th> -->
             </tr>
         </thead>
     </table>
@@ -26,25 +27,30 @@
         responsive: true, // Habilita a funcionalidade responsiva
         //scrollX: true, // Adicione esta opção para permitir rolagem horizontal
         ajax: "{!! route('profissionais.pacientes', $profissional->id) !!}",
-        columns: [{
-                data: 'id'
+        columns: [
+            // {
+            //     data: 'id'
+            // },
+            {
+                data: 'paciente.nome'
             },
             {
-                data: 'nome'
+                data: 'tipoConsulta.nome'
             },
-            {
-                data: null,
-                orderable: false,
-                searchable: false,
-                render: function(data, type, row) {
-                    var select = `<select class="form-select select-status" data-id="${row.id}">
-                    <option value="1" ${row.vinculado ? "selected" : ""}>ATIVO</option>
-                    <option value="0" ${!row.vinculado ? "selected" : ""}>INATIVO</option>
-                    </select>`;
-                    return select;
-                }
-            }
+            // {
+            //     data: null,
+            //     orderable: false,
+            //     searchable: false,
+            //     render: function(data, type, row) {
+            //         var select = `<select class="form-select select-status" data-id="${row.id}">
+            // <option value="1" ${row.vinculado ? "selected" : ""}>ATIVO</option>
+            // <option value="0" ${!row.vinculado ? "selected" : ""}>INATIVO</option>
+            // </select>`;
+            //         return select;
+            //     }
+            // }
         ],
+
 
 
 

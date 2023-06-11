@@ -29,8 +29,8 @@
         </div>
     </div>
 </div>
-<div class="form-group mt-3">
-    <button type="submit" class="btn btn-primary">Salvar</button>
+<div class="form-group mt-3 text-end">
+<x-primary-button>{{ __('Salvar') }}</x-primary-button>
 </div>
 <div class="modal fade" id="addEspecialidadeModal" tabindex="-1" role="dialog" aria-labelledby="addEspecialidadeModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
