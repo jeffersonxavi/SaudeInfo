@@ -15,23 +15,25 @@ class ConsultaController extends Controller
 {
     public function paginacaoAjax(Request $request)
     {
-        // Verifique se foi fornecida uma data no parâmetro "data"
         $dataParam = $request->input('data');
 
-        // Se nenhuma data for fornecida, obtenha todas as datas
-        if (!$dataParam) {
-            $data = Consulta::with('paciente', 'profissional', 'tipoConsulta', 'laudo')->get();
-        } else {
-            // Verifique se a data fornecida é "todas"
-            if ($dataParam === 'todas') {
-                $data = Consulta::with('paciente', 'profissional', 'tipoConsulta', 'laudo')->get();
-            } else {
-                // Filtrar as consultas pela data fornecida
-                $data = Consulta::with('paciente', 'profissional', 'tipoConsulta', 'laudo')
-                    ->whereDate('dia_consulta', $dataParam)
-                    ->get();
+        $query = Consulta::with('paciente', 'profissional', 'tipoConsulta', 'laudo');
+
+        if ($dataParam) {
+            if ($dataParam !== 'todas') {
+                $query->whereDate('dia_consulta', $dataParam);
             }
         }
+
+        if (auth()->user()->can('profissional')) {
+            $profissional = Profissional::where('user_id', auth()->user()->id)->first();
+            $query->where('profissional_id', $profissional->id);
+        } elseif (auth()->user()->can('user')) {
+            $paciente = Paciente::where('user_id', auth()->user()->id)->first();
+            $query->where('paciente_id', $paciente->id);
+        }
+
+        $data = $query->get();
         return Datatables::of($data)
             ->addColumn('paciente.nome', function ($consulta) {
                 return $consulta->paciente->nome;
@@ -58,18 +60,18 @@ class ConsultaController extends Controller
     {
         $profissionalId = $request->input('profissionalId');
         $dataParam = $request->input('data');
-    
+
         $query = Consulta::with('paciente', 'profissional', 'tipoConsulta')
             ->where('profissional_id', $profissionalId);
-    
+
         if ($dataParam) {
             if ($dataParam !== 'todas') {
                 $query->whereDate('dia_consulta', $dataParam);
             }
         }
-    
+
         $data = $query->get();
-    
+
         return Datatables::of($data)
             ->addColumn('paciente.nome', function ($consulta) {
                 return $consulta->paciente->nome;
@@ -91,8 +93,6 @@ class ConsultaController extends Controller
             })
             ->make(true);
     }
-    
-
 
     public function index()
     {
@@ -130,6 +130,9 @@ class ConsultaController extends Controller
     public function store(Request $request)
     {
         Consulta::create($request->all());
+        $profissional = Profissional::find($request->profissional_id);
+
+        $profissional->pacientes()->syncWithoutDetaching($request->input('paciente_id'));
         return redirect()->route('consultas.index');
     }
 
@@ -140,13 +143,17 @@ class ConsultaController extends Controller
         $profissionais = Profissional::all();
         $tiposConsultas = TipoConsulta::all();
         $laudo = Laudo::where('consulta_id', $id)->first();
-        return view('consultas.edit', compact('consulta', 'pacientes', 'profissionais', 'tiposConsultas','laudo'));
+        return view('consultas.edit', compact('consulta', 'pacientes', 'profissionais', 'tiposConsultas', 'laudo'));
     }
 
     public function update(Request $request, $id)
     {
         $consulta = Consulta::find($id);
         $consulta->update($request->all());
+        $profissional = Profissional::find($request->profissional_id);
+
+        $profissional->pacientes()->syncWithoutDetaching($request->input('paciente_id'));
+
         return redirect()->route('consultas.index');
     }
 
@@ -161,23 +168,23 @@ class ConsultaController extends Controller
     {
         $procurar = $request->nome;
         $dataSelecionada = $request->data; // Novo parâmetro de data
-    
+
         if ($procurar) {
             $profissionais = Profissional::where('nome', 'LIKE', "%$procurar%")->get();
-    
+
             foreach ($profissionais as $profissional) {
                 $consultas = Consulta::where('profissional_id', $profissional->id)
                     ->whereDate('dia_consulta', $dataSelecionada) // Usar a data selecionada na cláusula WHERE
                     ->count();
-    
+
                 $profissional->num_consultas = $consultas;
                 $profissional->data_selecionada = $dataSelecionada; // Adicionar a data selecionada à resposta JSON
             }
         }
-    
+
         return response()->json($profissionais);
     }
-    
+
 
 
     public function updateStatus(Request $request)
@@ -198,12 +205,11 @@ class ConsultaController extends Controller
     {
         $consulta = Consulta::with('profissional', 'paciente', 'tipoConsulta')->findOrFail($id);
         $laudo = Laudo::where('consulta_id', $id)->first();
-    
+
         if ($laudo) {
             $consulta->laudo = $laudo;
         }
-    
+
         return response()->json($consulta);
     }
-    
 }

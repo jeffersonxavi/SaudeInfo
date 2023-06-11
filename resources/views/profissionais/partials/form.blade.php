@@ -1,7 +1,7 @@
 <div class="form-row">
     <div class="form-group col-md-7">
         <label for="nome">Nome completo:</label>
-        <input type="text" class="form-control" id="nome" name="nome" value="{{ $profissional->nome ?? old('nome') }}" required>
+        <input type="text" class="form-control" id="nome" name="nome" value="{{ $user->name ?? old('nome') }}" required>
     </div>
     <div class="form-group col-md-3">
         <label for="cpf">CPF:</label>
@@ -36,11 +36,11 @@
     </div>
     <div class="form-group col-md-6">
         <label for="email">Email:</label>
-        <input type="email" class="form-control" id="email" name="email" value="{{ $profissional->email ?? old('email') }}" required>
+        <input type="email" class="form-control" id="email" name="email" value="{{ $user->email ?? old('email') }}" required>
     </div>
     <div class="form-group col-md-3">
         <label for="senha">Senha:</label>
-        <input type="password" class="form-control" id="senha" name="senha" value="{{ $profissional->senha ?? old('senha') }}" required>
+        <input type="password" class="form-control" id="senha" name="senha" value="{{ $user->senha ?? old('senha') }}" required>
     </div>
 </div>
 <div class="form-row">

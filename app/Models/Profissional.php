@@ -11,6 +11,7 @@ class Profissional extends Model
     protected $table = 'profissionais';
 
     protected $fillable = [
+        'user_id',
         'nome',
         'crm',
         'cpf',
@@ -35,5 +36,10 @@ class Profissional extends Model
     public function pacientes()
     {
         return $this->belongsToMany(Paciente::class);
+    }
+
+    public function consultas()
+    {
+        return $this->hasMany(Consulta::class);
     }
 }

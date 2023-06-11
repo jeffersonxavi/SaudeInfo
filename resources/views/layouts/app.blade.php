@@ -28,57 +28,58 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
 </head>
+
 <body class="font-sans antialiased">
     <!-- Barra lateral -->
     <aside id="toggle-sidebar" class="sidebar">
         <header class="sidebar-header">
-            <img class="logo-img" src="https://www.pngfind.com/pngs/m/65-651785_hospital-icon-png-transparent-png.png" alt="Foto do Usuário">
+        <img class="logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlS4NN2iQeZb2Iybsk7vGsK8SKdVUYdRtuM02kppYdmI3iw7u_22sgsVeiyGZznmMFeSw&usqp=CAU" alt="Foto do Usuário">
+            
         </header>
         <nav>
             <a href="{{ route('dashboard') }}">
                 <i class="material-icons">dashboard</i>
                 <span class="sidebar-text">Home</span>
             </a>
+            @can('admin')
             <a href="#submenu1" class="has-submenu">
                 <i class="material-icons">menu</i>
                 <span class="sidebar-text">Cadastro</span>
             </a>
             <ul id="submenu1" class="submenu">
-                <li><a href="{{route('pacientes.index')}}">Pacientes</a></li>
-                <li><a href="{{route('profissionais.index')}}">Profissional</a></li>
-                <li><a href="{{route('agendas.index')}}">Agenda Profissional</a></li>
-                <li><a href="{{route('tipos-consultas.index')}}">Tipos de Consultas</a></li>
-                <li><a href="{{route('consultas.index')}}">Consultas</a></li>
-                <li><a href="{{route('avisos.index')}}">Avisos</a></li>
+                <li><a href="{{ route('pacientes.index') }}"><i class="fas fa-user fa-xs"></i> Pacientes</a></li>
+                <li><a href="{{ route('profissionais.index') }}"><i class="fas fa-user-md fa-xs"></i> Profissional</a></li>
+                <li><a href="{{ route('agendas.index') }}"><i class="far fa-calendar-alt fa-xs"></i> Agenda Profissional</a></li>
+                <li><a href="{{ route('tipos-consultas.index') }}"><i class="fas fa-clipboard-list fa-xs"></i> Tipos de Consultas</a></li>
+                <li><a href="{{ route('consultas.index') }}"><i class="far fa-calendar-check fa-xs"></i> Consultas</a></li>
+                <li><a href="{{ route('avisos.index') }}"><i class="fas fa-bell fa-xs"></i> Avisos</a></li>
             </ul>
-
-            <a href="#submenu2" class="has-submenu">
+            @elsecan('profissional')
+            <a href="{{ route('consultas.index') }}">
+                <i class="material-icons">assignment</i>
+                <span class="sidebar-text">Consultas</span>
+            </a>
+            <a href="{{ route('avisos.index') }}">
+                <i class="material-icons">notifications</i>
+                <span class="sidebar-text">Avisos</span>
+            </a>
+            <a href="{{ route('profissionais.edit', auth()->user()->profissional->id)}} ">
+                <i class="material-icons">settings</i>
+                <span class="sidebar-text">Gerenciamento</span>
+            </a>
+            @elsecan('user')
+            <a href="{{ route('consultas.index') }}">
+                <i class="material-icons">assignment</i>
+                <span class="sidebar-text">Consultas</span>
+            </a>
+            <a href="{{ route('pacientes.edit', auth()->user()->paciente->id)}} ">
+                <i class="material-icons">settings</i>
+                <span class="sidebar-text">Gerenciamento</span>
+            </a>
+            @endcan
+            <a href="{{ route('profile.edit') }}">
                 <i class="material-icons">person</i>
                 <span class="sidebar-text">Perfil</span>
-            </a>
-            <ul id="submenu2" class="submenu ">
-                <li><a href="{{ route('profile.edit') }}">Configurações</a></li>
-                <li>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <a onclick="event.preventDefault(); this.closest('form').submit();">
-                            <i class="material-icons">logout</i>
-                            <span class="sidebar-text">Sair</span>
-                        </a>
-                    </form>
-                </li>
-            </ul>
-            <a href="{{ route('profile.edit') }}">
-                <i class="material-icons">tag</i>
-                <span class="sidebar-text">Outros</span>
-            </a>
-            <a href="{{ route('profile.edit') }}">
-                <i class="material-icons">person</i>
-                <span class="sidebar-text">Perfil</span>
-            </a>
-            <a href="#!">
-                <i class="material-icons">dashboard</i>
-                <span class="sidebar-text">Dashboard</span>
             </a>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf

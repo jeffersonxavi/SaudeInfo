@@ -46,15 +46,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tab3">
-                        <i class="fas fa-stethoscope"></i>
-                        <span>Especialidades</span>
-                    </a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#tab4">
                         <i class="fas fa-stethoscope"></i>
                         <span>Consultas</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tab3">
+                        <i class="fas fa-stethoscope"></i>
+                        <span>Especialidades</span>
                     </a>
                 </li>
             </ul>
@@ -65,8 +65,8 @@
                         @csrf
                         @method('PUT')
                         @include('profissionais.partials.form')
-                        <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        <div class="form-group mt-3 text-end">
+                        <x-primary-button>{{ __('Salvar') }}</x-primary-button>
                         </div>
                     </form>
                 </div>
@@ -76,9 +76,11 @@
                         @method('PUT')
                         @include('profissionais.partials.formPaciente')
                         <div class="form-group mt-3">
-                            <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
                     </form>
+                </div>
+                <div id="tab4" class="tab-pane fade">
+                    @include('profissionais.partials.formConsulta')
                 </div>
                 <div id="tab3" class="tab-pane fade">
                     <form id="form-profissional" method="POST" action="{{ route('profissionais.update', $profissional->id) }}">
@@ -86,9 +88,6 @@
                         @method('PUT')
                         @include('profissionais.partials.formEspecialidade')
                     </form>
-                </div>
-                <div id="tab4" class="tab-pane fade">
-                    @include('profissionais.partials.formConsulta')
                 </div>
             </div>
         </div>

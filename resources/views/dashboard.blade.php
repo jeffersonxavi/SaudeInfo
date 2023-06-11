@@ -129,7 +129,7 @@
 </style>
 
 
-@can('user')
+@can('admin')
 <!-- Cards -->
 <div class="row">
     <div class="col-md-3">
@@ -228,24 +228,26 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 360px; padding:20px"> -->
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
-            <span class="card-title white-text text-center custom-title">Próximas consultas</span>
+            <span class="card-title white-text text-center custom-title">Agenda</span>
             <div class="table-responsive">
                 <table class="table mt-4">
                     <thead>
                         <tr>
-                            <th scope="col">Paciente</th>
-                            <th scope="col">Consulta</th>
-                            <th scope="col">Profissional</th>
+                            <th scope="col">Data</th>
                             <th scope="col">Horário</th>
+                            <th scope="col">Paciente</th>
+                            <th scope="col">Profissional</th>
+                            <th scope="col">Consulta</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($proximas_consultas as $prox_consulta)
                         <tr>
-                            <td>{{ implode(' ', array_slice(explode(' ', $prox_consulta->paciente->nome), 0, 2)) }}</td>
-                            <td>{{$prox_consulta->tipoConsulta->nome ?? ''}}</td>
-                            <td>{{ implode(' ', array_slice(explode(' ', $prox_consulta->profissional->nome), 0, 2)) }}</td>
+                            <td>{{ \Carbon\Carbon::parse($prox_consulta->dia_consulta)->format('d/m/Y') }}</td>
                             <td>{{$prox_consulta->hora_consulta}}</td>
+                            <td>{{ implode(' ', array_slice(explode(' ', $prox_consulta->paciente->nome), 0, 2)) }}</td>
+                            <td>{{ implode(' ', array_slice(explode(' ', $prox_consulta->profissional->nome), 0, 2)) }}</td>
+                            <td>{{$prox_consulta->tipoConsulta->nome ?? ''}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -253,27 +255,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="col-md-6">
-        <div class="card bg-gradient-green rounded-lg shadow-sm custom-card">
-            <div class="card-content" style="height: 318px;">
-                <span class="card-title white-text">Avisos</span>
-                <div class="agenda">
-                    @foreach($avisos as $aviso)
-                    <div class="agenda-item">
-                        <div class="agenda-date">
-                            <span class="day">{{ date('d', strtotime($aviso->data_criacao)) }}</span>
-                            <span class="month">{{ date('M', strtotime($aviso->data_criacao)) }}</span>
-                        </div>
-                        <div class="agenda-details">
-                            <h5>{{ $aviso->titulo }}</h5>
-                            <p>{{ $aviso->descricao }}</p>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-        </div>
-    </div> -->
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0">
             <!-- <div class="card-content"> -->
@@ -304,23 +285,256 @@
         </div>
     </div>
 </div>
-<!-- <div class="col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-content">
-                <canvas style="width: 300px; margin:auto ; height: 300px" id="pieChart"></canvas>
+@elsecan('profissional')
+<!-- Cards -->
+<div class="row">
+    <div class="col-md-3">
+        <div class="card bg-white rounded-lg shadow-sm custom-card">
+            <div class="card-body d-flex align-items-center">
+                <div class="p-3 mr-4 custom-circle">
+                    <i class="fas fa-procedures" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-weight-medium text-gray-600">Total de Pacientes</p>
+                    <p class="text-lg font-weight-bold text-gray-700">{{$total_pacientes_profissional}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-white rounded-lg shadow-sm custom-card">
+            <div class="card-body d-flex align-items-center">
+                <div class="p-3 mr-4 custom-circle">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-weight-medium text-gray-600">Total de consultas</p>
+                    <p class="text-lg font-weight-bold text-gray-700">{{$total_consultas}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-white rounded-lg shadow-sm custom-card">
+            <div class="card-body d-flex align-items-center">
+                <div class="p-3 mr-4 custom-circle">
+                    <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-weight-medium text-gray-600">Consultas hoje</p>
+                    <p class="text-lg font-weight-bold text-gray-700">{{$consultas_do_dia}}</p>
+                </div>
             </div>
         </div>
     </div>
     <div class="col-md-6">
-        <div class="card shadow-sm">
-            <div class="card-content">
-                <canvas style="height: 300px; margin:auto; width: 500px" id="chart"></canvas>
+        <div class="card bg-white rounded-lg shadow-sm custom-card align-items-stretch">
+            <div class="card-footer text-center" style="background-color:#008f7c;">
+                <small class="text-white" class="text-white">Média de consultas</small>
+                <!-- <small class="text-muted"></small> -->
+            </div>
+            <div class="card-body d-flex align-items-center justify-content-center text-center">
+                <div class="media-average">
+                    <span class="average-label mr-2">
+                        <i class="fas fa-user" aria-hidden="true"></i> Paciente:
+                        <strong>{{ number_format($mediaConsultasPaciente, 2) }}</strong>
+                    </span>
+
+                </div>
             </div>
         </div>
-    </div> -->
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-white rounded-lg shadow-sm custom-card align-items-stretch">
+            <div class="card-body d-flex align-items-center justify-content-center text-center">
+                <canvas style="height: 60px; width: 600px;" id="barChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card bg-white rounded-lg shadow-sm custom-card">
+            <div class="card-body d-flex align-items-center">
+                <div class="p-3 mr-4 custom-circle" style="background-color: white;">
+                    <i class="fa-solid fa-bell" style="color:#00bfa5"></i>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-weight-medium text-gray-600">Avisos</p>
+                    <p class="text-lg font-weight-bold text-gray-700">{{$total_avisos}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-md-6">
+        <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 360px; padding:20px"> -->
+    <div class="col-md-6">
+        <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
+            <span class="card-title white-text text-center custom-title">Agenda</span>
+            <div class="table-responsive">
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">Data</th>
+                            <th scope="col">Horário</th>
+                            <th scope="col">Paciente</th>
+                            <th scope="col">Profissional</th>
+                            <th scope="col">Consulta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($proximas_consultas as $prox_consulta)
+                        <tr>
+                            <td>{{ \Carbon\Carbon::parse($prox_consulta->dia_consulta)->format('d/m/Y') }}</td>
+                            <td>{{$prox_consulta->hora_consulta}}</td>
+                            <td>{{ implode(' ', array_slice(explode(' ', $prox_consulta->paciente->nome), 0, 2)) }}</td>
+                            <td>{{ implode(' ', array_slice(explode(' ', $prox_consulta->profissional->nome), 0, 2)) }}</td>
+                            <td>{{$prox_consulta->tipoConsulta->nome ?? ''}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card bg-white rounded-lg shadow-sm custom-card border-0">
+            <!-- <div class="card-content"> -->
+            <span class="card-title custom-title">Avisos</span>
+            <div class="agenda">
+                @if ($avisos->isEmpty())
+                <div class="no-avisos">Não há avisos disponíveis.</div>
+                @else
+                @foreach($avisos as $aviso)
+                <div class="evento custom-evento">
+                    <div class="evento-content">
+                        <div class="evento-titulo">
+                            <i class="fa-solid fa-bell"></i> {{$aviso->titulo}}
+                        </div>
+                        <div class="evento-descricao">{{$aviso->descricao}}</div>
+                        <div class="evento-responsavel">Responsável: {{$aviso->responsavel ?? 'Sem identificação'}}</div>
+                    </div>
+                    <div class="evento-data">
+                        <div class="agenda-date">
+                            <span class="day">{{ date('d', strtotime($aviso->data_aviso)) }}</span>
+                            <span class="month">{{ date('M', strtotime($aviso->data_aviso)) }}</span>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                @endif
+            </div>
+        </div>
+    </div>
 </div>
-@elsecan('admin')
-Sistema para o projeto de TCC - Somente ADMIN vai
+@elsecan('user')
+<!-- Cards -->
+<div class="row">
+    <div class="col-md-3">
+        <div class="card bg-white rounded-lg shadow-sm custom-card">
+            <div class="card-body d-flex align-items-center">
+                <div class="p-3 mr-4 custom-circle">
+                    <i class="fas fa-clipboard-list"></i>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-weight-medium text-gray-600">Total de consultas</p>
+                    <p class="text-lg font-weight-bold text-gray-700">{{$total_consultas}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card bg-white rounded-lg shadow-sm custom-card">
+            <div class="card-body d-flex align-items-center">
+                <div class="p-3 mr-4 custom-circle">
+                    <i class="fas fa-clipboard-list" aria-hidden="true"></i>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-weight-medium text-gray-600">Consultas hoje</p>
+                    <p class="text-lg font-weight-bold text-gray-700">{{$consultas_do_dia}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card bg-white rounded-lg shadow-sm custom-card align-items-stretch">
+            <div class="card-body d-flex align-items-center justify-content-center text-center">
+                <canvas style="height: 60px; width: 600px;" id="barChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="card bg-white rounded-lg shadow-sm custom-card">
+            <div class="card-body d-flex align-items-center">
+                <div class="p-3 mr-4 custom-circle" style="background-color: white;">
+                    <i class="fa-solid fa-bell" style="color:#00bfa5"></i>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-weight-medium text-gray-600">Avisos</p>
+                    <p class="text-lg font-weight-bold text-gray-700">{{$total_avisos}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-md-6">
+        <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 360px; padding:20px"> -->
+    <div class="col-md-6">
+        <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
+            <span class="card-title white-text text-center custom-title">Agenda</span>
+            <div class="table-responsive">
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">Data</th>
+                            <th scope="col">Horário</th>
+                            <th scope="col">Paciente</th>
+                            <th scope="col">Profissional</th>
+                            <th scope="col">Consulta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($proximas_consultas as $prox_consulta)
+                        <tr>
+                            <td>{{ \Carbon\Carbon::parse($prox_consulta->dia_consulta)->format('d/m/Y') }}</td>
+                            <td>{{$prox_consulta->hora_consulta}}</td>
+                            <td>{{ implode(' ', array_slice(explode(' ', $prox_consulta->paciente->nome), 0, 2)) }}</td>
+                            <td>{{ implode(' ', array_slice(explode(' ', $prox_consulta->profissional->nome), 0, 2)) }}</td>
+                            <td>{{$prox_consulta->tipoConsulta->nome ?? ''}}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card bg-white rounded-lg shadow-sm custom-card border-0">
+            <!-- <div class="card-content"> -->
+            <span class="card-title custom-title">Avisos</span>
+            <div class="agenda">
+                @if ($avisos->isEmpty())
+                <div class="no-avisos">Não há avisos disponíveis.</div>
+                @else
+                @foreach($avisos as $aviso)
+                <div class="evento custom-evento">
+                    <div class="evento-content">
+                        <div class="evento-titulo">
+                            <i class="fa-solid fa-bell"></i> {{$aviso->titulo}}
+                        </div>
+                        <div class="evento-descricao">{{$aviso->descricao}}</div>
+                        <div class="evento-responsavel">Responsável: {{$aviso->responsavel ?? 'Sem identificação'}}</div>
+                    </div>
+                    <div class="evento-data">
+                        <div class="agenda-date">
+                            <span class="day">{{ date('d', strtotime($aviso->data_aviso)) }}</span>
+                            <span class="month">{{ date('M', strtotime($aviso->data_aviso)) }}</span>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
 @endcan
 @endsection
 
