@@ -33,8 +33,8 @@
     <!-- Barra lateral -->
     <aside id="toggle-sidebar" class="sidebar">
         <header class="sidebar-header">
-        <img class="logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlS4NN2iQeZb2Iybsk7vGsK8SKdVUYdRtuM02kppYdmI3iw7u_22sgsVeiyGZznmMFeSw&usqp=CAU" alt="Foto do Usuário">
-            
+            <img class="logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlS4NN2iQeZb2Iybsk7vGsK8SKdVUYdRtuM02kppYdmI3iw7u_22sgsVeiyGZznmMFeSw&usqp=CAU" alt="Foto do Usuário">
+
         </header>
         <nav>
             <a href="{{ route('dashboard') }}">
@@ -58,6 +58,10 @@
             <a href="{{ route('consultas.index') }}">
                 <i class="material-icons">assignment</i>
                 <span class="sidebar-text">Consultas</span>
+            </a>
+            <a href="{{ route('agendas.index') }}">
+                <i class="material-icons">calendar_today</i>
+                <span class="sidebar-text">Agenda</span>
             </a>
             <a href="{{ route('avisos.index') }}">
                 <i class="material-icons">notifications</i>

@@ -34,12 +34,6 @@
             <span>Laudo</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" data-toggle="tab" href="#tab3">
-            <i class="fas fa-file-medical"></i>
-            <span>Exames</span>
-          </a>
-        </li>
       </ul>
       <div class="tab-content mt-3">
         <div id="tab1" class="tab-pane fade show active">
@@ -80,9 +74,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div id="tab3" class="tab-pane fade">
-          <p>Conteúdo da aba 3.</p>
         </div>
       </div>
     </div>

@@ -6,6 +6,9 @@
                 // Definindo fuso horário São Paulo
                 date_default_timezone_set('America/Sao_Paulo');
                 ?>
+                @if(isset($laudo))
+                <input type="hidden" name="laudo" id="laudo">
+                @endif
                 <div class="form-group col-md-2">
                     <label for="dia_marcacao">Dia da Marcação:</label>
                     <input type="date" class="form-control" id="dia_marcacao" name="dia_marcacao" value="{{$consulta->dia_marcacao ?? date('Y-m-d') }}" readonly>
@@ -39,7 +42,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label for="paciente_id">Nome do Paciente:</label>
-                <select class="form-control" id="paciente_id" name="paciente_id" required>
+                <select class="form-control" id="paciente_id" name="paciente_id" required @if(isset($consulta)) disabled @endif>
                     <option value="">Selecione o paciente</option>
                     @if(isset($consulta))
                     <option value="{{ $consulta->paciente->id }}" {{ $consulta->paciente_id == $consulta->paciente->id ? 'selected' : '' }}>
@@ -48,9 +51,10 @@
                     @endif
                 </select>
             </div>
+
             <div class="form-group col-md-6">
                 <label for="profissional_id">Nome do Profissional:</label>
-                <select class="form-control" id="profissional_id" name="profissional_id" required>
+                <select class="form-control" id="profissional_id" name="profissional_id" required @if(isset($consulta)) disabled @endif>
                     <option value="">Selecione o profissional</option>
                     @if(isset($consulta))
                     <option value="{{ $consulta->profissional->id }}" {{ $consulta->profissional_id == $consulta->profissional->id ? 'selected' : '' }}>
@@ -59,6 +63,7 @@
                     @endif
                 </select>
             </div>
+
             <div class="form-group col-md-6">
                 <label for="tipo_consulta_id">Tipo de Consulta:</label>
                 <select class="form-control" id="tipo_consulta_id" name="tipo_consulta_id" required>
