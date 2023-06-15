@@ -20,18 +20,21 @@ class ProfissionalController extends Controller
 {
     public function index()
     {
+        $this->authorize('admin');
         $profissionais = Profissional::orderBy('id', 'desc')->get();
         return view('profissionais.index', ['profissionais' => $profissionais]);
     }
 
     public function paginacaoAjax()
     {
+        $this->authorize('admin');
         return DataTables::of(Profissional::latest('updated_at'))->make(true);
     }
 
 
     public function create()
     {
+        $this->authorize('admin');
         $pacientes = Paciente::all();
         $especialidades = Especialidade::all();
 
@@ -40,6 +43,7 @@ class ProfissionalController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('admin');
         $data = $request->except('senha', 'especialidades', 'pacientes');
 
         if ($request->has('senha')) {
@@ -84,6 +88,7 @@ class ProfissionalController extends Controller
 
     public function show($id)
     {
+        $this->authorize('admin');
         $profissional = Profissional::findOrFail($id);
         return view('profissionais.show', ['profissional' => $profissional]);
     }

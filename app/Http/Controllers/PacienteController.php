@@ -14,22 +14,26 @@ class PacienteController extends Controller
 {
     public function paginacaoAjax()
     {
+        $this->authorize('admin');
         return DataTables::of(Paciente::latest('created_at'))->make(true);
     }
 
     public function index()
     {
+        $this->authorize('admin');
         $pacientes = Paciente::all();
         return view('pacientes.index', compact('pacientes'));
     }
 
     public function create()
     {
+        $this->authorize('admin');
         return view('pacientes.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('admin');
         $user = User::create([
             'name' => $request->nome,
             'email' => $request->email,

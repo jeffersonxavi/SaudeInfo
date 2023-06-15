@@ -9,6 +9,7 @@ use App\Models\Paciente;
 use App\Models\Profissional;
 use App\Models\TipoConsulta;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class ConsultaController extends Controller
@@ -121,6 +122,9 @@ class ConsultaController extends Controller
 
     public function create()
     {
+        if (Auth::user()->can('user')) {
+            abort(403, 'Acesso não autorizado.');
+        }
         $pacientes = Paciente::all();
         $profissionais = Profissional::all();
         $tiposConsultas = TipoConsulta::all();
@@ -129,7 +133,9 @@ class ConsultaController extends Controller
 
     public function store(Request $request)
     {
-        Consulta::create($request->all());
+        if (Auth::user()->can('user')) {
+            abort(403, 'Acesso não autorizado.');
+        }        Consulta::create($request->all());
         $profissional = Profissional::find($request->profissional_id);
 
         $profissional->pacientes()->syncWithoutDetaching($request->input('paciente_id'));
@@ -139,6 +145,10 @@ class ConsultaController extends Controller
     public function edit($id)
     {
         $consulta = Consulta::find($id);
+        if (!Auth::user()->can('admin') && !$consulta->paciente->user_id !== Auth::user()->id && $consulta->profissional->user_id !== Auth::user()->id) {
+            abort(403, 'Acesso não autorizado.');
+        }
+
         $pacientes = Paciente::all();
         $profissionais = Profissional::all();
         $tiposConsultas = TipoConsulta::all();
@@ -151,9 +161,14 @@ class ConsultaController extends Controller
         $consulta = Consulta::find($id);
         $consulta->update($request->all());
         $profissional = Profissional::find($request->profissional_id);
-
-        $profissional->pacientes()->syncWithoutDetaching($request->input('paciente_id'));
-
+        if ($profissional) {
+            $profissional->pacientes()->syncWithoutDetaching($request->input('paciente_id'));
+        }
+        
+        if ($request->has('laudo')) {
+            $laudo = Laudo::where('consulta_id', $id)->first();
+            $laudo->update($request->all());
+        }
         return redirect()->route('consultas.index');
     }
 

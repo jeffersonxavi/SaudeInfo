@@ -8,6 +8,7 @@ use App\Models\Laudo;
 use App\Models\Paciente;
 use App\Models\Profissional;
 use App\Models\TipoConsulta;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use Mpdf\Mpdf;
 
@@ -117,6 +118,10 @@ class LaudoController extends Controller
     {
         // Obtenha os dados do laudo com base no ID da consulta
         $laudo = Laudo::where('consulta_id', $consulta_id)->first();
+        // dd($laudo);
+        if (!Auth::user()->can('admin') && $laudo->paciente->user_id !== Auth::user()->id && $laudo->profissional->user_id !== Auth::user()->id) {
+            abort(403, 'Acesso não autorizado.');
+        }
 
         // Verifique se o laudo existe
         if ($laudo) {
