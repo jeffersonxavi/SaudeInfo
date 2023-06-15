@@ -24,7 +24,7 @@
     <!-- Or for RTL support -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="{{ secure_asset('css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url('css/style.css') }}">
     <link href="{{ url('css/app.css') }}" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
 </head>
