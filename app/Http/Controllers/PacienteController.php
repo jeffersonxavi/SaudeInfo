@@ -39,9 +39,29 @@ class PacienteController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->senha),
         ])->givePermissionTo('user');
-
-        event(new Registered($user));
-        Paciente::create($request->all());
+        
+        event(new Registered($user));        
+        Paciente::create([
+            'user_id' => $user->id,
+            'nome' => $request->nome,
+            'genero' => $request->genero,
+            'estado_civil' => $request->estado_civil,
+            'data_nascimento' => $request->data_nascimento,
+            'ativo' => $request->ativo,
+            'rg' => $request->crm,
+            'cpf' => $request->cpf,
+            'cep' => $request->cep,
+            'numero_sus' => $request->numero_sus,
+            'endereco' => $request->endereco,
+            'numero' => $request->numero,
+            'complemento' => $request->complemento,
+            'bairro' => $request->bairro,
+            'cidade' => $request->cidade,
+            'uf' => $request->uf,
+            'telefone' => $request->telefone,
+            'email' => $request->email,
+            'senha' => Hash::make($request->senha),
+        ]);
         return redirect()->route('pacientes.index');
     }
 
