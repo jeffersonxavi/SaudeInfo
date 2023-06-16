@@ -47,7 +47,7 @@ class PacienteController extends Controller
             'genero' => $request->genero,
             'estado_civil' => $request->estado_civil,
             'data_nascimento' => $request->data_nascimento,
-            'ativo' => $request->ativo,
+            // 'ativo' => $request->ativo,
             'rg' => $request->crm,
             'cpf' => $request->cpf,
             'cep' => $request->cep,
