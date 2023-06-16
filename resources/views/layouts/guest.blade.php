@@ -14,7 +14,6 @@
 
         <!-- Bootstrap CSS -->
         <link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
-        <link rel="stylesheet" href="{{ url('css/app.css') }}">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js']) 
@@ -23,7 +22,6 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
             <div>
                 <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                     <h1>SAÚDETECH</h1>
                 </a>
             </div>
@@ -32,6 +30,5 @@
                 @yield('content')
             </div>
         </div>
-        <script src="{{ url('js/app.js') }}"></script>
     </body>
 </html>
