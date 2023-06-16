@@ -14,6 +14,7 @@
 
         <!-- Bootstrap CSS -->
         <link href="{{ url('css/bootstrap.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url('css/app.css') }}">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js']) 
@@ -31,5 +32,6 @@
                 @yield('content')
             </div>
         </div>
+        <script src="{{ url('js/app.js') }}"></script>
     </body>
 </html>
