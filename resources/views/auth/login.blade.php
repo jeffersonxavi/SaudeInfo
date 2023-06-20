@@ -1,46 +1,85 @@
 @extends('layouts.guest')
-
 @section('content')
-<form method="POST" action="{{ route('login') }}">
-    @csrf
-    <!-- Email Address -->
-    <div class="form-group">
-        <label for="email">{{ __('Email') }}</label>
-        <input id="email" class="form-control @error('email') is-invalid @enderror" type="email" name="email" :value="old('email')" required autofocus autocomplete="username">
-        @error('email')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror
-    </div>
-    <!-- Password -->
-    <div class="form-group mt-3">
-        <label for="password">{{ __('Password') }}</label>
-        <input id="password" class="form-control @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password">
-        @error('password')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror
-    </div>
-    <!-- Remember Me -->
-    <div class="form-group form-check mt-3">
-        <input id="remember_me" type="checkbox" class="form-check-input" name="remember">
-        <label for="remember_me" class="form-check-label">{{ __('Remember me') }}</label>
-    </div>
+<style>
+   .logo-img {
+        width: 100px;
+        min-height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.4s;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 15px;
+    }
+</style>
+<div class="login">
+    <img src="{{ url('img/fundo_login_register.jpg') }}" alt="imagem de login" class="login__img">
+    <form class="login__form" method="POST" action="{{ route('login') }}">
+        @csrf
+        <!-- <img src="{{ url('img/1.png') }}" alt="imagem de login" class="logo-img"> -->
+        <img class="logo-img" src="{{ url('img/8.png') }}" alt="Foto do Usuário">
+        
+        <!-- <h1 class="login__title">Login</h1> -->
+        <!-- Campos de entrada para email e senha -->
+        <div class="login__content">
+            <div class="login__box">
+                <i class="ri-user-line login__icon"></i>
 
-    <div class="form-group row mb-0 mt-3">
-        <div class="col-md-6 offset-md-4">
-            <button type="submit" class="btn btn-primary">
-                {{ __('Log in') }}
-            </button>
+                <div class="login__box-input">
+                    <input id="email" class="login__input @error('email') is-invalid @enderror" type="email" name="email" :value="old('email')" required autofocus autocomplete="username">
+                    <label for="" class="login__label">Email</label>
+                    @error('email')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="login__box">
+                <i class="ri-lock-2-line login__icon"></i>
+                <div class="login__box-input">
+                    <input id="login-pass" class="login__input @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password">
+                    <label for="" class="login__label">Senha</label>
+                    <i class="ri-eye-off-line login__eye" id="login-eye"></i>
+                    @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+            </div>
 
-            @if (Route::has('password.request'))
-            <a class="btn btn-link" href="{{ route('password.request') }}">
-                {{ __('Forgot your password?') }}
-            </a>
-            @endif
         </div>
-    </div>
-</form>
+        <button type="submit" class="login__button">Entrar</button>
+
+        <p class="login__register">
+            Não tem uma conta? <a href="{{ route('register') }}">Cadastre-se</a>
+        </p>
+    </form>
+</div>
+<script>
+    /* MOSTRAR/ESCONDER - SENHA */
+    const mostrarEsconderSenha = (loginPass, loginEye) => {
+        const input = document.getElementById(loginPass),
+            iconEye = document.getElementById(loginEye)
+        iconEye.addEventListener('click', () => {
+            // Mudar senha para texto
+            if (input.type === 'password') {
+                // Mudar para texto
+                input.type = 'text'
+
+                // Mudar ícone
+                iconEye.classList.add('ri-eye-line')
+                iconEye.classList.remove('ri-eye-off-line')
+            } else {
+                // Mudar para senha
+                input.type = 'password'
+
+                // Mudar ícone
+                iconEye.classList.remove('ri-eye-line')
+                iconEye.classList.add('ri-eye-off-line')
+            }
+        })
+    }
+    mostrarEsconderSenha('login-pass', 'login-eye')
+</script>
 @endsection

@@ -153,20 +153,20 @@ label {
 }
 
 /* Estilo para inputs */
-input[type="text"],
+/* input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="date"],
 input[type="time"],
 textarea {
-    width: 100%; /* define a largura dos inputs como 100% */
-    padding: 4px; /* adiciona preenchimento nos inputs */
-    border: 1px solid #ccc; /* define uma borda cinza para os inputs */
-    border-radius: 5px; /* define um arredondamento nas bordas dos inputs */
-    box-sizing: border-box; /* define a caixa da borda para incluir o preenchimento e a borda */
-    font-size: 16px; /* define o tamanho da fonte */
-    margin-bottom: -5px; /* adiciona uma margem inferior para separar os inputs */
-}
+    width: 100%;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 16px;
+    margin-bottom: -5px;
+} */
 
 .sidebar-header {
     width: 100%;

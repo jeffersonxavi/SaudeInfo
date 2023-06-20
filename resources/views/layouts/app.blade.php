@@ -33,8 +33,7 @@
     <!-- Barra lateral -->
     <aside id="toggle-sidebar" class="sidebar">
         <header class="sidebar-header">
-            <img class="logo-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlS4NN2iQeZb2Iybsk7vGsK8SKdVUYdRtuM02kppYdmI3iw7u_22sgsVeiyGZznmMFeSw&usqp=CAU" alt="Foto do Usuário">
-
+            <img class="logo-img" src="{{ url('img/8.png') }}" alt="Foto do Usuário">
         </header>
         <nav>
             <a href="{{ route('dashboard') }}">

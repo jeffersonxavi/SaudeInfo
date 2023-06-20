@@ -12,7 +12,7 @@
         <div class="input-group">
             <input type="date" class="form-control" id="data_criacao" name="data_criacao" value="{{ $aviso->data_criacao ?? old('data_criacao') }}" required>
             <div class="input-group-prepend">
-                <span class="input-group-text" style="height:34px">até</i></span>
+                <span class="input-group-text">até</i></span>
             </div>
             <input type="date" class="form-control" id="data_expiracao" name="data_expiracao" value="{{ $aviso->data_expiracao ?? old('data_expiracao') }}">
         </div>
