@@ -6,12 +6,12 @@
 // Importação dos módulos e plugins do Bootstrap
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
-
 import axios from 'axios';
-window.axios = axios;
+import $ from 'jquery';
 
+window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.$ = require('jquery');
+window.$ = $;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
