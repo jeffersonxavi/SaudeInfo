@@ -21,21 +21,33 @@
             </div>
             <div class="form-group col-md-2">
                 <label for="inicio_atendimento">Início Atendimento:</label>
-                <input type="time" class="form-control small-time-input" id="inicio_atendimento" name="inicio_atendimento" value="{{ $agendaProfissional->inicio_atendimento ?? old('inicio_atendimento') }}" required>
+                <input type="time" class="form-control small-time-input @error('inicio_atendimento') is-invalid @enderror" id="inicio_atendimento" name="inicio_atendimento" value="{{ $agendaProfissional->inicio_atendimento ?? old('inicio_atendimento') }}">
+                @error('inicio_atendimento')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group col-md-2">
                 <label for="intervalo">Intervalo:</label>
-                <input type="time" class="form-control small-time-input" id="intervalo" name="intervalo" value="{{ $agendaProfissional->intervalo ?? old('intervalo') }}" required>
+                <input type="time" class="form-control small-time-input @error('intervalo') is-invalid @enderror" id="intervalo" name="intervalo" value="{{ $agendaProfissional->intervalo ?? old('intervalo') }}">
+                @error('intervalo')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group col-md-2">
                 <label for="fim_atendimento">Fim do Atendimento:</label>
-                <input type="time" class="form-control small-time-input" id="fim_atendimento" name="fim_atendimento" value="{{ $agendaProfissional->fim_atendimento ?? old('fim_atendimento') }}" required>
+                <input type="time" class="form-control small-time-input @error('fim_atendimento') is-invalid @enderror" id="fim_atendimento" name="fim_atendimento" value="{{ $agendaProfissional->fim_atendimento ?? old('fim_atendimento') }}">
+                @error('fim_atendimento')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label for="max_atendimentos">Máximo de Atendimentos:</label>
-                <input type="number" class="form-control" id="max_atendimentos" name="max_atendimentos" value="{{ $agendaProfissional->max_atendimentos ?? old('max_atendimentos') }}" required>
+                <input type="number" class="form-control @error('max_atendimentos') is-invalid @enderror" id="max_atendimentos" name="max_atendimentos" value="{{ $agendaProfissional->max_atendimentos ?? old('max_atendimentos') }}" required>
+                @error('max_atendimentos')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group col-md-8">
                 <label for="observacoes">Observações:</label>

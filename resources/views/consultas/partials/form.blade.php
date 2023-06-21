@@ -15,16 +15,21 @@
                 </div>
                 <div class="form-group col-md-3">
                     <label for="dia_consulta">Dia da Consulta:</label>
-                    <input type="date" class="form-control" id="dia_consulta" name="dia_consulta" required value="{{ $consulta->dia_consulta ?? ''  }}">
-                    <div class="invalid-feedback"></div>
+                    <input type="date" class="form-control @error('dia_consulta') is-invalid @enderror" id="dia_consulta" name="dia_consulta" required value="{{ old('dia_consulta', $consulta->dia_consulta ?? '') }}">
+                    @error('dia_consulta')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group col-md-3">
                     <label for="hora_consulta">Hora da Consulta:</label>
-                    <input type="time" class="form-control" id="hora_consulta" name="hora_consulta" required value="{{ $consulta->hora_consulta ?? old('hora_consulta') }}">
+                    <input type="time" class="form-control @error('hora_consulta') is-invalid @enderror" id="hora_consulta" name="hora_consulta" required value="{{ old('hora_consulta', $consulta->hora_consulta ?? '') }}">
+                    @error('hora_consulta')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group col-md-4">
                     <label for="status">Status:</label>
-                    <select class="form-control" id="status" name="status" required>
+                    <select class="form-control @error('status') is-invalid @enderror" id="status" name="status" required>
                         <option value="">Selecione o status</option>
                         @foreach([
                         1 => 'Agendada',
@@ -38,6 +43,9 @@
                         <option value="{{ $value }}" {{ isset($consulta) && $consulta->status == $value ? 'selected' : '' }}>{{ $status }}</option>
                         @endforeach
                     </select>
+                    @error('status')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <div class="form-group col-md-6">
@@ -72,12 +80,19 @@
                     <option value="{{ $tipoConsulta->id }}" {{ isset($consulta) && $consulta->tipo_consulta_id == $tipoConsulta->id ? 'selected' : '' }}>{{ $tipoConsulta->nome }}</option>
                     @endforeach
                 </select>
+                @error('tipo_consulta_id')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group col-md-12">
                 <label for="descricao">Descrição:</label>
                 <textarea class="form-control" id="descricao" name="descricao">{{ isset($consulta) ? $consulta->descricao : '' }}</textarea>
+                @error('descricao')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
+
             <div class="card">
                 <div class="card-body">
                     <div class="form-group col-md-12 text-center">

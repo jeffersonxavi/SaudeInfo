@@ -13,7 +13,7 @@ class Profissional extends Model
     protected $fillable = [
         'user_id',
         'nome',
-        'crm',
+        // 'crm',
         'cpf',
         'cep',
         'endereco',

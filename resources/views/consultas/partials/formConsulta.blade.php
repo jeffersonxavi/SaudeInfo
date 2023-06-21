@@ -29,15 +29,18 @@
             </div>
             <div class="form-group">
                 <label for="motivo_consulta">Motivo da Consulta:</label>
-                <textarea name="motivo_consulta" id="motivo_consulta" class="form-control" rows="2" value="{{$laudo->motivo_consulta ?? ''}}">{{$laudo->motivo_consulta ?? ''}}</textarea>
+                <textarea name="motivo_consulta" id="motivo_consulta" class="form-control" rows="2" required>{{ $laudo->motivo_consulta ?? '' }}</textarea>
+                @error('motivo_consulta')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group">
                 <label for="diagnostico">Diagnóstico:</label>
-                <textarea name="diagnostico" id="summernote_diagnostico" cols="30" rows="10" value="{{$laudo->diagnostico ?? ''}}" required>{{$laudo->diagnostico ?? ''}}</textarea>
+                <textarea name="diagnostico" id="summernote_diagnostico" cols="30" rows="10" value="{{$laudo->diagnostico ?? ''}}">{{$laudo->diagnostico ?? ''}}</textarea>
             </div>
             <div class="form-group">
                 <label for="tratamento_recomendado">Tratamento:</label>
-                <textarea name="tratamento_recomendado" id="summernote_tratamento" cols="30" rows="10" value="{{$laudo->tratamento_recomendado ?? ''}}" required>{{$laudo->tratamento_recomendado ?? ''}}</textarea>
+                <textarea name="tratamento_recomendado" id="summernote_tratamento" cols="30" rows="10" value="{{$laudo->tratamento_recomendado ?? ''}}">{{$laudo->tratamento_recomendado ?? ''}}</textarea>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary">Salvar Laudo</button>

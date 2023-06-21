@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLaudo;
 use App\Models\Consulta;
 use Illuminate\Http\Request;
 use App\Models\Laudo;
@@ -32,7 +33,7 @@ class LaudoController extends Controller
         return view('laudos.create', compact('profissionais', 'pacientes', 'tipos_consultas'));
     }
 
-    public function salvarAjax(Request $request)
+    public function salvarAjax(StoreLaudo $request)
     {
         $consultaId = $request->input('consulta_id');
 
@@ -68,7 +69,7 @@ class LaudoController extends Controller
         return view('laudos.edit', compact('laudo', 'profissionais', 'pacientes', 'tipos_consultas'));
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreLaudo $request, $id)
     {
         $laudo = Laudo::find($id);
         $laudo->update($request->all());
