@@ -112,7 +112,7 @@
     <script src="{{ url('js/sidebar.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script type="module" src="{{ url('js/app.js') }}"></script>
+    <!-- <script type="module" src="{{ url('js/app.js') }}"></script> -->
     @stack('scripts')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
