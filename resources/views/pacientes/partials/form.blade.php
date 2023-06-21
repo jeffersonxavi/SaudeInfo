@@ -2,22 +2,32 @@
     <div class="form-group col-md-4">
         <label for="nome">Nome completo:</label>
         <input type="text" class="form-control" id="nome" name="nome" value="{{ $paciente->nome ?? old('nome') }}" required>
+        @error('nome')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col-md-3">
         <label for="cpf">CPF:</label>
         <input type="text" class="form-control" id="cpf" name="cpf" value="{{ $paciente->cpf ?? old('cpf') }}" required>
+        @error('cpf')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="form-group col-md-3">
         <label for="rg">RG:</label>
         <input type="text" class="form-control" id="rg" name="rg" value="{{ $paciente->rg ?? old('rg') }}">
+        @error('rg')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col-md-2">
         <label for="numero_sus">Número SUS:</label>
         <input type="text" class="form-control" id="numero_sus" name="numero_sus" value="{{ $paciente->numero_sus ?? old('numero_sus') }}" required>
+        @error('numero_sus')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
-
-
 </div>
 
 <div class="form-row">
@@ -28,6 +38,9 @@
             <option value="feminino" {{ (isset($paciente) && $paciente->genero == 'feminino') ? 'selected' : '' }}>Feminino</option>
             <option value="outro" {{ (isset($paciente) && $paciente->genero == 'outro') ? 'selected' : '' }}>Outro</option>
         </select>
+        @error('genero')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="form-group col-md-2">
@@ -39,11 +52,17 @@
             <option value="viuvo" {{ (isset($paciente) && $paciente->estado_civil == 'viuvo') ? 'selected' : '' }}>Viúvo(a)</option>
             <option value="outro" {{ (isset($paciente) && $paciente->estado_civil == 'outro') ? 'selected' : '' }}>Outro</option>
         </select>
+        @error('estado_civil')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="form-group col-md-2">
         <label for="data_nascimento">Data de Nascimento:</label>
         <input type="date" class="form-control" id="data_nascimento" name="data_nascimento" value="{{ $paciente->data_nascimento ?? old('data_nascimento') }}" required>
+        @error('data_nascimento')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 </div>
 
@@ -51,36 +70,55 @@
     <div class="form-group col-md-5">
         <label for="telefone">Telefone:</label>
         <input type="text" class="form-control" id="telefone" name="telefone" value="{{ $paciente->telefone ?? old('telefone') }}" required>
+        @error('telefone')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
-
     <div class="form-group col-md-7">
         <label for="email">E-mail:</label>
         <input type="email" class="form-control" id="email" name="email" value="{{ $user->email ?? old('email') }}" required>
+        @error('email')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col-md-3">
         <label for="senha">Senha:</label>
         <input type="password" class="form-control" id="senha" name="senha" value="{{ $paciente->senha ?? old('senha') }}" required>
+        @error('senha')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 </div>
 <div class="form-row">
     <div class="form-group col-md-2">
         <label for="cep">CEP</label>
         <input type="text" class="form-control" id="cep" name="cep" value="{{ $paciente->cep ?? old('cep') }}" required>
+        @error('cep')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="form-group col-md-1">
         <label for="uf">UF</label>
         <input type="text" class="form-control" id="uf" name="uf" value="{{ $paciente->uf ?? old('uf') }}" required>
+        @error('uf')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col-md-4">
         <label for="cidade">Cidade</label>
         <input type="text" class="form-control" id="cidade" name="cidade" value="{{ $paciente->cidade ?? old('cidade') }}" required>
+        @error('cidade')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
-    
 
     <div class="form-group col-md-5">
         <label for="endereco">Endereço</label>
         <input type="text" class="form-control" id="endereco" name="endereco" value="{{ $paciente->endereco ?? old('endereco') }}" required>
+        @error('endereco')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 </div>
 
@@ -90,11 +128,17 @@
     <div class="form-group col-md-4">
         <label for="bairro">Bairro</label>
         <input type="text" class="form-control" id="bairro" name="bairro" value="{{ $paciente->bairro ?? old('bairro') }}" required>
+        @error('bairro')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="form-group col-md-2">
         <label for="numero">Número</label>
         <input type="text" class="form-control" id="numero" name="numero" value="{{ $paciente->numero ?? old('numero') }}" required>
+        @error('numero')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="form-group col-md-6">

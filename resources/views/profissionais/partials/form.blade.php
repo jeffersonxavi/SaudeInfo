@@ -2,10 +2,16 @@
     <div class="form-group col-md-7">
         <label for="nome">Nome completo:</label>
         <input type="text" class="form-control" id="nome" name="nome" value="{{ $user->name ?? old('nome') }}" required>
+        @error('nome')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col-md-3">
         <label for="cpf">CPF:</label>
         <input type="text" class="form-control" id="cpf" name="cpf" value="{{ $profissional->cpf ?? old('cpf') }}" required>
+        @error('cpf')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 </div>
 <div class="form-row">
@@ -20,48 +26,75 @@
             <option value="{{ $profissional->tipo_profissional }}" selected>{{ Str::title($profissional->tipo_profissional) }}</option>
             @endif
         </select>
-        @if(empty($profissional->tipo_profissional))
+        @error('tipo_profissional')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
+        <!-- @if(empty($profissional->tipo_profissional))
         <small class="form-text alert alert-warning d-inline-block small ">Ao selecionar sua profissão não será possível alterar futuramente.</small>
-        @endif
+        @endif -->
     </div>
-    <div class="form-group col-md-2" id="crm-field" style="display: none;">
+    <!-- <div class="form-group col-md-2" id="crm-field" style="display: none;">
         <label for="crm">CRM</label>
         <input type="text" class="form-control" id="crm" name="crm" value="{{ old('crm', $profissional->crm ?? '') }}">
-    </div>
+        @error('crm')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
+    </div> -->
 </div>
 <div class="form-row">
     <div class="form-group col-md-5">
         <label for="telefone">Telefone:</label>
-        <input type="text" class="form-control" id="telefone" name="telefone" value="{{ $profissional->telefone ?? old('telefone') }}" required>
+        <input type="text" class="form-control" id="telefone" name="telefone" value="{{ $profissional->telefone ?? old('telefone') }}" >
+        @error('telefone')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col-md-6">
         <label for="email">Email:</label>
         <input type="email" class="form-control" id="email" name="email" value="{{ $user->email ?? old('email') }}" required>
+        @error('email')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col-md-3">
         <label for="senha">Senha:</label>
         <input type="password" class="form-control" id="senha" name="senha" value="{{ $user->senha ?? old('senha') }}" required>
+        @error('senha')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 </div>
 <div class="form-row">
     <div class="form-group col-md-2">
         <label for="cep">CEP</label>
-        <input type="text" class="form-control" id="cep" name="cep" value="{{ $profissional->cep ?? old('cep') }}" required>
+        <input type="text" class="form-control" id="cep" name="cep" value="{{ $profissional->cep ?? old('cep') }}" >
+        @error('cep')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="form-group col-md-1">
         <label for="uf">UF</label>
-        <input type="text" class="form-control" id="uf" name="uf" value="{{ $profissional->uf ?? old('uf') }}" required>
+        <input type="text" class="form-control" id="uf" name="uf" value="{{ $profissional->uf ?? old('uf') }}" >
+        @error('uf')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col-md-4">
         <label for="cidade">Cidade</label>
         <input type="text" class="form-control" id="cidade" name="cidade" value="{{ $profissional->cidade ?? old('cidade') }}" required>
+        @error('cidade')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 
 
     <div class="form-group col-md-5">
         <label for="endereco">Endereço</label>
         <input type="text" class="form-control" id="endereco" name="endereco" value="{{ $profissional->endereco ?? old('endereco') }}" required>
+        @error('endereco')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 </div>
 
@@ -69,11 +102,17 @@
     <div class="form-group col-md-4">
         <label for="bairro">Bairro</label>
         <input type="text" class="form-control" id="bairro" name="bairro" value="{{ $profissional->bairro ?? old('bairro') }}" required>
+        @error('bairro')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="form-group col-md-2">
         <label for="numero">Número</label>
         <input type="text" class="form-control" id="numero" name="numero" value="{{ $profissional->numero ?? old('numero') }}" required>
+        @error('numero')
+            <div class="text-danger">{{ $message }}</div>
+        @enderror
     </div>
 
     <div class="form-group col-md-6">
@@ -91,22 +130,6 @@
             maximumSelectionLength: 3, // Define um limite de 3 tags criadas    
             dropdownParent: $('body') // Define o elemento pai do dropdown
         });
-        if ($("#tipo_profissional").val() == "Médico") {
-            $("#crm-field").show();
-        }
-        $("#tipo_profissional").change(function() {
-            if ($(this).val() == "Médico") {
-                $("#crm-field").show();
-            } else {
-                $("#crm-field").hide();
-            }
-        });
-        // Desabilita o campo #crm-field se o tipo de profissional for "Médico" durante a edição
-        if ($("#tipo_profissional").val() == "Médico" && $("#crm").val() != "") {
-            $("#tipo_profissional").prop('disabled', true);
-
-            $("#crm-field input").attr("disabled", true);
-        }
     });
 </script>
 @endpush

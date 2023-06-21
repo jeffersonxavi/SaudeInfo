@@ -11,10 +11,13 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Profissional;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProfissional;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ProfissionalController extends Controller
 {
@@ -41,7 +44,7 @@ class ProfissionalController extends Controller
         return view('profissionais.create',  compact('pacientes', 'especialidades'));
     }
 
-    public function store(Request $request)
+    public function store(StoreProfissional $request)
     {
         $this->authorize('admin');
         $data = $request->except('senha', 'especialidades', 'pacientes');
@@ -49,7 +52,24 @@ class ProfissionalController extends Controller
         if ($request->has('senha')) {
             $data['senha'] = Hash::make($request->senha);
         }
+        $validator = Validator::make($request->all(), [
+            'nome' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'unique:users'],
+            'senha' => ['required', 'min:6'],
+        ], [
+            'nome.required' => 'O campo nome é obrigatório.',
+            'nome.string' => 'O campo nome deve ser uma string.',
+            'nome.max' => 'O campo nome deve ter no máximo :max caracteres.',
+            'email.required' => 'O campo email é obrigatório.',
+            'email.email' => 'O campo email deve ser um endereço de email válido.',
+            'email.unique' => 'O email informado já está em uso.',
+            'senha.required' => 'O campo senha é obrigatório.',
+            'senha.min' => 'O campo senha deve ter no mínimo :min caracteres.',
+        ]);
 
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
         $user = User::create([
             'name' => $request->nome,
             'email' => $request->email,
@@ -58,23 +78,10 @@ class ProfissionalController extends Controller
 
         event(new Registered($user));
 
-        $profissional = Profissional::create([
-            'user_id' => $user->id,
-            'nome' => $request->nome,
-            'crm' => $request->crm,
-            'cpf' => $request->cpf,
-            'cep' => $request->cep,
-            'endereco' => $request->endereco,
-            'numero' => $request->numero,
-            'complemento' => $request->complemento,
-            'bairro' => $request->bairro,
-            'cidade' => $request->cidade,
-            'uf' => $request->uf,
-            'telefone' => $request->telefone,
-            'email' => $request->email,
-            'senha' => Hash::make($request->senha),
-            'tipo_profissional' => $request->tipo_profissional,
-        ]);
+        $profissional = new Profissional($request->all());
+        $profissional->user_id = $user->id;
+        $profissional->save();
+        
         if ($request->has('especialidades')) {
             $profissional->especialidades()->sync($request->especialidades);
         }
@@ -138,7 +145,7 @@ class ProfissionalController extends Controller
 
 
 
-    public function update(Request $request, $id)
+    public function update(StoreProfissional $request, $id)
     {
         $profissional = Profissional::findOrFail($id);
         if (!Auth::user()->can('admin') && $profissional->user_id !== Auth::user()->id) {
@@ -150,8 +157,26 @@ class ProfissionalController extends Controller
             $data['senha'] = Hash::make($request->senha);
         }
 
-        $profissional->update($data);
         $user = User::where('id', $profissional->user_id)->first();
+        $validator = Validator::make($request->all(), [
+            'nome' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($profissional->user_id)],
+            'senha' => ['required', 'min:6'],
+        ], [
+            'nome.required' => 'O campo nome é obrigatório.',
+            'nome.string' => 'O campo nome deve ser uma string.',
+            'nome.max' => 'O campo nome deve ter no máximo :max caracteres.',
+            'email.required' => 'O campo email é obrigatório.',
+            'email.email' => 'O campo email deve ser um endereço de email válido.',
+            'email.unique' => 'O email informado já está em uso.',
+            'senha.required' => 'O campo senha é obrigatório.',
+            'senha.min' => 'O campo senha deve ter no mínimo :min caracteres.',
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+        
         if ($request->has('nome')) {
             $user->update([
                 'name' => $request->nome,
@@ -168,13 +193,16 @@ class ProfissionalController extends Controller
         // }
 
 
-        // atualizar as especialidades do profissional
+        // atualizar as especialidades do 
+        $profissional->update($data);
+        
         if ($request->has('especialidades')) {
             $profissional->especialidades()->sync($request->especialidades);
             //dd($request);
         } else {
             $profissional->especialidades()->detach();
         }
+        
         return redirect()->route('profissionais.edit', $id)->with('success', 'Atualização foi realizada!');
     }
 

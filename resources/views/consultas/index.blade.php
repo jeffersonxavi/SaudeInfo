@@ -157,15 +157,17 @@
                 <p><span class="campo-label">Paciente:</span> <span id="paciente_nome" name="paciente_id"></span></p>
                 <div class="form-group">
                   <label for="motivo_consulta">Motivo da Consulta:</label>
-                  <textarea name="motivo_consulta" id="motivo_consulta" class="form-control" rows="2"></textarea>
-                </div>
+                  <textarea name="motivo_consulta" id="motivo_consulta" class="form-control" rows="2" required>{{ $laudo->motivo_consulta ?? '' }}</textarea>
+                  @error('motivo_consulta')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror                </div>
                 <div class="form-group">
                   <label for="diagnostico">Diagnóstico:</label>
-                  <textarea name="diagnostico" id="summernote_diagnostico" cols="30" rows="10" required></textarea>
+                  <textarea name="diagnostico" id="summernote_diagnostico" cols="30" rows="10"></textarea>
                 </div>
                 <div class="form-group">
                   <label for="tratamento_recomendado">Tratamento Recomendado:</label>
-                  <textarea name="tratamento_recomendado" id="summernote_tratamento" cols="30" rows="10" required></textarea>
+                  <textarea name="tratamento_recomendado" id="summernote_tratamento" cols="30" rows="10"></textarea>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -273,7 +275,7 @@
           });
       },
       error: function(xhr) {
-        Swal.fire('Erro', 'Ocorreu um erro ao criar o laudo', 'error');
+        Swal.fire('Erro', 'Verifique se todos os campos foram preenchidos.', 'error');
       }
     });
   });

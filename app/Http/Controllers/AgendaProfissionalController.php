@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAgendaProfissional;
 use Illuminate\Http\Request;
 use App\Models\AgendaProfissional;
 use App\Models\Profissional;
@@ -54,7 +55,7 @@ class AgendaProfissionalController extends Controller
         return view('agenda_profissionais.create', compact('profissionais'));
     }
 
-    public function store(Request $request)
+    public function store(StoreAgendaProfissional $request)
     {
         if (Auth::user()->can('user')) {
             abort(403, 'Acesso não autorizado.');
@@ -76,7 +77,7 @@ class AgendaProfissionalController extends Controller
         return view('agenda_profissionais.edit', compact('agendaProfissional', 'profissionais'));
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreAgendaProfissional $request, $id)
     {
         $agendaProfissional = AgendaProfissional::find($id);
         if (!Auth::user()->can('admin') && $agendaProfissional->user_id !== Auth::user()->id) {

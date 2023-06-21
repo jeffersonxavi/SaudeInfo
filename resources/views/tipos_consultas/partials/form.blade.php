@@ -4,6 +4,9 @@
             <div class="form-group col-md-6">
                 <label for="nome">Nome:</label>
                 <input type="text" class="form-control" id="nome" name="nome" value="{{ $tipoConsulta->nome ?? old('nome') }}" required>
+                @error('nome')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group col-md-6">
                 <label for="especialidade_id">Especialidade:</label>
@@ -13,16 +16,25 @@
                     <option value="{{ $especialidade->id }}" {{ isset($tipoConsulta) && $tipoConsulta->especialidade_id == $especialidade->id ? 'selected' : '' }}>{{ $especialidade->nome }}</option>
                     @endforeach
                 </select>
+                @error('especialidade_id')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-md-8">
+            <div class="form-group col-md-7">
                 <label for="descricao">Descrição:</label>
                 <textarea class="form-control" id="descricao" name="descricao">{{ $tipoConsulta->descricao ?? old('descricao') }}</textarea>
+                @error('descricao')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
                 <label for="duracao_estimada">Duração estimada (em min):</label>
                 <input type="number" class="form-control" id="duracao_estimada" name="duracao_estimada" required value="{{ $tipoConsulta->duracao_estimada ?? old('duracao_estimada') }}">
+                @error('duracao_estimada')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <div class="form-group col-md-2">
                 <label for="valor">Valor:</label>
@@ -31,6 +43,9 @@
                         <span class="input-group-text">R$</span>
                     </div>
                     <input type="number" class="form-control" id="valor" name="valor" value="{{ $tipoConsulta->valor ?? old('valor') }}">
+                    @error('valor')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
         </div>

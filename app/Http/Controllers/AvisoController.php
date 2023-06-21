@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAgendaProfissional;
+use App\Http\Requests\StoreAviso;
 use App\Models\Aviso;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,35 +30,26 @@ class AvisoController extends Controller
 
     public function create()
     {
-        if (Auth::user()->can('user')) {
-            abort(403, 'Acesso não autorizado.');
-        }
+  
         return view('avisos.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreAviso $request)
     {
-        if (Auth::user()->can('user')) {
-            abort(403, 'Acesso não autorizado.');
-        }
+    
         Aviso::create($request->all());
         return redirect()->route('avisos.index');
     }
 
     public function edit($id)
     {
-        if (Auth::user()->can('user')) {
-            abort(403, 'Acesso não autorizado.');
-        }
+
         $aviso = Aviso::find($id);
         return view('avisos.edit', compact('aviso'));
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreAviso $request, $id)
     {
-        if (Auth::user()->can('user')) {
-            abort(403, 'Acesso não autorizado.');
-        }
         $aviso = Aviso::find($id);
         $aviso->update($request->all());
         return redirect()->route('avisos.index');

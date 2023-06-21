@@ -1,46 +1,66 @@
 <div class="form-row">
     <div class="form-group col-md-5">
         <label for="titulo">Título:</label>
-        <input type="text" class="form-control" id="titulo" name="titulo" value="{{ $aviso->titulo ?? old('titulo') }}" required>
+        <input type="text" class="form-control @error('titulo') is-invalid @enderror" id="titulo" name="titulo" value="{{ $aviso->titulo ?? old('titulo') }}" required>
+        @error('titulo')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col-md-3">
         <label for="data_aviso">Dia do evento:</label>
-        <input type="date" class="form-control" id="data_aviso" name="data_aviso" value="{{ $aviso->data_aviso ?? old('data_aviso') }}">
+        <input type="date" class="form-control @error('data_aviso') is-invalid @enderror" id="data_aviso" name="data_aviso" value="{{ $aviso->data_aviso ?? old('data_aviso') }}">
+        @error('data_aviso')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>  
     <div class="form-group col-md-4">
         <label for="periodo_exibicao">Período de Exibição:</label>
         <div class="input-group">
-            <input type="date" class="form-control" id="data_criacao" name="data_criacao" value="{{ $aviso->data_criacao ?? old('data_criacao') }}" required>
+            <input type="date" class="form-control @error('data_criacao') is-invalid @enderror" id="data_criacao" name="data_criacao" value="{{ $aviso->data_criacao ?? old('data_criacao') }}">
             <div class="input-group-prepend">
                 <span class="input-group-text">até</i></span>
             </div>
-            <input type="date" class="form-control" id="data_expiracao" name="data_expiracao" value="{{ $aviso->data_expiracao ?? old('data_expiracao') }}">
+            <input type="date" class="form-control @error('data_expiracao') is-invalid @enderror" id="data_expiracao" name="data_expiracao" value="{{ $aviso->data_expiracao ?? old('data_expiracao') }}">
         </div>
+        @error('data_criacao')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
+        @error('data_expiracao')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
 </div>
-
 
 
 <div class="form-row">
     <div class="form-group col-md-4">
         <label for="prioridade">Prioridade:</label>
-        <select class="form-control" id="prioridade" name="prioridade" required>
+        <select class="form-control @error('prioridade') is-invalid @enderror" id="prioridade" name="prioridade" required>
             <option value="alta" {{ (isset($aviso) && $aviso->prioridade == 'alta') ? 'selected' : '' }}>Alta</option>
             <option value="media" {{ (isset($aviso) && $aviso->prioridade == 'media') ? 'selected' : '' }}>Média</option>
             <option value="baixa" {{ (isset($aviso) && $aviso->prioridade == 'baixa') ? 'selected' : '' }}>Baixa</option>
         </select>
+        @error('prioridade')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col-md-4">
         <label for="estado">Estado:</label>
-        <select class="form-control" id="estado" name="estado" required>
+        <select class="form-control @error('estado') is-invalid @enderror" id="estado" name="estado" required>
             <option value="pendente" {{ (isset($aviso) && $aviso->estado == 'pendente') ? 'selected' : '' }}>Pendente</option>
             <option value="em_andamento" {{ (isset($aviso) && $aviso->estado == 'em_andamento') ? 'selected' : '' }}>Em Andamento</option>
             <option value="concluido" {{ (isset($aviso) && $aviso->estado == 'concluido') ? 'selected' : '' }}>Concluído</option>
         </select>
+        @error('estado')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
     <div class="form-group col-md-4">
         <label for="responsavel">Responsável:</label>
-        <input type="text" class="form-control" id="responsavel" name="responsavel" value="{{ $aviso->responsavel ?? old('responsavel') }}" required>
+        <input type="text" class="form-control @error('responsavel') is-invalid @enderror" id="responsavel" name="responsavel" value="{{ $aviso->responsavel ?? old('responsavel') }}" required>
+        @error('responsavel')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
 </div>
 
@@ -48,6 +68,9 @@
 <div class="form-row">
     <div class="form-group col-md-12">
         <label for="descricao">Descrição</label>
-        <textarea class="form-control" id="descricao" name="descricao" rows="3">{{ $aviso->descricao ?? old('descricao') }}</textarea>
+        <textarea class="form-control @error('descricao') is-invalid @enderror" id="descricao" name="descricao" rows="3">{{ $aviso->descricao ?? old('descricao') }}</textarea>
+        @error('descricao')
+            <div class="invalid-feedback">{{ $message }}</div>
+        @enderror
     </div>
 </div>

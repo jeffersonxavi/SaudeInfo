@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreConsulta;
 use Illuminate\Http\Request;
 use App\Models\Consulta;
 use App\Models\Laudo;
@@ -131,7 +132,7 @@ class ConsultaController extends Controller
         return view('consultas.create', compact('pacientes', 'profissionais', 'tiposConsultas'));
     }
 
-    public function store(Request $request)
+    public function store(StoreConsulta $request)
     {
         if (Auth::user()->can('user')) {
             abort(403, 'Acesso não autorizado.');
@@ -156,7 +157,7 @@ class ConsultaController extends Controller
         return view('consultas.edit', compact('consulta', 'pacientes', 'profissionais', 'tiposConsultas', 'laudo'));
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreConsulta $request, $id)
     {
         $consulta = Consulta::find($id);
         $consulta->update($request->all());

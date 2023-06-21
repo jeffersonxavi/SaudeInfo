@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTipoConsulta;
 use App\Models\Especialidade;
 use Illuminate\Http\Request;
 use App\Models\TipoConsulta;
@@ -31,7 +32,7 @@ class TipoConsultaController extends Controller
         return view('tipos_consultas.create', compact('especialidades'));
     }
   
-    public function store(Request $request)
+    public function store(StoreTipoConsulta $request)
     {
         TipoConsulta::create($request->all());
         return redirect()->route('tipos-consultas.index');
@@ -44,7 +45,7 @@ class TipoConsultaController extends Controller
         return view('tipos_consultas.edit', compact('tipoConsulta','especialidades'));
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreTipoConsulta $request, $id)
     {
         $tipoConsulta = TipoConsulta::find($id);
         $tipoConsulta->update($request->all());
