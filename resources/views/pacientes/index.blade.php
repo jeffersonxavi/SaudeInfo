@@ -34,7 +34,7 @@
 @endsection
 
 @push('scripts')
-<script>
+<script type="text/javascript">
   //adicionando DataTables
   let table = new DataTable('#pacientes-table', {
     language: {
