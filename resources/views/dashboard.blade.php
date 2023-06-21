@@ -575,13 +575,13 @@
         options: chartOptions
     });
 
-    var ctx = document.getElementById('chart').getContext('2d');
-    var userChart = new Chart(ctx, {
-        type: 'line',
-        data: JSON.parse('@json($graficoConsultaMes)'),
-        options: {
-            responsive: true,
-        }
-    });
+    // var ctx = document.getElementById('chart').getContext('2d');
+    // var userChart = new Chart(ctx, {
+    //     type: 'line',
+    //     data: JSON.parse('@json($graficoConsultaMes)'),
+    //     options: {
+    //         responsive: true,
+    //     }
+    // });
 </script>
 @endpush
