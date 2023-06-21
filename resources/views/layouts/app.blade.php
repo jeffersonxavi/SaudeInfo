@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 
     <link rel="stylesheet" type="text/css" href="{{ url('css/style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url('css/app.css') }}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url('css/app.css') }}"> -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" />
