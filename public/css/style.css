@@ -233,3 +233,9 @@ textarea {
     margin-left: 5px;
 }
 
+.table th:last-child {
+    width: 0px; /* Defina o tamanho desejado para a coluna "Ações" */
+}
+.exception-table th:last-child {
+    width: auto; /* Defina o tamanho desejado para a coluna "Ações" na tabela exceção */
+}

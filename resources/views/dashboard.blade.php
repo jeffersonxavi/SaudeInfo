@@ -230,7 +230,7 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
             <span class="card-title white-text text-center custom-title">Próximas Consultas</span>
             <div class="table-responsive">
-                <table class="table mt-4">
+                <table class="table mt-4 exception-table">
                     <thead>
                         <tr>
                             <th scope="col">Data</th>
@@ -370,7 +370,7 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
             <span class="card-title white-text text-center custom-title">Próximas Consultas</span>
             <div class="table-responsive">
-                <table class="table mt-4">
+                <table class="table mt-4 exception-table">
                     <thead>
                         <tr>
                             <th scope="col">Data</th>
@@ -480,7 +480,7 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
             <span class="card-title white-text text-center custom-title">Próximas Consultas</span>
             <div class="table-responsive">
-                <table class="table mt-4">
+                <table class="table mt-4 exception-table">
                     <thead>
                         <tr>
                             <th scope="col">Data</th>
