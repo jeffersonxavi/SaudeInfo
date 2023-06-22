@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('nome');
-            $table->string('crm');
+            // $table->string('crm');
             $table->string('cpf');
             $table->string('cep')->nullable();
             $table->string('telefone');
