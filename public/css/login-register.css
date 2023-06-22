@@ -52,19 +52,24 @@
  
  /* LOGIN */
  .login {
-     position: relative;
-     height: 100vh;
-     display: grid;
-     align-items: center;
- }
- 
- .login__img {
-     position: absolute;
-     width: 100%;
-     height: auto;
-     object-fit: cover;
-     object-position: center;
- }
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.login__img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: -1;
+}
  
  .login__form {
      position: relative;
