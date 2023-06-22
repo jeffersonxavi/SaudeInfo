@@ -228,7 +228,7 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 360px; padding:20px"> -->
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
-            <span class="card-title white-text text-center custom-title">Agenda</span>
+            <span class="card-title white-text text-center custom-title">Próximas Consultas</span>
             <div class="table-responsive">
                 <table class="table mt-4">
                     <thead>
@@ -368,7 +368,7 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 360px; padding:20px"> -->
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
-            <span class="card-title white-text text-center custom-title">Agenda</span>
+            <span class="card-title white-text text-center custom-title">Próximas Consultas</span>
             <div class="table-responsive">
                 <table class="table mt-4">
                     <thead>
@@ -478,7 +478,7 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 360px; padding:20px"> -->
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
-            <span class="card-title white-text text-center custom-title">Agenda</span>
+            <span class="card-title white-text text-center custom-title">Próximas Consultas</span>
             <div class="table-responsive">
                 <table class="table mt-4">
                     <thead>
