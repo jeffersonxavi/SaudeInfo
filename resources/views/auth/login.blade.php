@@ -1,7 +1,7 @@
 @extends('layouts.guest')
 @section('content')
 <style>
-   .logo-img {
+    .logo-img {
         width: 100px;
         min-height: 100px;
         border-radius: 50%;
@@ -16,10 +16,14 @@
 <div class="login">
     <img src="{{ url('img/fundo_login_register.jpg') }}" alt="imagem de login" class="login__img">
     <form class="login__form" method="POST" action="{{ route('login') }}">
+        @error('password')
+        <span class="m-8 " style="color:red;">
+            {{ $message }}
+        </span>
+        @enderror
         @csrf
         <!-- <img src="{{ url('img/1.png') }}" alt="imagem de login" class="logo-img"> -->
         <img class="logo-img" src="{{ url('img/8.png') }}" alt="Foto do Usuário">
-        
         <!-- <h1 class="login__title">Login</h1> -->
         <!-- Campos de entrada para email e senha -->
         <div class="login__content">
@@ -40,11 +44,6 @@
                     <input id="login-pass" class="login__input @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="current-password">
                     <label for="" class="login__label">Senha</label>
                     <i class="ri-eye-off-line login__eye" id="login-eye"></i>
-                    @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
                 </div>
             </div>
 
