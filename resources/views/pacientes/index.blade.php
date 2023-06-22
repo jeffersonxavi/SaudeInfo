@@ -47,7 +47,7 @@
     autoWidth: false, // Desabilita a largura automática das colunas
     responsive: true, // Habilita a funcionalidade responsiva
     ajax: {
-      url: "{{route('pacientes.ajax')}}",
+      url: "https://saudetech.up.railway.app/{{route('pacientes.ajax')}}",
       method: 'GET',
     },
     columns: [{
