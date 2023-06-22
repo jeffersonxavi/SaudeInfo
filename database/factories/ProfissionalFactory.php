@@ -19,7 +19,6 @@ class ProfissionalFactory extends Factory
         $this->faker = \Faker\Factory::create('pt_BR');
         return [
             'nome' => $this->faker->name,
-            'crm' => $this->faker->numerify('##########'),
             'cpf' => $this->faker->numerify('###.###.###-##'),
             'cep' => $this->faker->numerify('#####-###'),
             'endereco' => $this->faker->streetName,
