@@ -228,3 +228,8 @@ textarea {
     background-color: #005a4e !important; /* Substitua pela cor desejada */
 }
 
+.required-asterisk {
+    color: red;
+    margin-left: 5px;
+}
+
