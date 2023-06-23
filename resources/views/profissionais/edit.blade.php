@@ -66,7 +66,7 @@
                         @method('PUT')
                         @include('profissionais.partials.form')
                         <div class="form-group mt-3 text-end">
-                        <x-primary-button>{{ __('Salvar') }}</x-primary-button>
+                            <x-primary-button>{{ __('Salvar') }}</x-primary-button>
                         </div>
                     </form>
                 </div>
@@ -75,15 +75,13 @@
                         @csrf
                         @method('PUT')
                         @include('profissionais.partials.formPaciente')
-                        <div class="form-group mt-3">
-                        </div>
                     </form>
                 </div>
                 <div id="tab4" class="tab-pane fade">
                     @include('profissionais.partials.formConsulta')
                 </div>
                 <div id="tab3" class="tab-pane fade">
-                    <form id="form-profissional" method="POST" action="{{ route('profissionais.update', $profissional->id) }}">
+                    <form id="form-profissional" method="POST" action="{{ route('especialidades.update', $profissional->id) }}">
                         @csrf
                         @method('PUT')
                         @include('profissionais.partials.formEspecialidade')

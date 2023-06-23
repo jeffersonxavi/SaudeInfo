@@ -41,8 +41,8 @@
             @csrf
             @method('PUT')
             @include('consultas.partials.form')
-            <div class="form-group mt-3">
-              <button type="submit" class="btn btn-primary">Salvar</button>
+            <div class="form-group mt-3 text-end">
+              <x-primary-button>{{ __('Salvar') }}</x-primary-button>
             </div>
           </form>
         </div>
@@ -55,9 +55,11 @@
           </form>
           @else
           <p>Ainda não foi gerado Laudo.</p>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novoLaudoModal">
-            Inserir Laudo
-          </button>
+          <div class="form-group mt-3 text-end">
+            <x-primary-button type="button" class="btn btn-primary" data-toggle="modal" data-target="#novoLaudoModal">
+              Inserir Laudo
+            </x-primary-button>
+          </div>
           @endif
           <div class="modal fade" id="novoLaudoModal" tabindex="-1" role="dialog" aria-labelledby="novoLaudoModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

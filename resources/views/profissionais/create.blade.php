@@ -31,13 +31,13 @@
                 <div class="tab-content mt-3">
                     <div id="tab1" class="tab-pane fade show active">
                         @include('profissionais.partials.form')
+                        <div class="form-group mt-3 text-end">
+                        <x-primary-button>{{ __('Salvar') }}</x-primary-button>
+                        </div>
                     </div>
                     <div id="tab2" class="tab-pane fade">
                         @include('profissionais.partials.formEspecialidade')
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3">
-                        Salvar
-                    </button>
                 </div>
             </form>
         </div>

@@ -26,9 +26,9 @@
             @csrf
             @method('PUT')
             @include('agenda_profissionais.partials.form')
-            <div class="form-group mt-3">
-              <button type="submit" class="btn btn-primary">Salvar</button>
-            </div>
+            <div class="form-group mt-3 text-end">
+              <x-primary-button>{{ __('Salvar') }}</x-primary-button>
+            </div>>
           </form>
         </div>
       </div>

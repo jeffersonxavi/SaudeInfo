@@ -26,8 +26,8 @@
             @csrf
             @method('PUT')
             @include('tipos_consultas.partials.form')
-            <div class="form-group mt-3">
-              <button type="submit" class="btn btn-primary">Salvar</button>
+            <div class="form-group mt-3 text-end">
+              <x-primary-button>{{ __('Salvar') }}</x-primary-button>
             </div>
           </form>
         </div>

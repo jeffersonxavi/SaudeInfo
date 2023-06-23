@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Especialidade;
+use App\Models\Profissional;
 
 class EspecialidadeController extends Controller
 {
@@ -46,9 +47,12 @@ class EspecialidadeController extends Controller
 
     public function update(Request $request, $id)
     {
-        $especialidade = Especialidade::find($id);
-        $especialidade->update($request->all());
-        return redirect()->route('especialidades.index');
+        // $especialidade = Especialidade::find($id);
+        // $especialidade->update($request->all());
+        $profissional = Profissional::find($id);
+        $profissional->especialidades()->sync($request->especialidades);
+
+        return redirect()->back();
     }
 
     public function destroy($id)

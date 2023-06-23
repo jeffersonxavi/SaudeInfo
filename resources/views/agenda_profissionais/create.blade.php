@@ -16,10 +16,8 @@
                 <form method="POST" action="{{ route('agendas.store') }}">
                     @csrf
                     @include('agenda_profissionais.partials.form')
-                    <div class="form-group row">
-                        <div class="col-sm-offset-3 col-sm-9">
-                            <button type="submit" style="color:black" class="btn btn-primary">Salvar</button>
-                        </div>
+                    <div class="form-group mt-3 text-end">
+                        <x-primary-button>{{ __('Salvar') }}</x-primary-button>
                     </div>
                 </form>
             </div>
