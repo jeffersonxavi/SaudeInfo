@@ -9,7 +9,9 @@ body {
     font-family: sans-serif;
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
+    border-top: 6px solid #00284e;
 }
+
 
 /* Define a classe .border para ter uma borda vermelha */
 .border {
