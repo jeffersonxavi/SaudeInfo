@@ -230,7 +230,7 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
             <span class="card-title white-text text-center custom-title bg-primary-custom">Próximas Consultas</span>
             <div class="table-responsive">
-                @if(count($proximas_consultas) < 0) <table class="table mt-4 exception-table">
+                @if(count($proximas_consultas) > 0) <table class="table mt-4 exception-table">
                     <thead>
                         <tr>
                             <th scope="col">Data</th>
@@ -373,7 +373,7 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
             <span class="card-title white-text text-center custom-title bg-primary-custom">Próximas Consultas</span>
             <div class="table-responsive">
-                @if(count($proximas_consultas) < 0) <table class="table mt-4 exception-table">
+                @if(count($proximas_consultas) > 0) <table class="table mt-4 exception-table">
                     <thead>
                         <tr>
                             <th scope="col">Data</th>
@@ -396,7 +396,7 @@
                     </tbody>
                     </table>
                     @else
-                    <p>Não há próximas consultas.</p>
+                    Não há próximas consultas.
                     @endif
             </div>
         </div>
@@ -486,7 +486,7 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
             <span class="card-title white-text text-center custom-title bg-primary-custom">Próximas Consultas</span>
             <div class="table-responsive">
-                @if(count($proximas_consultas) < 0) <table class="table mt-4 exception-table">
+                @if(count($proximas_consultas) > 0) <table class="table mt-4 exception-table">
                     <thead>
                         <tr>
                             <th scope="col">Data</th>
