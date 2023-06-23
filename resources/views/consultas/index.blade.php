@@ -78,11 +78,11 @@
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4>Consultas</h4>
           @can('admin')
-          <a href="{{ route('consultas.create') }}" class="btn btn-primary btn-sm text-white">
+          <a href="{{ route('consultas.create') }}" class="btn btn-primary btn-sm text-white custom-btn-primary">
             <i class="fas fa-plus"></i> Consulta
           </a>
           @elsecan('profissional')
-          <a href="{{ route('consultas.create') }}" class="btn btn-primary btn-sm text-white">
+          <a href="{{ route('consultas.create') }}" class="btn btn-primary btn-sm text-white custom-btn-primary">
             <i class="fas fa-plus"></i> Consulta
           </a>
           @endcan

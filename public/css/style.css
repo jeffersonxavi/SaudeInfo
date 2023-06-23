@@ -23,7 +23,7 @@ body {
     bottom: 0;
     left: 0;
     width: 225px;
-    background-color: #004b41;
+    background-color: #003669;
     padding: 12px;
     overflow: hidden;
     /* transition: width 0.2s ease-in-out; */
@@ -217,15 +217,15 @@ textarea {
     border-radius: 4px;
     background-color: #dff0d8;
     border-color: #d6e9c6;
-    color: #3c763d;
+    color: #003669;
 }
 .bg-primary-custom {
-    background-color: #004b41 !important; /* Substitua pela cor primária desejada */
+    background-color: #003669 !important; /* Substitua pela cor primária desejada */
     color: #fff !important; /* Defina uma cor de texto adequada para contrastar com o fundo */
 }
 
 .custom-btn-primary {
-    background-color: #005a4e !important; /* Substitua pela cor desejada */
+    background-color: #003669 !important; /* Substitua pela cor desejada */
 }
 
 .required-asterisk {

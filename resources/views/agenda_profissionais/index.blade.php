@@ -18,7 +18,7 @@
       <div class="card-header bg-primary-custom">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4>Agenda de Profissionais</h4>
-          <a href="{{ route('agendas.create') }}" class="btn btn-primary btn-sm text-white">
+          <a href="{{ route('agendas.create') }}" class="btn btn-primary btn-sm text-white custom-btn-primary">
             <i class="fas fa-plus"></i> Agenda
           </a>
         </div>

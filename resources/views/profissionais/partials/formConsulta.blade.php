@@ -73,7 +73,7 @@
     <div class="card-header">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h4>{{$profissional->nome}}</h4>
-            <a href="{{ route('consultas.create') }}" class="btn btn-primary btn-sm text-white">
+            <a href="{{ route('consultas.create') }}" class="btn btn-primary btn-sm text-white custom-btn-primary">
                 <i class="fas fa-plus"></i> Consulta
             </a>
         </div>

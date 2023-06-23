@@ -186,7 +186,7 @@
     </div>
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card align-items-stretch">
-            <div class="card-footer text-center" style="background-color:#008f7c;">
+            <div class="card-footer text-center bg-primary-custom">
                 <small class="text-white" class="text-white">Média de consultas</small>
                 <!-- <small class="text-muted"></small> -->
             </div>
@@ -228,9 +228,9 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 360px; padding:20px"> -->
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
-            <span class="card-title white-text text-center custom-title">Próximas Consultas</span>
+            <span class="card-title white-text text-center custom-title bg-primary-custom">Próximas Consultas</span>
             <div class="table-responsive">
-                <table class="table mt-4 exception-table">
+                @if(count($proximas_consultas) < 0) <table class="table mt-4 exception-table">
                     <thead>
                         <tr>
                             <th scope="col">Data</th>
@@ -251,18 +251,21 @@
                         </tr>
                         @endforeach
                     </tbody>
-                </table>
+                    </table>
+                    @else
+                    Não há próximas consultas.
+                    @endif
             </div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0">
             <!-- <div class="card-content"> -->
-            <span class="card-title custom-title">Avisos</span>
+            <span class="card-title custom-title bg-primary-custom">Avisos</span>
+            @if ($avisos->isEmpty())
+            Não há avisos disponíveis.
+            @else
             <div class="agenda">
-                @if ($avisos->isEmpty())
-                <div class="no-avisos">Não há avisos disponíveis.</div>
-                @else
                 @foreach($avisos as $aviso)
                 <div class="evento custom-evento">
                     <div class="evento-content">
@@ -280,8 +283,8 @@
                     </div>
                 </div>
                 @endforeach
-                @endif
             </div>
+            @endif
         </div>
     </div>
 </div>
@@ -329,7 +332,7 @@
     </div>
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card align-items-stretch">
-            <div class="card-footer text-center" style="background-color:#008f7c;">
+            <div class="card-footer text-center bg-primary-custom" style="background-color:#008f7c;">
                 <small class="text-white" class="text-white">Média de consultas</small>
                 <!-- <small class="text-muted"></small> -->
             </div>
@@ -368,9 +371,9 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 360px; padding:20px"> -->
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
-            <span class="card-title white-text text-center custom-title">Próximas Consultas</span>
+            <span class="card-title white-text text-center custom-title bg-primary-custom">Próximas Consultas</span>
             <div class="table-responsive">
-                <table class="table mt-4 exception-table">
+                @if(count($proximas_consultas) < 0) <table class="table mt-4 exception-table">
                     <thead>
                         <tr>
                             <th scope="col">Data</th>
@@ -391,18 +394,21 @@
                         </tr>
                         @endforeach
                     </tbody>
-                </table>
+                    </table>
+                    @else
+                    <p>Não há próximas consultas.</p>
+                    @endif
             </div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0">
             <!-- <div class="card-content"> -->
-            <span class="card-title custom-title">Avisos</span>
+            <span class="card-title custom-title bg-primary-custom">Avisos</span>
+            @if ($avisos->isEmpty())
+            Não há avisos disponíveis.
+            @else
             <div class="agenda">
-                @if ($avisos->isEmpty())
-                <div class="no-avisos">Não há avisos disponíveis.</div>
-                @else
                 @foreach($avisos as $aviso)
                 <div class="evento custom-evento">
                     <div class="evento-content">
@@ -420,8 +426,8 @@
                     </div>
                 </div>
                 @endforeach
-                @endif
             </div>
+            @endif
         </div>
     </div>
 </div>
@@ -478,9 +484,9 @@
         <div class="card bg-white rounded-lg shadow-sm custom-card custom-height" style="height: 360px; padding:20px"> -->
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0" style="height: 360px;">
-            <span class="card-title white-text text-center custom-title">Próximas Consultas</span>
+            <span class="card-title white-text text-center custom-title bg-primary-custom">Próximas Consultas</span>
             <div class="table-responsive">
-                <table class="table mt-4 exception-table">
+                @if(count($proximas_consultas) < 0) <table class="table mt-4 exception-table">
                     <thead>
                         <tr>
                             <th scope="col">Data</th>
@@ -501,18 +507,21 @@
                         </tr>
                         @endforeach
                     </tbody>
-                </table>
+                    </table>
+                    @else
+                    Não há próximas consultas.
+                    @endif
             </div>
         </div>
     </div>
     <div class="col-md-6">
         <div class="card bg-white rounded-lg shadow-sm custom-card border-0">
             <!-- <div class="card-content"> -->
-            <span class="card-title custom-title">Avisos</span>
+            <span class="card-title custom-title bg-primary-custom">Avisos</span>
+            @if ($avisos->isEmpty())
+            Não há avisos disponíveis.
+            @else
             <div class="agenda">
-                @if ($avisos->isEmpty())
-                <div class="no-avisos">Não há avisos disponíveis.</div>
-                @else
                 @foreach($avisos as $aviso)
                 <div class="evento custom-evento">
                     <div class="evento-content">
@@ -530,8 +539,8 @@
                     </div>
                 </div>
                 @endforeach
-                @endif
             </div>
+            @endif
         </div>
     </div>
 </div>

@@ -16,7 +16,7 @@
       <div class="card-header bg-primary-custom">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h4>Tipo de Consultas</h4>
-          <a href="{{ route('tipos-consultas.create') }}" class="btn btn-primary btn-sm text-white">
+          <a href="{{ route('tipos-consultas.create') }}" class="btn btn-primary btn-sm text-white custom-btn-primary">
             <i class="fas fa-plus"></i> Tipo de Consulta
           </a>
         </div>
