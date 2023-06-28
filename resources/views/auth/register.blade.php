@@ -49,7 +49,7 @@
                 <i class="ri-lock-2-line login__icon"></i>
 
                 <div class="login__box-input">
-                    <input id="login-pass" class="login__input @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="new-password" />
+                    <input id="login-pass" maxlength="15" class="login__input @error('password') is-invalid @enderror" type="password" name="password" required autocomplete="new-password" />
                     <label for="" class="login__label">Senha</label>
                     <i class="ri-eye-off-line login__eye" id="login-eye"></i>
                     @error('password')
@@ -61,7 +61,7 @@
                 <i class="ri-lock-2-line login__icon"></i>
 
                 <div class="login__box-input">
-                    <input id="login-pass" class="login__input" type="password" name="password_confirmation" required autocomplete="new-password" />
+                    <input id="login-pass" maxlength="15" class="login__input" type="password" name="password_confirmation" required autocomplete="new-password" />
                     <label for="" class="login__label">Confirmar Senha</label>
                     <!-- <i class="ri-eye-off-line login__eye" id="login-eye"></i> -->
                 </div>
