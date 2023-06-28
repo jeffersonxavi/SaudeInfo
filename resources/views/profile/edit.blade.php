@@ -9,9 +9,9 @@
         <div class="mb-6">
             @include('profile.partials.update-password-form')
         </div>
-        <div>
+        <!-- <div>
             @include('profile.partials.delete-user-form')
-        </div>
+        </div> -->
     </div>
 </div>
 @endsection
