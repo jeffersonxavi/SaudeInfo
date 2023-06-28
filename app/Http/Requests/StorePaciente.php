@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StorePaciente extends FormRequest
 {
@@ -24,8 +25,8 @@ class StorePaciente extends FormRequest
         return [
             // 'user_id' => 'required|integer',
             'nome' => 'required|string|max:255',
-            'cpf' => 'required',
-            'rg' => 'required|max:20',
+            'cpf' => ['required', Rule::unique('pacientes')->ignore($this->id)],
+            'rg' => ['required', Rule::unique('pacientes')->ignore($this->id)],
             'telefone' => 'max:20',
             'email' => 'required|email|max:255|',
             // 'senha' => 'required|string|min:6',
@@ -36,7 +37,7 @@ class StorePaciente extends FormRequest
             'bairro' => 'required|string|max:255',
             'cidade' => 'required|string|max:255',
             'uf' => 'required|string|max:2',
-            'numero_sus' => 'required|string|max:20',
+            'numero_sus' => ['required', Rule::unique('pacientes')->ignore($this->id)],
             'genero' => 'required|string',
             'estado_civil' => 'required|string|max:255',
             'data_nascimento' => 'required|date',

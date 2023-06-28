@@ -47,7 +47,7 @@
     </div>
     <div class="form-group col-md-2">
         <label for="senha" class="required-label">Senha<span class="required-asterisk">*</span></label>
-        <input type="password" class="form-control" id="senha" name="senha" value="{{ $user->senha ?? old('senha') }}" required>
+        <input type="password" class="form-control" id="senha" name="senha" value="{{ $user->senha ?? old('senha') }}">
         @error('senha')
         <div class="text-danger">{{ $message }}</div>
         @enderror

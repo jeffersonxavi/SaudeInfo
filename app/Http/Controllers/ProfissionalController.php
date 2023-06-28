@@ -151,17 +151,12 @@ class ProfissionalController extends Controller
         if (!Auth::user()->can('admin') && $profissional->user_id !== Auth::user()->id) {
             abort(403, 'Acesso não autorizado.');
         }
-        $data = $request->except('senha');
-
-        if ($request->has('senha')) {
-            $data['senha'] = Hash::make($request->senha);
-        }
 
         $user = User::where('id', $profissional->user_id)->first();
         $validator = Validator::make($request->all(), [
             'nome' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($profissional->user_id)],
-            'senha' => ['required', 'min:6'],
+            'senha' => ['nullable', 'min:6'],
         ], [
             'nome.required' => 'O campo nome é obrigatório.',
             'nome.string' => 'O campo nome deve ser uma string.',
@@ -169,32 +164,29 @@ class ProfissionalController extends Controller
             'email.required' => 'O campo email é obrigatório.',
             'email.email' => 'O campo email deve ser um endereço de email válido.',
             'email.unique' => 'O email informado já está em uso.',
-            'senha.required' => 'O campo senha é obrigatório.',
             'senha.min' => 'O campo senha deve ter no mínimo :min caracteres.',
         ]);
         
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        
-        if ($request->has('nome')) {
-            $user->update([
-                'name' => $request->nome,
-                'email' => $request->email,
-                'password' => Hash::make($request->senha),
-            ]);
+
+        if (!empty($request->nome)) {
+            $user->name = $request->nome;
         }
-
-        // // atualizar os pacientes do profissional
-        // if ($request->has('pacientes')) {
-        //     $profissional->pacientes()->sync(array_keys($request->pacientes, 1));
-        // } else {
-        //     $profissional->pacientes()->detach();
-        // }
-
+        
+        if (!empty($request->email)) {
+            $user->email = $request->email;
+        }
+        
+        if (!empty($request->senha)) {
+            $user->password = Hash::make($request->senha);
+        }
+        
+        $user->save();
 
         // atualizar as especialidades do 
-        $profissional->update($data);
+        $profissional->update($request->all());
         
         if ($request->has('especialidades')) {
             $profissional->especialidades()->sync($request->especialidades);

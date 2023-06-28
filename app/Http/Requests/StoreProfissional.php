@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProfissional extends FormRequest
 {
@@ -25,7 +26,7 @@ class StoreProfissional extends FormRequest
             // 'user_id' => ['required', 'exists:users,id'],
             'nome' => ['required', 'string', 'max:255'],
             // 'crm' => ['required', 'max:255'],
-            'cpf' => ['required', 'max:14'],
+            'cpf' => ['required', 'max:14', Rule::unique('profissionais')->ignore($this->id)],
             'cep' => ['required', 'max:9'],
             'endereco' => ['required', 'string', 'max:255'],
             'numero' => ['required', 'max:10'],
@@ -34,8 +35,8 @@ class StoreProfissional extends FormRequest
             'cidade' => ['required', 'string', 'max:255'],
             'uf' => ['required', 'string', 'max:2'],
             'telefone' => ['required', 'max:20'],
-            'email' => 'required|email',
-            'senha' => ['required', 'string', 'min:6'],
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('profissionais')->ignore($this->id)],
+            'senha' => ['nullable', 'string', 'min:6'],
             'tipo_profissional' => ['required'],
         ];
     }

@@ -87,7 +87,7 @@ class PacienteController extends Controller
         $validator = Validator::make($request->all(), [
             'nome' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($paciente->user_id)],
-            'senha' => ['required', 'min:6'],
+            'senha' => ['nullable', 'min:6'],
         ], [
             'nome.required' => 'O campo nome é obrigatório.',
             'nome.string' => 'O campo nome deve ser uma string.',
@@ -95,7 +95,6 @@ class PacienteController extends Controller
             'email.required' => 'O campo email é obrigatório.',
             'email.email' => 'O campo email deve ser um endereço de email válido.',
             'email.unique' => 'O email informado já está em uso.',
-            'senha.required' => 'O campo senha é obrigatório.',
             'senha.min' => 'O campo senha deve ter no mínimo :min caracteres.',
         ]);
         
@@ -103,12 +102,21 @@ class PacienteController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
         
-        $user = User::where('id', $paciente->user_id)->first();
-        $user->update([
-            'name' => $request->nome,
-            'email' => $request->email,
-            'password' => Hash::make($request->senha),
-        ]);
+        $user = User::find($paciente->user_id);
+        
+        if (!empty($request->nome)) {
+            $user->name = $request->nome;
+        }
+        
+        if (!empty($request->email)) {
+            $user->email = $request->email;
+        }
+        
+        if (!empty($request->senha)) {
+            $user->password = Hash::make($request->senha);
+        }
+        
+        $user->save();
         $paciente->update($request->all());
 
         return redirect()->route('pacientes.index');
