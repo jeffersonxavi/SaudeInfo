@@ -242,3 +242,23 @@ textarea {
 .exception-table th:last-child {
     width: auto; /* Defina o tamanho desejado para a coluna "Ações" na tabela exceção */
 }
+
+/* nome do user*/
+.sidebar-user {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    color: #888;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-user.collapsed {
+    display: none;
+}
+
+.sidebar-user .material-icons {
+    margin-right: 5px;
+}

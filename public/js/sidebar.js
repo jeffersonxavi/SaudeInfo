@@ -39,3 +39,17 @@ const dropdownMenu = document.querySelector('.dropdown-menu');
 document.querySelector('.sidebar').classList.add('sidebar-collapsed');
 
 
+// Verifica o estado inicial da barra lateral ao carregar a página
+if (!$('#toggle-sidebar').is(':hover')) {
+  $('.sidebar-user').addClass('collapsed');
+}
+
+// Adiciona a classe "collapsed" ao elemento ".sidebar-user" quando a barra lateral for encolhida
+$('#toggle-sidebar').mouseenter(function () {
+  $('.sidebar-user').removeClass('collapsed');
+});
+
+// Remove a classe "collapsed" do elemento ".sidebar-user" quando o mouse é removido
+$('#toggle-sidebar').mouseleave(function () {
+  $('.sidebar-user').addClass('collapsed');
+});

@@ -96,6 +96,12 @@
                     <span class="sidebar-text clickable-text">Sair</span>
                 </a>
             </form>
+
+            <div class="sidebar-user">
+                <i class="material-icons">person</i>
+                <span class="sidebar-text">{{ explode(' ', auth()->user()->name)[0] }} {{ explode(' ', auth()->user()->name)[1] }}</span>
+            </div>
+
         </nav>
     </aside>
 
