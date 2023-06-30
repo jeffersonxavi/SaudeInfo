@@ -18,87 +18,69 @@ body {
     border: 1px solid red;
 }
 
-/* Define as propriedades da barra lateral */
 .sidebar {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
     width: 225px;
-    background-color: #003669;
+    background: linear-gradient(to bottom, #003669, #00172d);
     padding: 12px;
     overflow: hidden;
     /* transition: width 0.2s ease-in-out; */
-    z-index: 999; /* Garante que o sidebar fique sobreposto a outros elementos */
-    overflow-y: auto; /* Adiciona uma barra de rolagem vertical */
+    z-index: 999;
+    overflow-y: auto;
 }
 
-/* Define as propriedades da barra lateral quando ela estiver colapsada */
 .sidebar-collapsed {
     width: 60px;
 }
 
-/* Define as propriedades da navegação na barra lateral */
 .sidebar nav {
     display: flex;
     flex-direction: column;
     height: 0;
 }
 
-/* Define as propriedades dos links na navegação */
 .sidebar nav a {
     display: flex;
     align-items: center;
-    color: #333;
+    color: #fff;
     font-size: 15px;
     text-decoration: none;
-    margin-bottom: 5px;
-    padding: 7px;
+    margin-bottom: 10px;
+    padding: 10px;
     border-radius: 5px;
     transition: all 0.2s ease-in-out;
-    background-color: #ffffff;
     height: 36px;
 }
 
-/* Define as propriedades dos links na navegação quando o mouse estiver sobre eles */
 .sidebar nav a:hover {
-    background-color: #ddd;
+    background-color: #0166a6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
 }
 
-/* Define as propriedades dos ícones na navegação */
-.sidebar nav a i {
-    font-size: 20px;
-    margin-right: 10px;
-}
 
-/* Define as propriedades do corpo principal da página */
 .main {
     margin-left: 60px;
     padding: 20px;
     /* transition: margin-left 0.2s ease-in-out; */
 }
 
-/* Define as propriedades do corpo principal da página quando a barra lateral estiver colapsada */
-/* .sidebar-collapsed + .main {
-    margin-left: 70px;
-} */
 
-/* Define as propriedades do texto dos links na navegação quando a barra lateral estiver colapsada */
 .sidebar-collapsed a span {
     display: none;
 }
 
-/* Define as propriedades dos ícones dos links na navegação quando a barra lateral estiver colapsada */
 .sidebar-collapsed a .sidebar-text {
     display: none;
 }
 
-/* Adicione o estilo abaixo para ocultar o submenu por padrão */
 .submenu {
     display: none;
 }
 
-/* Adicione o estilo abaixo para mostrar o submenu quando o link correspondente é clicado */
 .submenu.active {
     display: block;
 }
@@ -116,6 +98,16 @@ body {
 .submenu li {
     padding-left: 15px;
 }
+
+/* 
+.submenu.active li {
+    background: #00172d;
+}
+
+.submenu.active a {
+    color: #ffffff; /* Altere para a cor desejada */
+}*/
+
 
 .submenu a {
     display: block;

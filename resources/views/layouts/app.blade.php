@@ -49,6 +49,7 @@
             <a href="#submenu1" class="has-submenu">
                 <i class="material-icons">menu</i>
                 <span class="sidebar-text">Cadastro</span>
+                <i class="material-icons sidebar-text">keyboard_arrow_down</i>
             </a>
             <ul id="submenu1" class="submenu">
                 <li><a href="{{ route('pacientes.index') }}"><i class="fas fa-user fa-xs"></i> Pacientes</a></li>
@@ -121,7 +122,6 @@
     <!-- <script src="{{ url('js/app.js') }}"></script> -->
     <script src="{{ url('js/sidebar.js') }}"></script>
     @stack('scripts')
-    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
