@@ -100,7 +100,7 @@
 
             <div class="sidebar-user">
                 <i class="material-icons">person</i>
-                <span class="sidebar-text">{{ explode(' ', auth()->user()->name)[0] }} {{ explode(' ', auth()->user()->name)[1] }}</span>
+                <span class="sidebar-text">{{ isset(auth()->user()->name) ? explode(' ', auth()->user()->name)[0] : '' }} {{ isset(auth()->user()->name) && isset(explode(' ', auth()->user()->name)[1]) ? explode(' ', auth()->user()->name)[1] : '' }}</span>
             </div>
 
         </nav>
