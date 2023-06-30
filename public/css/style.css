@@ -254,3 +254,10 @@ textarea {
 .sidebar-user .material-icons {
     margin-right: 5px;
 }
+
+.icon-style{
+    font-size: 20px;
+    opacity: 0.5;
+    /* Defina a cor do ícone */
+    color: #007bff;
+}

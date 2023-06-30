@@ -52,12 +52,12 @@
                 <i class="material-icons sidebar-text">keyboard_arrow_down</i>
             </a>
             <ul id="submenu1" class="submenu">
-                <li><a href="{{ route('pacientes.index') }}"><i class="fas fa-user fa-xs"></i> Pacientes</a></li>
-                <li><a href="{{ route('profissionais.index') }}"><i class="fas fa-user-md fa-xs"></i> Profissional</a></li>
-                <li><a href="{{ route('agendas.index') }}"><i class="far fa-calendar-alt fa-xs"></i> Agenda Profissional</a></li>
-                <li><a href="{{ route('tipos-consultas.index') }}"><i class="fas fa-clipboard-list fa-xs"></i> Tipos de Consultas</a></li>
-                <li><a href="{{ route('consultas.index') }}"><i class="far fa-calendar-check fa-xs"></i> Consultas</a></li>
-                <li><a href="{{ route('avisos.index') }}"><i class="fas fa-bell fa-xs"></i> Avisos</a></li>
+                <li><a href="{{ route('pacientes.index') }}"><i class="fas fa-user fa-xs icon-style"></i> Pacientes</a></li>
+                <li><a href="{{ route('profissionais.index') }}"><i class="fas fa-user-md fa-xs icon-style"></i> Profissional</a></li>
+                <li><a href="{{ route('agendas.index') }}"><i class="far fa-calendar-alt fa-xs icon-style"></i> Agenda Profissional</a></li>
+                <li><a href="{{ route('tipos-consultas.index') }}"><i class="fas fa-clipboard-list fa-xs icon-style"></i> Tipos de Consultas</a></li>
+                <li><a href="{{ route('consultas.index') }}"><i class="far fa-calendar-check fa-xs icon-style"></i> Consultas</a></li>
+                <li><a href="{{ route('avisos.index') }}"><i class="fas fa-bell fa-xs icon-style"></i> Avisos</a></li>
             </ul>
             @elsecan('profissional')
             <a href="{{ route('consultas.index') }}">
