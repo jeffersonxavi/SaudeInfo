@@ -181,6 +181,7 @@ textarea {
     border-radius: 50%;
     object-fit: cover;
     transition: transform 0.4s;
+    border: 2px solid white;
 }
 .logo-img:hover {
     transform: scale(1.5);

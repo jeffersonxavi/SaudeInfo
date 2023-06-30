@@ -11,6 +11,13 @@
         margin-left: auto;
         margin-right: auto;
         margin-bottom: 15px;
+        border: 2px solid white;
+    }
+    .copy {
+        color: #888;
+        font-size: 14px;
+        text-align: center;
+        margin-top: 10px;
     }
 </style>
 <div class="login">
@@ -53,6 +60,7 @@
         <p class="login__register">
             Não tem uma conta? <a href="{{ route('register') }}">Cadastre-se</a>
         </p>
+        <p class="login__register copy">&copy; Saúde Tech - 2023</p>
     </form>
 </div>
 <script>
