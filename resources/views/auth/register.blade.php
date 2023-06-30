@@ -117,7 +117,7 @@
                 <div class="login__box">
                     <i class="ri-key-line login__icon"></i>
                     <div class="login__box-input">
-                        <input id="chave" class="login__input" type="chave" name="chave" :value="old('chave')" required autofocus autocomplete="userchave">
+                        <input id="chave" class="login__input" type="password" name="chave" :value="old('chave')" required autofocus autocomplete="userchave">
                         <label for="chave" class="login__label">Chave:</label>
                     </div>
                 </div>
