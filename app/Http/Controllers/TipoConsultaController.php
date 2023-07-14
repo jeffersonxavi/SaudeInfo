@@ -34,8 +34,9 @@ class TipoConsultaController extends Controller
   
     public function store(StoreTipoConsulta $request)
     {
-        TipoConsulta::create($request->all());
-        return redirect()->route('tipos-consultas.index');
+        $tipos_consulta = TipoConsulta::create($request->all());
+
+        return redirect()->route('tipos-consultas.index')->with('success', $tipos_consulta->nome. ' adicionado(a)!');
     }
 
     public function edit($id)
@@ -49,7 +50,7 @@ class TipoConsultaController extends Controller
     {
         $tipoConsulta = TipoConsulta::find($id);
         $tipoConsulta->update($request->all());
-        return redirect()->route('tipos-consultas.index');
+        return redirect()->route('tipos-consultas.edit', $id)->with('success', $tipoConsulta->nome. ' atualizado(a)!');
     }
 
     public function destroy($id)

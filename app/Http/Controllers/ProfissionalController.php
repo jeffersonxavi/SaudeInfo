@@ -90,7 +90,7 @@ class ProfissionalController extends Controller
             $profissional->pacientes()->sync($request->pacientes);
         }
 
-        return redirect()->route('profissionais.index')->with('success', 'Profissional criado com sucesso!');
+        return redirect()->route('profissionais.index')->with('success', $profissional->nome. ' adicionado(a)!');
     }
 
     public function show($id)

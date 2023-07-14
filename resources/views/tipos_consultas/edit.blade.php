@@ -11,6 +11,17 @@
             <i class="fas fa-arrow-left"></i> Voltar
           </a>
         </div>
+        @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show my-custom-alert" role="alert">
+          <strong>Sucesso!</strong> {{ session('success') }}
+          <button type="button" data-bs-dismiss="alert" aria-label="Fechar"></button>
+        </div>
+        <script>
+          setTimeout(function() {
+            $('.alert-success').fadeOut('slow');
+          }, 4000);
+        </script>
+        @endif
       </div>
       <ul class="nav nav-tabs">
         <li class="nav-item">

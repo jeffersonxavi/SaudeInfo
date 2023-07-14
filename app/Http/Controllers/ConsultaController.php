@@ -136,11 +136,12 @@ class ConsultaController extends Controller
     {
         if (Auth::user()->can('user')) {
             abort(403, 'Acesso não autorizado.');
-        }        Consulta::create($request->all());
+        }        
+        $consulta = Consulta::create($request->all());
         $profissional = Profissional::find($request->profissional_id);
 
         $profissional->pacientes()->syncWithoutDetaching($request->input('paciente_id'));
-        return redirect()->route('consultas.index');
+        return redirect()->route('consultas.index')->with('success','Consulta de ' .$consulta->paciente->nome. ' agendada!');
     }
 
     public function edit($id)
@@ -170,7 +171,7 @@ class ConsultaController extends Controller
             $laudo = Laudo::where('consulta_id', $id)->first();
             $laudo->update($request->all());
         }
-        return redirect()->route('consultas.index');
+        return redirect()->route('consultas.edit', $id)->with('success','Consulta de ' .$consulta->paciente->nome. ' atualizada!');
     }
 
     public function destroy($id)

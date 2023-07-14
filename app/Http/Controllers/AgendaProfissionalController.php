@@ -60,8 +60,8 @@ class AgendaProfissionalController extends Controller
         if (Auth::user()->can('user')) {
             abort(403, 'Acesso não autorizado.');
         }
-        AgendaProfissional::create($request->all());
-        return redirect()->route('agendas.index');
+        $agenda = AgendaProfissional::create($request->all());
+        return redirect()->route('agendas.index')->with('success','Agenda de '. $agenda->profissional->nome. ' adicionada!');
     }
 
     public function edit($id)
@@ -84,7 +84,7 @@ class AgendaProfissionalController extends Controller
             abort(403, 'Acesso não autorizado.');
         }
         $agendaProfissional->update($request->all());
-        return redirect()->route('agendas.index');
+        return redirect()->route('agendas.edit', $id)->with('success','Agenda de '. $agendaProfissional->profissional->nome. ' atualizada!');
     }
 
     public function destroy($id)

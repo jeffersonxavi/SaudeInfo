@@ -206,14 +206,17 @@ textarea {
 }
 .my-custom-alert {
     font-size: 14px;
-    left: 70%;
     width: 28%;
     padding: 2px 16px;
     border-radius: 4px;
     background-color: #dff0d8;
     border-color: #d6e9c6;
     color: #003669;
-}
+    position: relative;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 .bg-primary-custom {
     background-color: #003669 !important; /* Substitua pela cor primária desejada */
     color: #fff !important; /* Defina uma cor de texto adequada para contrastar com o fundo */

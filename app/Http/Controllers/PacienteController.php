@@ -65,7 +65,7 @@ class PacienteController extends Controller
         $paciente = new Paciente($request->all());
         $paciente->user_id = $user->id;
         $paciente->save();
-        return redirect()->route('pacientes.index');
+        return redirect()->route('pacientes.index')->with('success', $paciente->nome. ' adicionado(a)!');
     }
 
     public function edit($id)
@@ -119,7 +119,7 @@ class PacienteController extends Controller
         $user->save();
         $paciente->update($request->all());
 
-        return redirect()->route('pacientes.index');
+        return redirect()->route('pacientes.edit', $id)->with('success', 'Dados atualizados!');
     }
 
     public function destroy($id)

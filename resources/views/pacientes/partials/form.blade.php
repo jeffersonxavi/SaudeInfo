@@ -1,7 +1,7 @@
 <div class="form-row">
     <div class="form-group col-md-4">
         <label for="nome">Nome completo:</label>
-        <input type="text" class="form-control" id="nome" name="nome" value="{{ $paciente->nome ?? old('nome') }}" required>
+        <input type="text" class="form-control" id="nome" name="nome" value="{{ $user->name ?? old('nome') }}" required>
         @error('nome')
         <div class="text-danger">{{ $message }}</div>
         @enderror
@@ -78,7 +78,7 @@
     </div>
     <div class="form-group col-md-2">
         <label for="senha" class="required-label">Senha<span class="required-asterisk">*</span></label>
-        <input type="password" class="form-control" id="senha" name="senha" value="{{ $paciente->senha ?? old('senha') }}">
+        <input type="password" class="form-control" id="senha" name="senha" value="{{ $user->senha ?? old('senha') }}">
         @error('senha')
         <div class="text-danger">{{ $message }}</div>
         @enderror

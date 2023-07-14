@@ -20,6 +20,17 @@
             <i class="fas fa-plus"></i> Tipo de Consulta
           </a>
         </div>
+        @if (session()->has('success'))
+        <div class="alert alert-success alert-dismissible fade show my-custom-alert" role="alert">
+          <strong>Sucesso!</strong> {{ session('success') }}
+          <button type="button" data-bs-dismiss="alert" aria-label="Fechar"></button>
+        </div>
+        <script>
+          setTimeout(function() {
+            $('.alert-success').fadeOut('slow');
+          }, 4000);
+        </script>
+        @endif
       </div>
       <div class="card-body">
         <table id="tipos-consultas-table" class="table table-striped">
