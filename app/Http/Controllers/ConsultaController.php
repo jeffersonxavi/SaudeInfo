@@ -108,10 +108,9 @@ class ConsultaController extends Controller
         $procurar = $request->input('nome');
         $procurar = str_replace(['.', '-'], '', $procurar); // Remover pontos e traços do CPF
 
-        //é preciso instalar a extensão unaccent no PostgreSQL:
         $pacientes = Paciente::where(function ($query) use ($procurar) {
-            $query->whereRaw("unaccent(nome) ILIKE unaccent('%$procurar%')")
-                ->orWhereRaw("REPLACE(cpf, '.', '') LIKE '%$procurar%'");
+            $query->where('nome', 'ilike', '%' . $procurar . '%')
+                ->orWhere('cpf', 'LIKE', '%' . $procurar . '%');
         })->get();
 
         return response()->json($pacientes);
@@ -187,7 +186,9 @@ class ConsultaController extends Controller
         $dataSelecionada = $request->data; // Novo parâmetro de data
 
         if ($procurar) {
-            $profissionais = Profissional::where('nome', 'LIKE', "%$procurar%")->get();
+            $procurar = str_replace(['.', '-'], '', $procurar); // Remover pontos e traços do CPF
+
+            $profissionais = Profissional::where('nome', 'iLIKE', "%$procurar%")->get();
 
             foreach ($profissionais as $profissional) {
                 $consultas = Consulta::where('profissional_id', $profissional->id)
