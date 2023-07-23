@@ -24,7 +24,7 @@ class Profissional extends Model
         'uf',
         'telefone',
         'email',
-        'senha',
+        // 'senha',
         'tipo_profissional',
     ];
 

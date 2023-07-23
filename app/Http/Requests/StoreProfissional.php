@@ -36,7 +36,7 @@ class StoreProfissional extends FormRequest
             'uf' => ['required', 'string', 'max:2'],
             'telefone' => ['required', 'max:20'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('profissionais')->ignore($this->id)],
-            'senha' => ['nullable', 'string', 'min:6'],
+            // 'senha' => ['nullable', 'string', 'min:6'],
             'tipo_profissional' => ['required'],
         ];
     }
