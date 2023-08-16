@@ -22,7 +22,7 @@
             $('.alert-success').fadeOut('slow');
           }, 4000);
         </script>
-        @endif
+        @endif 
       </div>
       <div class="card-body">
         <div class="table-responsive">
