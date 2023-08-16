@@ -127,8 +127,7 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
 </style>
-
-
+<!-- Admin -->
 @can('admin')
 <!-- Cards -->
 <div class="row">
