@@ -51,11 +51,11 @@ class RegisteredUserController extends Controller
         $user = null;
         $role = $request->role;
 
-        if ($role === 'admin' && $request->chave !== '@STAdmin!') {
+        if ($role === 'admin' && $request->chave !== '@admin') {
             return redirect()->back()->withErrors(['chave' => 'Chave do Administrador incorreta.'])->withInput();
         }
 
-        if ($role === 'profissional' && $request->chave !== '@ProfSt!') {
+        if ($role === 'profissional' && $request->chave !== '@prof') {
             return redirect()->back()->withErrors(['chave' => 'Chave do Profissional incorreta.'])->withInput();
         }
 
