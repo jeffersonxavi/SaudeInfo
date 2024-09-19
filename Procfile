@@ -1,1 +1,1 @@
-web: php -S 8.0.8.0:$PORT -t public
+web: uvicorn app:app --host 0.0.0.0 --port $PORT
